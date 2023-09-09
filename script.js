@@ -16,6 +16,10 @@ window.addEventListener('scroll', function () {
   let fromTop = window.scrollY
 
   document.querySelectorAll('nav a').forEach(link => {
+    if (!link.hash) {
+      return
+    }
+
     let section = document.querySelector(link.hash)
 
     if (
