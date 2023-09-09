@@ -32,3 +32,17 @@ window.addEventListener('scroll', function () {
     }
   })
 })
+
+//Scroll to Top
+document.addEventListener('DOMContentLoaded', function () {
+  var scrollToTopButton = document.querySelector('.scroll-to-top')
+
+  // Function to scroll to the top smoothly
+  function scrollToTop() {
+    if (window.scrollY !== 0) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  scrollToTopButton.addEventListener('click', scrollToTop)
+})

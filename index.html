@@ -16,7 +16,7 @@
 
   <body class="bg-dark text-white">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-      <a class="navbar-brand" href="#">Jonathan Langdon</a>
+      <a class="navbar-brand scroll-to-top" href="#">Jonathan Langdon</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -52,17 +52,15 @@
     </nav>
 
     <section id="languages" class="section">
-      <h2>Technology Experience</h2>
+      <h2>Programming Experience</h2>
       <div class="container">
         <div class="row">
           <div class="col-md-4 col-sm-6 lang-logo">
-            <img src="images/html.png" class="img-fluid mx-auto" alt="HTML" />
-            <figcaption class="figure-caption text-center">
-              Click for more details
-            </figcaption>
-          </div>
-          <div class="col-md-4 col-sm-6 lang-logo">
-            <img src="images/css.png" class="img-fluid mx-auto" alt="CSS" />
+            <img
+              src="images/html-css.png"
+              class="img-fluid mx-auto"
+              alt="HTML & CSS"
+            />
             <figcaption class="figure-caption text-center">
               Click for more details
             </figcaption>
@@ -73,6 +71,12 @@
               class="img-fluid mx-auto"
               alt="JavaScript"
             />
+            <figcaption class="figure-caption text-center">
+              Click for more details
+            </figcaption>
+          </div>
+          <div class="col-md-4 col-sm-6 lang-logo">
+            <img src="images/bash.png" class="img-fluid mx-auto" alt="Bash" />
             <figcaption class="figure-caption text-center">
               Click for more details
             </figcaption>
@@ -115,32 +119,27 @@
                 class="card-img-top"
                 alt="mugshot"
               />
-              <div class="card-body">
-                <h5 class="card-title">Card title 1</h5>
-                <p class="card-text">Some quick example text.</p>
-                <a href="#asdf" class="btn btn-primary">My work history</a>
-              </div>
             </div>
           </div>
           <!-- Card 2 -->
           <div class="col-md-4">
             <div class="card bg-dark text-white">
-              <img src="image2.jpg" class="card-img-top" alt="..." />
               <div class="card-body">
-                <h5 class="card-title">Card title 2</h5>
-                <p class="card-text">Some quick example text.</p>
-                <a href="#asdf" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">Developer Experience</h5>
+                <p class="card-text">My work with websites over the years</p>
+                <a href="#asdf" class="btn btn-primary">My Websites</a>
               </div>
             </div>
           </div>
           <!-- Card 3 -->
           <div class="col-md-4">
             <div class="card bg-dark text-white">
-              <img src="image3.jpg" class="card-img-top" alt="..." />
               <div class="card-body">
-                <h5 class="card-title">Card title 3</h5>
-                <p class="card-text">Some quick example text.</p>
-                <a href="#afds" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">Work Experience</h5>
+                <p class="card-text">
+                  The different jobs I've done over the years
+                </p>
+                <a href="#afds" class="btn btn-primary">My Work</a>
               </div>
             </div>
           </div>
@@ -155,22 +154,31 @@
           <!-- Card 1 -->
           <div class="col-md-4">
             <div class="card bg-dark text-white">
-              <img src="images/profqile.png" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title 1</h5>
-                <p class="card-text">Some quick example text.</p>
-                <a href="#asf" class="btn btn-primary">My work history</a>
+              <img
+                src="images/freecodecamp.png"
+                class="card-img-top w-50 mx-auto"
+                alt="..."
+              />
+              <div class="card-body mx-auto">
+                <h5 class="card-title">Free Code Camp</h5>
+                <p class="card-text">HTML, CSS, JS, Python</p>
+                <a href="#asf" class="btn btn-primary">What I learned</a>
               </div>
             </div>
           </div>
           <!-- Card 2 -->
           <div class="col-md-4">
             <div class="card bg-dark text-white">
-              <img src="image2.jpg" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Card title 2</h5>
-                <p class="card-text">Some quick example text.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+              <img
+                src="/images/codewars.png"
+                class="card-img-top w-100"
+                alt="CodeWars"
+              />
+              <div class="card-body mx-auto">
+                <p class="card-text">
+                  Over 200 challenges completed in JavaScript, Python and Java
+                </p>
+                <a href="#" class="btn btn-primary">Honor & Rank</a>
               </div>
             </div>
           </div>
@@ -214,24 +222,54 @@
       id="contact"
       class="section d-flex justify-content-center align-items-center vh-100"
     >
-      <div class="text-center" style="width: 300px">
+      <div class="text-center">
         <h2>Contact Me</h2>
         <form name="contact" method="POST" data-netlify="true">
           <input type="hidden" name="form-name" value="contact" />
-          <div class="mb-3">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required />
+          <div class="mb-3 row">
+            <label for="name" class="col-sm-3 col-form-label">Name:</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="form-control"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+          <div class="mb-3 row">
+            <label for="email" class="col-sm-3 col-form-label">Email:</label>
+            <div class="col-sm-9">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="form-control"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+          <div class="mb-3 row">
+            <label for="message" class="col-sm-3 col-form-label"
+              >Message:</label
+            >
+            <div class="col-sm-9">
+              <textarea
+                id="message"
+                name="message"
+                rows="3"
+                required
+                class="form-control"
+              ></textarea>
+            </div>
           </div>
-          <div>
-            <button class="btn-block" type="submit">Send</button>
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn btn-block btn-primary" type="submit">
+                Send
+              </button>
+            </div>
           </div>
         </form>
       </div>
