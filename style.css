@@ -2,6 +2,10 @@
   padding: 50px 0;
 }
 
+a {
+  color: white;
+}
+
 h2 {
   text-align: center;
   margin-bottom: 30px;
@@ -35,4 +39,8 @@ textarea#message {
 
 .lang-logo {
   padding: 20px;
+}
+
+.evenmore {
+  margin-top: 30px;
 }
