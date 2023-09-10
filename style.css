@@ -44,3 +44,12 @@ textarea#message {
 .evenmore {
   margin-top: 30px;
 }
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 3s ease-in-out;
+}
+
+.fade-in.show {
+  opacity: 1;
+}

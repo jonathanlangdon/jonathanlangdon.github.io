@@ -1,5 +1,3 @@
-// Boilerplate template
-
 // Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
@@ -11,68 +9,53 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   })
 })
 
-// Highlight active section in navigation
+// Function to load the content of a section
+function loadSectionContent(section) {
+  const src = section.getAttribute('data-src')
+  if (src) {
+    fetch(src)
+      .then(response => response.text())
+      .then(content => {
+        section.innerHTML = content
+        section.removeAttribute('data-src') // Remove the data-src attribute to prevent reloading
+        section.classList.remove('lazy-load-section') // Remove the class to stop checking this section
+        section.classList.add('fade-in') // Add fade-in class initially with opacity 0
 
-window.addEventListener('scroll', function () {
-  let fromTop = window.scrollY
+        // Trigger reflow to make sure the initial 'fade-in' class is applied
+        void section.offsetWidth
 
-  // Check if at the bottom of the page
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-    // At the bottom of the page, set the last link as active
-    document
-      .querySelectorAll('nav a')
-      .forEach(link => link.classList.remove('active'))
-    let lastLink =
-      document.querySelectorAll('nav a')[
-        document.querySelectorAll('nav a').length - 1
-      ]
-    if (lastLink.hash) {
-      lastLink.classList.add('active')
-    }
-    return
+        // Add the 'show' class to trigger the fade-in effect
+        requestAnimationFrame(() => {
+          section.classList.add('show')
+        })
+      })
   }
+}
 
-  // Variable to keep track of the closest section
-  let closest = null
+// Function to check if an element is in the viewport
+function isElementInViewport(element) {
+  const rect = element.getBoundingClientRect()
+  return (
+    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.bottom >= 0 &&
+    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+    rect.right >= 0
+  )
+}
 
-  document.querySelectorAll('nav a').forEach(link => {
-    if (!link.hash) {
-      return
-    }
-
-    let section = document.querySelector(link.hash)
-
-    // Calculate distance from section to current scroll position
-    let distance = Math.abs(fromTop - section.offsetTop)
-
-    // Update closest if this section is closer
-    if (closest === null || Math.abs(fromTop - closest.offsetTop) > distance) {
-      closest = section
+// Function to handle lazy loading
+function lazyLoadSections() {
+  const lazySections = document.querySelectorAll('.lazy-load-section')
+  lazySections.forEach(section => {
+    if (isElementInViewport(section)) {
+      loadSectionContent(section)
     }
   })
+}
 
-  // Remove active class from all links
-  document.querySelectorAll('nav a').forEach(link => {
-    link.classList.remove('active')
-  })
+// Attach the lazyLoadSections function to the scroll event
+window.addEventListener('scroll', lazyLoadSections)
+window.addEventListener('resize', lazyLoadSections)
 
-  // Set the closest section's corresponding link to active
-  if (closest) {
-    let link = document.querySelector(`nav a[href="#${closest.id}"]`)
-    link.classList.add('active')
-  }
-})
-
-//Scroll to Top
-document.addEventListener('DOMContentLoaded', function () {
-  var scrollToTopButton = document.querySelector('.scroll-to-top')
-
-  // Function to scroll to the top smoothly
-  function scrollToTop() {
-    if (window.scrollY !== 0) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  scrollToTopButton.addEventListener('click', scrollToTop)
-})
+// Initial loading check
+lazyLoadSections()
