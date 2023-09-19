@@ -54,6 +54,33 @@ const TrainingCards = [
     cardText: 'Completed 5 courses about GitHub, SEO, JS and more',
     buttonLink: 'training/index.html',
     cardButton: 'Completed Courses'
+  },
+  {
+    imgLink: 'training/index.html',
+    imgSource: 'images/books.jpg',
+    altText: 'Various Programming Books',
+    cardTitle: 'Books',
+    cardText: 'A few books have helped my journey as well',
+    buttonLink: 'training/index.html',
+    cardButton: 'Finished Books'
+  },
+  {
+    imgLink: 'training/index.html',
+    imgSource: 'images/chatgpt.jpg',
+    altText: 'ChatGPT logo',
+    cardTitle: 'ChatGPT',
+    cardText: 'Besides a constant tutor, a source of challenges',
+    buttonLink: 'training/index.html',
+    cardButton: 'How AI helped'
+  },
+  {
+    imgLink: 'training/index.html',
+    imgSource: 'images/beercity.jpg',
+    altText: 'Beer City Code logo',
+    cardTitle: '0',
+    cardText: 'The 2023 Saturday Conference was a great experience',
+    buttonLink: 'training/index.html',
+    cardButton: 'A GR conference'
   }
 ]
 
@@ -99,7 +126,7 @@ const GoalCards = [
   },
   {
     imgLink: 'goals/index.html',
-    imgSource: 'images/professional.png',
+    imgSource: 'images/professional.jpg',
     altText: 'image of someone typing code',
     cardTitle: 'Professional Goals',
     cardText:
