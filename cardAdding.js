@@ -166,12 +166,12 @@ const ProjectCards = [
     cardButton: 'Will we have school?'
   },
   {
-    imgLink: 'projects/index.html',
+    imgLink: '/swordbuff',
     imgSource: 'images/swordbuff.jpg',
     altText: 'App screenshot of a duolingo like app',
     cardTitle: 'Memorization App',
     cardText: 'A duolingo-like memorization app ',
-    buttonLink: 'projects/index.html',
+    buttonLink: '/swordbuff',
     cardButton: 'A JS heavy app'
   }
 ]

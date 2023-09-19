@@ -49,7 +49,6 @@ const data = {
   ]
 }
 
-console.log(data)
 let verses = []
 data.verses.forEach(function (verseData) {
   const text = verseData.text
@@ -126,31 +125,33 @@ function createWordButtons(whichArray) {
 }
 
 function listenKeyboard() {
-  $(document).ready(function () {
-    const inputBox = $('#keyboard-input')
-    const wordBankContainer = $('#word-bank')
-    $(document).on('keydown', function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    const inputBox = document.getElementById('keyboard-input')
+    const wordBankContainer = document.getElementById('word-bank')
+    document.addEventListener('keydown', function () {
       inputBox.focus()
     })
-    inputBox.on('keydown', function (event) {
+    inputBox.addEventListener('keydown', function (event) {
       if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault()
         useKeyboardInput()
       }
     })
+
     function useKeyboardInput() {
-      let keyboardWord = inputBox
-        .val()
-        .replace(/[^\w\s]/gi, '')
-        .toLowerCase()
-      inputBox.val('') // Clear the input box
+      let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase()
+
+      inputBox.value = ''
+
       let bankWordButtons = Array.from(
-        wordBankContainer[0].querySelectorAll('button')
+        wordBankContainer.querySelectorAll('button')
       )
+
       bankWordButtons.some(button => {
         let buttonWord = button.textContent
           .replace(/[^\w\s]/gi, '')
           .toLowerCase()
+
         if (keyboardWord === buttonWord) {
           button.click()
           return true // Stop the loop when the first match is found
