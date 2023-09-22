@@ -1,3 +1,144 @@
+const languages = [
+  {
+    src: 'images/html-css.png',
+    alt: 'HTML & CSS',
+    id: 'htmlcss',
+    desc: `<h5 class="text-white">Sources of Learning:</h5>
+  <p class="text-white">- Free Code Camp<br>- SoloLearn<br>- Mimo<br>- Udemy</p>
+  <h5 class="text-white">Used in:</h5>
+  <p class="text-white">- This portfolio website<br>- Snow Day Calculator<br>- Memorization App</p>
+  <h5 class="text-white">Planned Further Learning:</h5>
+  <p class="text-white">- More Free Code Camp<br>- The Odin’s Project</p>
+  `
+  },
+  {
+    src: 'images/js.png',
+    alt: 'JavaScript',
+    id: 'javascript',
+    desc: `<h5 class="text-white">Sources of Learning:</h5>
+<p class="text-white">- Free Code Camp<br>- SoloLearn<br>- Mimo<br>- Codewars<br>- Udemy</p>
+<h5 class="text-white">Used in:</h5>
+<p class="text-white">- This portfolio website<br>- Snow Day Calculator<br>- Memorization App</p>
+<h5 class="text-white">Planned Further Learning:</h5>
+<p class="text-white">- More Free Code Camp<br>- The Odin’s Project<br>- More CodeWars challenges<br>- frameworks on Udemy</p>
+`
+  },
+  {
+    src: 'images/bash.png',
+    alt: 'Bash',
+    id: 'bash',
+    desc: `<h5 class="text-white">Learned through:</h5>
+<p class="text-white">-  On-the-job needs</p>
+<h5 class="text-white">Used in:</h5>
+<p class="text-white">-  Various projects at school</p>
+<h5 class="text-white">Planned Further Learning:</h5>
+<p class="text-white">-  Udemy Course</p>
+`
+  },
+  {
+    src: 'images/py.png',
+    alt: 'Python',
+    id: 'python',
+    desc: `<h5 class="text-white">Sources of Learning:</h5>
+<p class="text-white">- Free Code Camp<br>- Georgia Tech’s Introduction to Python Programming on EdX<br>- CodeWars</p>
+<h5 class="text-white">Used in:</h5>
+<p class="text-white">-  Fomcore Invaders</p>
+<h5 class="text-white">Planned Further Learning:</h5>
+<p class="text-white">-  Free Code Camp<br>- more exercises on EdX<br>- CodeWars</p>
+`
+  },
+  {
+    src: 'images/java.png',
+    alt: 'Java',
+    id: 'java',
+    desc: `<h5 class="text-white">Source of Learning:</h5>
+<p class="text-white">- Georgia Tech's Introduction to Object-Oriented Programming with Java on EdX</p>
+<h5 class="text-white">Used in:</h5>
+<p class="text-white">- Some in-class projects on Georgia Tech’s MOOC</p>
+<h5 class="text-white">Planned Further Learning:</h5>
+<p class="text-white">- Further exercises on EdX</p>
+`
+  },
+  {
+    src: 'images/bootstrap.png',
+    alt: 'Bootstrap',
+    id: 'bootstrap',
+    desc: `<h5 class="text-white">Sources of Learning:</h5>
+<p class="text-white">- ChatGPT - so I could use with portfolio</p>
+<h5 class="text-white">Planned Further Learning:</h5>
+<p class="text-white">- Udemy Course</p>
+`
+  }
+]
+
+// Add the images of Languages I know
+
+function appendLanguages() {
+  const container = document.getElementById('language-cells')
+  const row = document.createElement('div')
+  row.className = 'row'
+
+  function toggleAllDescriptions() {
+    const languageDescriptions = document.querySelectorAll('.lang-description')
+    const expandAllLink = document.getElementById('expand-all')
+
+    languageDescriptions.forEach(description => {
+      description.click() // Simulate a click on each paragraph
+    })
+  }
+
+  const expandAllLink = document.getElementById('expand-all')
+  expandAllLink.onclick = toggleAllDescriptions
+
+  languages.forEach(language => {
+    const col = document.createElement('div')
+    col.className = 'col-md-4 col-sm-6 lang-logo'
+
+    const img = document.createElement('img')
+    img.src = language.src
+    img.alt = language.alt
+    img.className = 'img-fluid mx-auto'
+
+    const figcaption = document.createElement('figcaption')
+    figcaption.className = 'figure-caption text-center'
+
+    const p = document.createElement('p')
+    p.id = language.id
+    p.className =
+      'text-decoration-underline text-white fst-italic lang-description'
+    p.textContent = 'More about this'
+
+    // Toggle state variable
+    let isExpanded = false
+
+    p.onclick = function () {
+      const description = document.querySelector(`#${language.id}-description`)
+
+      if (!isExpanded) {
+        const newDiv = document.createElement('div')
+        newDiv.id = `${language.id}-description`
+        newDiv.innerHTML = language.desc
+        figcaption.insertBefore(newDiv, p)
+        p.innerText = 'Hide this'
+      } else {
+        description.remove()
+        p.innerText = 'More about this'
+      }
+
+      isExpanded = !isExpanded // Toggle the state
+    }
+
+    figcaption.appendChild(p)
+    col.appendChild(img)
+    col.appendChild(figcaption)
+    row.appendChild(col)
+  })
+
+  container.appendChild(row)
+}
+
+document.addEventListener('DOMContentLoaded', appendLanguages)
+
 // Section Card Content
 const TrainingCards = [
   {
