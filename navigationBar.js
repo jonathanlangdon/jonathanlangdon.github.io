@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   const navItems = [
-    { text: 'Technologies', link: '#languages' },
+    { text: 'Experience', link: '#languages' },
     { text: 'Story', link: '#mystory' },
     { text: 'Training', link: '#training' },
     { text: 'Tools', link: '#tools' },

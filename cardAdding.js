@@ -174,7 +174,7 @@ const TrainingCards = [
     imgSource: 'images/sololearn.png',
     altText: 'SoloLearn Logo',
     cardTitle: '0',
-    cardText: 'Completed 11 introductory programming courses',
+    cardText: 'Completed 12 introductory programming courses',
     buttonLink: 'training/index.html',
     cardButton: 'Completed Courses'
   },
@@ -210,7 +210,7 @@ const TrainingCards = [
     imgSource: 'images/chatgpt.jpg',
     altText: 'ChatGPT logo',
     cardTitle: 'ChatGPT',
-    cardText: 'Besides a constant tutor, a source of challenges',
+    cardText: 'Besides a constant tutor, a source of coding challenges',
     buttonLink: 'training/index.html',
     cardButton: 'How AI helped'
   },
@@ -221,7 +221,7 @@ const TrainingCards = [
     cardTitle: '0',
     cardText: 'The 2023 Saturday Conference was a great experience',
     buttonLink: 'training/index.html',
-    cardButton: 'A GR conference'
+    cardButton: 'The code conference'
   }
 ]
 
