@@ -97,7 +97,7 @@ function createDescriptionParagraph(language, figcaption) {
   const p = document.createElement('p')
   p.id = language.id
   p.className =
-    'text-decoration-underline text-white fst-italic lang-description'
+    'text-decoration-underline text-white fst-italic lang-description pointer'
   p.textContent = 'More about this'
 
   // Store the isExpanded state on the element itself
