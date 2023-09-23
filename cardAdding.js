@@ -72,65 +72,83 @@ const languages = [
 ]
 
 // Add the images of Languages I know
+function createColumn(language) {
+  const col = document.createElement('div')
+  col.className = 'col-md-4 col-sm-6 lang-logo'
+
+  const img = document.createElement('img')
+  img.src = language.src
+  img.alt = language.alt
+  img.className = 'img-fluid mx-auto'
+
+  const figcaption = document.createElement('figcaption')
+  figcaption.className = 'figure-caption text-center'
+
+  const p = createDescriptionParagraph(language, figcaption)
+
+  figcaption.appendChild(p)
+  col.appendChild(img)
+  col.appendChild(figcaption)
+
+  return col
+}
+
+function createDescriptionParagraph(language, figcaption) {
+  const p = document.createElement('p')
+  p.id = language.id
+  p.className =
+    'text-decoration-underline text-white fst-italic lang-description'
+  p.textContent = 'More about this'
+
+  // Store the isExpanded state on the element itself
+  p.isExpanded = false
+
+  p.onclick = function () {
+    const description = document.querySelector(`#${language.id}-description`)
+
+    if (!p.isExpanded) {
+      const newDiv = document.createElement('div')
+      newDiv.id = `${language.id}-description`
+      newDiv.innerHTML = language.desc
+      figcaption.insertBefore(newDiv, p)
+      p.innerText = 'Hide this'
+    } else {
+      description.remove()
+      p.innerText = 'More about this'
+    }
+
+    p.isExpanded = !p.isExpanded
+  }
+
+  return p
+}
+
+function descriptionVisibility(setVisibility) {
+  const languageDescriptions = document.querySelectorAll('.lang-description')
+  if (setVisibility === 'show') {
+    languageDescriptions.forEach(description => {
+      if (!description.isExpanded) description.click()
+    })
+  } else if (setVisibility === 'hide') {
+    languageDescriptions.forEach(description => {
+      if (description.isExpanded) description.click()
+    })
+  }
+}
 
 function appendLanguages() {
   const container = document.getElementById('language-cells')
   const row = document.createElement('div')
   row.className = 'row'
 
-  function toggleAllDescriptions() {
-    const languageDescriptions = document.querySelectorAll('.lang-description')
-    const expandAllLink = document.getElementById('expand-all')
+  const expandAllLink = document.getElementById('expand-all-lang')
+  expandAllLink.onclick = () => descriptionVisibility('show')
 
-    languageDescriptions.forEach(description => {
-      description.click() // Simulate a click on each paragraph
-    })
-  }
-
-  const expandAllLink = document.getElementById('expand-all')
-  expandAllLink.onclick = toggleAllDescriptions
+  const hideAllLink = document.getElementById('hide-all-lang')
+  hideAllLink.onclick = () => descriptionVisibility('hide')
 
   languages.forEach(language => {
-    const col = document.createElement('div')
-    col.className = 'col-md-4 col-sm-6 lang-logo'
-
-    const img = document.createElement('img')
-    img.src = language.src
-    img.alt = language.alt
-    img.className = 'img-fluid mx-auto'
-
-    const figcaption = document.createElement('figcaption')
-    figcaption.className = 'figure-caption text-center'
-
-    const p = document.createElement('p')
-    p.id = language.id
-    p.className =
-      'text-decoration-underline text-white fst-italic lang-description'
-    p.textContent = 'More about this'
-
-    // Toggle state variable
-    let isExpanded = false
-
-    p.onclick = function () {
-      const description = document.querySelector(`#${language.id}-description`)
-
-      if (!isExpanded) {
-        const newDiv = document.createElement('div')
-        newDiv.id = `${language.id}-description`
-        newDiv.innerHTML = language.desc
-        figcaption.insertBefore(newDiv, p)
-        p.innerText = 'Hide this'
-      } else {
-        description.remove()
-        p.innerText = 'More about this'
-      }
-
-      isExpanded = !isExpanded // Toggle the state
-    }
-
-    figcaption.appendChild(p)
-    col.appendChild(img)
-    col.appendChild(figcaption)
+    const col = createColumn(language)
     row.appendChild(col)
   })
 
