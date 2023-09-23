@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="graphics/favicon.png"
+      sizes="32x32"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Snow Day Calculator - West Michigan</title>
+  </head>
+  <body>
+    <main>
+      <h1 class="text-center">West Michigan Snow Day Calculator</h1>
+      <p class="font-italic text-center bg-dark text-white rounded">
+        Note: does not predict ice days or other irregular events causing "snow
+        days"
+      </p>
+      <p class="font-italic">Default Location: Fruitport, MI</p>
+      <form id="get-forecast-form" class="text-center">
+        <div>
+          <label for="latitude">Enter Latitude:</label>
+          <input
+            type="number"
+            name="latitude"
+            id="latitude"
+            value="43.1440"
+            min="35"
+            max="49"
+          />
+        </div>
+        <div>
+          <label for="longitude">Enter Longitude:</label>
+          <input
+            type="number"
+            name="longitude"
+            id="longitude"
+            value="-86.1699"
+            min="-104"
+            max="-66"
+          />
+        </div>
+        <div>
+          <a href="https://gps-coordinates.org/" target="_blank"
+            >Find your latitude and longitude</a
+          >
+        </div>
+        <div class="text-center">
+          <button type="submit">Get Weather.gov Forecast</button>
+        </div>
+      </form>
+      <form id="calculator-form" class="text-center">
+        <div>
+          <label for="snow-today">Inches Snow Today:</label>
+          <input type="number" name="snow-today" id="snow-today" value="" />
+        </div>
+        <div>
+          <label for="snow-tomorrow">Inches Snow Tomorrow:</label>
+          <input
+            type="number"
+            name="snow-tomorrow"
+            id="snow-tomorrow"
+            value=""
+          />
+        </div>
+        <div>
+          <label for="precip">Precipitation Probability at 5am:</label>
+          <input type="number" name="precip" id="precip" value="" />
+        </div>
+        <div>
+          <label for="temp">Temperature at 7am:</label>
+          <input type="number" name="temp" id="temp" value="" />
+        </div>
+        <div>
+          <a href="https://gps-coordinates.org/" target="_blank"
+            >Find your latitude and longitude</a
+          >
+        </div>
+        <div class="text-center">
+          <button type="submit">Get Weather Forecast</button>
+        </div>
+      </form>
+      <div id="error-container"></div>
+    </main>
+    <script src="script.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
