@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     { text: 'Tools', link: '#tools' },
     { text: 'Goals', link: '#goals' },
     { text: 'Projects', link: '#projects' },
-    { text: 'Resume', link: '#resume' },
-    { text: 'Contact', link: '#contact' }
+    { text: 'Resume', link: '#resume' }
   ]
 
   // Function to create a navigation item
