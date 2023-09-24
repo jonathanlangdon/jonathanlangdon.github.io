@@ -317,11 +317,11 @@ const ProjectCards = [
   },
   {
     imgLink: 'projects/index.html',
-    imgSource: 'images/snowday.jpg',
+    imgSource: 'http://snowdaymichigan.com/',
     altText: 'App screenshot of snow day calculator',
     cardTitle: 'Snow Day Calculator',
     cardText: "GoogleMap and Weather.gov API's",
-    buttonLink: 'projects/index.html',
+    buttonLink: 'http://snowdaymichigan.com/',
     cardButton: 'Will we have school?'
   },
   {
