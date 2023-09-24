@@ -108,3 +108,25 @@ document
     event.preventDefault()
     getWeather()
   })
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('calculator-form')
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault()
+    const snowToday = parseFloat(document.getElementById('snow-today').value)
+    const snowTomorrow = parseFloat(
+      document.getElementById('snow-tomorrow').value
+    )
+    const precip = parseFloat(document.getElementById('precip').value)
+    const temp = parseFloat(document.getElementById('temp').value)
+    const response = await fetch('http://your-server-address:5000/calculate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ snowToday, snowTomorrow, precip, temp })
+    })
+    const data = await response.json()
+    alert('Chance of Snow Day: ' + data.result)
+  })
+})
