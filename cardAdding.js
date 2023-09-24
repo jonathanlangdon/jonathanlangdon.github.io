@@ -100,7 +100,6 @@ function createDescriptionParagraph(language, figcaption) {
     'text-decoration-underline text-white fst-italic lang-description pointer'
   p.textContent = 'More about this'
 
-  // Store the isExpanded state on the element itself
   p.isExpanded = false
 
   p.onclick = function () {
@@ -160,97 +159,97 @@ document.addEventListener('DOMContentLoaded', appendLanguages)
 // Section Card Content
 const TrainingCards = [
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#freecodecamp',
     imgSource: 'images/freecodecamp.png',
     altText: 'FreeCodeCamp Logo',
     cardTitle: 'Free Code Camp',
     cardText: 'HTML, CSS, JS, Python',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#freecodecamp',
     cardButton: 'Completed Courses'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#edx',
     imgSource: 'images/georgiatech.png',
     altText: 'Georgia Tech and EdX Logo',
     cardTitle: '0',
     cardText:
       "Learned OOP principles in Python & Java through GeorgiaTech's comprehensive MOOC courses on EdX",
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#edx',
     cardButton: 'Completed Courses'
   },
   {
-    imgLink: 'https://www.codewars.com/users/jonathanlangdon',
+    imgLink: 'training/#codewars',
     imgSource: 'images/codewars.png',
     altText: 'Codewars Logo',
     cardTitle: '0',
     cardText: 'Over 200 challenges done in JS, Python and Java',
-    buttonLink: 'https://www.codewars.com/users/jonathanlangdon',
+    buttonLink: 'training/#codewars',
     cardButton: 'Honor & Rank'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#sololearn',
     imgSource: 'images/sololearn.png',
     altText: 'SoloLearn Logo',
     cardTitle: '0',
     cardText: 'Completed 12 introductory programming courses',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#sololearn',
     cardButton: 'Completed Courses'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#mimo',
     imgSource: 'images/mimo.png',
     altText: 'Mimo Logo',
     cardTitle: '0',
     cardText: 'Completed 5 introductory courses in HTML, JS, SQL and Python',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#mimo',
     cardButton: 'Completed Courses'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#udemy',
     imgSource: 'images/udemy.png',
     altText: 'Udemy Logo',
     cardTitle: '0',
     cardText: 'Completed 5 courses about GitHub, SEO, JS and more',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#udemy',
     cardButton: 'Completed Courses'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#books',
     imgSource: 'images/books.jpg',
     altText: 'Various Programming Books',
     cardTitle: 'Books',
     cardText: 'A few books have helped my journey as well',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#books',
     cardButton: 'Finished Books'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#chatgpt',
     imgSource: 'images/chatgpt.jpg',
     altText: 'ChatGPT logo',
     cardTitle: 'ChatGPT',
     cardText: 'Besides a constant tutor, a source of coding challenges',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#chatgpt',
     cardButton: 'How AI helped'
   },
   {
-    imgLink: 'training/index.html',
+    imgLink: 'training/#beercity',
     imgSource: 'images/beercity.jpg',
     altText: 'Beer City Code logo',
     cardTitle: '0',
     cardText: 'The 2023 Saturday Conference was a great experience',
-    buttonLink: 'training/index.html',
+    buttonLink: 'training/#beercity',
     cardButton: 'The code conference'
   }
 ]
 
 const ToolCards = [
   {
-    imgLink: 'tools/index.html',
+    imgLink: 'tools/#software',
     imgSource: 'images/vscode.png',
     altText: 'Visual Studio Code Logo',
     cardTitle: 'Visual Studio Code',
     cardText: 'My favorite code editor',
-    buttonLink: 'tools/index.html',
+    buttonLink: 'tools/#software',
     cardButton: 'And other software'
   },
   {
@@ -263,74 +262,74 @@ const ToolCards = [
     cardButton: 'My Profile'
   },
   {
-    imgLink: 'tools/index.html',
+    imgLink: 'tools/#os',
     imgSource: 'images/os.png',
     altText: 'Windows, Apple and Linux logos',
     cardTitle: 'Operating System',
     cardText: 'What Operating System do I prefer?',
-    buttonLink: 'tools/index.html',
+    buttonLink: 'tools/#os',
     cardButton: 'Operating Systems'
   }
 ]
 const GoalCards = [
   {
-    imgLink: 'goals/index.html',
+    imgLink: 'goals/#learning',
     imgSource: 'images/learning.jpg',
     altText: 'Image of lines of code',
     cardTitle: 'Learning Goals',
     cardText:
       "I have more to learn and I have some things in mind for what's next. Always more to learn!",
-    buttonLink: 'goals/index.html',
+    buttonLink: 'goals/#learning',
     cardButton: 'Further Training'
   },
   {
-    imgLink: 'goals/index.html',
+    imgLink: 'goals/#professional',
     imgSource: 'images/professional.jpg',
     altText: 'image of someone typing code',
     cardTitle: 'Professional Goals',
     cardText:
       "I'm yearning for something new and excited about a career in software/web development. ",
-    buttonLink: 'goals/index.html',
+    buttonLink: 'goals/#professional',
     cardButton: 'Career Goals'
   },
 
   {
-    imgLink: 'goals/index.html',
+    imgLink: 'goals/#personal',
     imgSource: 'images/personal.jpg',
     altText: 'image of a family at beach',
     cardTitle: 'Personal Goals',
     cardText:
       "I want to live life to the fullest and make the most of my time. What I'm looking forward to!",
-    buttonLink: 'goals/index.html',
+    buttonLink: 'goals/#personal',
     cardButton: 'Life outside of work'
   }
 ]
 const ProjectCards = [
   {
-    imgLink: 'projects/index.html',
+    imgLink: 'projects/#fomcore',
     imgSource: 'images/fomcore.jpg',
     altText: 'space invaders fork image',
     cardTitle: 'Fomcore Invaders',
     cardText: 'Practice with OOP using classes & objects',
-    buttonLink: 'projects/index.html',
+    buttonLink: 'projects/#fomcore',
     cardButton: 'A Python Game'
   },
   {
-    imgLink: 'http://snowdaymichigan.com/',
+    imgLink: 'projects/#snowday',
     imgSource: 'images/snowday.jpg',
     altText: 'App screenshot of snow day calculator',
     cardTitle: 'Snow Day Calculator',
     cardText: "Weather.gov's API and a Node.js server app",
-    buttonLink: 'http://snowdaymichigan.com/',
+    buttonLink: 'projects/#snowday',
     cardButton: 'Will we have school?'
   },
   {
-    imgLink: '/swordbuff',
+    imgLink: 'projects/#swordbuff',
     imgSource: 'images/swordbuff.jpg',
     altText: 'App screenshot of a duolingo like app',
     cardTitle: 'Memorization App',
     cardText: 'A duolingo-like memorization app ',
-    buttonLink: '/swordbuff',
+    buttonLink: 'projects/#swordbuff',
     cardButton: 'A JS heavy app'
   }
 ]

@@ -45,7 +45,7 @@ window.addEventListener('scroll', function () {
 
   // Set the closest section's corresponding link to active
   if (closest) {
-    let link = document.querySelector(`nav a[href="#${closest.id}"]`)
+    let link = document.querySelector(`nav a[href="/#${closest.id}"]`)
     link.classList.add('active')
   }
 })

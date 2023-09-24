@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function () {
   const navItems = [
-    { text: 'Experience', link: '#languages' },
-    { text: 'Story', link: '#mystory' },
-    { text: 'Training', link: '#training' },
-    { text: 'Tools', link: '#tools' },
-    { text: 'Goals', link: '#goals' },
-    { text: 'Projects', link: '#projects' },
-    { text: 'Resume', link: '#resume' }
+    { text: 'Experience', link: '/#languages' },
+    { text: 'Story', link: '/#mystory' },
+    { text: 'Training', link: '/#training' },
+    { text: 'Tools', link: '/#tools' },
+    { text: 'Goals', link: '/#goals' },
+    { text: 'Projects', link: '/#projects' },
+    { text: 'Resume', link: '/#resume' }
   ]
 
   // Function to create a navigation item
