@@ -7,16 +7,11 @@ function errorGettingWeather() {
 function getWeatherUrl() {
   const latitude = document.querySelector('#latitude').value
   const longitude = document.querySelector('#longitude').value
-  console.log(`https://api.weather.gov/points/${latitude},${longitude}`)
   return `https://api.weather.gov/points/${latitude},${longitude}`
 }
 
 function fetchWeatherData(url) {
-  return fetch(url, {
-    headers: {
-      'User-Agent': 'calvaryeagles.org (langdon@calvaryeagles.org)'
-    }
-  }).then(response => response.json())
+  return fetch(url).then(response => response.json())
 }
 
 function getForecastForTime(data, time) {
@@ -24,7 +19,6 @@ function getForecastForTime(data, time) {
 }
 
 function updateElementValue(elementId, value) {
-  console.log(value)
   document.getElementById(elementId).value = value
 }
 
@@ -34,11 +28,11 @@ function displayError(message) {
     .insertAdjacentText('beforeend', message)
 }
 
+// get 7am Forecast for Temperature
 function handleTemperatureForecast(data) {
   const tomorrow7amForecast = getForecastForTime(data, 'T07:00')
 
   if (tomorrow7amForecast) {
-    console.log(tomorrow7amForecast.temperature)
     updateElementValue('temp', tomorrow7amForecast.temperature)
   } else {
     updateElementValue('temp', '')
@@ -46,11 +40,11 @@ function handleTemperatureForecast(data) {
   }
 }
 
+// get 5am Forecast for Precipitation
 function handlePrecipitationForecast(data) {
   const tomorrow5amForecast = getForecastForTime(data, 'T05:00')
 
   if (tomorrow5amForecast) {
-    console.log(tomorrow5amForecast.probabilityOfPrecipitation.value)
     updateElementValue(
       'precip',
       tomorrow5amForecast.probabilityOfPrecipitation.value
@@ -62,11 +56,7 @@ function handlePrecipitationForecast(data) {
 }
 
 function handleForecastHourly(url) {
-  fetch(url, {
-    headers: {
-      'User-Agent': 'calvaryeagles.org (langdon@calvaryeagles.org)'
-    }
-  })
+  fetch(url)
     .then(response => response.json())
     .then(data => {
       handleTemperatureForecast(data)
@@ -74,34 +64,14 @@ function handleForecastHourly(url) {
     })
 }
 
-function handleSnowToday(data) {
-  const forecastTonight = data.properties.periods.find(period =>
-    period.name.includes('Tonight')
-  )
+function handleSnow(data, day, container) {
+  const forecastOfDay = data.properties.periods[day]
 
-  if (forecastTonight) {
-    const forecastDescription = forecastTonight.detailedForecast
+  if (forecastOfDay) {
+    const forecastDescription = forecastOfDay.detailedForecast
     const regex = /\b(\d+(\.\d+)?)\s*(inch|inches)\b/
     const match = forecastDescription.match(regex)
-    document.querySelector('#snow-today').value = match
-      ? parseFloat(match[1])
-      : 0
-  } else {
-    errorGettingWeather()
-  }
-}
-
-function handleSnowTomorrow(data) {
-  console.log(data)
-  const forecastTomorrow = data.properties.periods[1]
-  if (forecastTomorrow) {
-    const forecastDescription = forecastTomorrow.detailedForecast
-    console.log(forecastDescription)
-    const regex = /\b(\d+(\.\d+)?)\s*(inch|inches)\b/
-    const match = forecastDescription.match(regex)
-    document.querySelector('#snow-tomorrow').value = match
-      ? parseFloat(match[1])
-      : 0
+    document.querySelector(container).value = match ? parseFloat(match[1]) : 0
   } else {
     errorGettingWeather()
   }
@@ -115,8 +85,8 @@ function getWeather() {
       const forecastUrl = initialData.properties.forecast
       return fetchWeatherData(forecastUrl)
         .then(forecastData => {
-          handleSnowToday(forecastData)
-          handleSnowTomorrow(forecastData)
+          handleSnow(forecastData, 0, '#snow-today')
+          handleSnow(forecastData, 1, '#snow-tomorrow')
         })
         .then(() => {
           return forecastHourlyUrl
