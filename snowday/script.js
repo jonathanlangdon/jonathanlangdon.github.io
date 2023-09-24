@@ -4,95 +4,130 @@ function errorGettingWeather() {
     .insertAdjacentText('beforeend', '|| Error fetching weather data ||')
 }
 
-function getWeather() {
+function getWeatherUrl() {
   const latitude = document.querySelector('#latitude').value
   const longitude = document.querySelector('#longitude').value
-  //https://www.weather.gov/documentation/services-web-api  --> documentation for this API
-  const weatherUrl = `https://api.weather.gov/points/${latitude},${longitude}`
-  fetch(weatherUrl, {
+  console.log(`https://api.weather.gov/points/${latitude},${longitude}`)
+  return `https://api.weather.gov/points/${latitude},${longitude}`
+}
+
+function fetchWeatherData(url) {
+  return fetch(url, {
+    headers: {
+      'User-Agent': 'calvaryeagles.org (langdon@calvaryeagles.org)'
+    }
+  }).then(response => response.json())
+}
+
+function getForecastForTime(data, time) {
+  return data.properties.periods.find(period => period.startTime.includes(time))
+}
+
+function updateElementValue(elementId, value) {
+  console.log(value)
+  document.getElementById(elementId).value = value
+}
+
+function displayError(message) {
+  document
+    .getElementById('error-container')
+    .insertAdjacentText('beforeend', message)
+}
+
+function handleTemperatureForecast(data) {
+  const tomorrow7amForecast = getForecastForTime(data, 'T07:00')
+
+  if (tomorrow7amForecast) {
+    console.log(tomorrow7amForecast.temperature)
+    updateElementValue('temp', tomorrow7amForecast.temperature)
+  } else {
+    updateElementValue('temp', '')
+    displayError('|| No forecast available for 7am tomorrow ||')
+  }
+}
+
+function handlePrecipitationForecast(data) {
+  const tomorrow5amForecast = getForecastForTime(data, 'T05:00')
+
+  if (tomorrow5amForecast) {
+    console.log(tomorrow5amForecast.probabilityOfPrecipitation.value)
+    updateElementValue(
+      'precip',
+      tomorrow5amForecast.probabilityOfPrecipitation.value
+    )
+  } else {
+    updateElementValue('precip', '')
+    displayError('|| No forecast available for 5am tomorrow ||')
+  }
+}
+
+function handleForecastHourly(url) {
+  fetch(url, {
     headers: {
       'User-Agent': 'calvaryeagles.org (langdon@calvaryeagles.org)'
     }
   })
     .then(response => response.json())
-    // Get forecast data
     .then(data => {
-      const snowToday = data.properties.forecast
-      fetch(snowToday, {
-        headers: {
-          'User-Agent': 'calvaryeagles.org (langdon@calvaryeagles.org)'
-        }
-      })
-        .then(response => response.json())
-        // Get Snow inches tonight
-        .then(data => {
-          const forecastTonight = data.properties.periods.find(period => {
-            return period.name.includes('Tonight')
-          })
-          if (forecastTonight) {
-            const forecastDescription = forecastTonight.detailedForecast
-            const regex = /\b(\d+(\.\d+)?)\s*(inch|inches)\b/
-            const match = forecastDescription.match(regex)
-            if (match) {
-              const inches = parseFloat(match[1])
-              document.querySelector('snow-today').value = inches
-            } else {
-              document.querySelector('snow-today').value = 0
-            }
-          } else {
-            errorGettingWeather
-          }
+      handleTemperatureForecast(data)
+      handlePrecipitationForecast(data)
+    })
+}
+
+function handleSnowToday(data) {
+  const forecastTonight = data.properties.periods.find(period =>
+    period.name.includes('Tonight')
+  )
+
+  if (forecastTonight) {
+    const forecastDescription = forecastTonight.detailedForecast
+    const regex = /\b(\d+(\.\d+)?)\s*(inch|inches)\b/
+    const match = forecastDescription.match(regex)
+    document.querySelector('#snow-today').value = match
+      ? parseFloat(match[1])
+      : 0
+  } else {
+    errorGettingWeather()
+  }
+}
+
+function handleSnowTomorrow(data) {
+  console.log(data)
+  const forecastTomorrow = data.properties.periods[1]
+  if (forecastTomorrow) {
+    const forecastDescription = forecastTomorrow.detailedForecast
+    console.log(forecastDescription)
+    const regex = /\b(\d+(\.\d+)?)\s*(inch|inches)\b/
+    const match = forecastDescription.match(regex)
+    document.querySelector('#snow-tomorrow').value = match
+      ? parseFloat(match[1])
+      : 0
+  } else {
+    errorGettingWeather()
+  }
+}
+
+function getWeather() {
+  const weatherUrl = getWeatherUrl()
+  fetchWeatherData(weatherUrl)
+    .then(initialData => {
+      const forecastHourlyUrl = initialData.properties.forecastHourly
+      const forecastUrl = initialData.properties.forecast
+      return fetchWeatherData(forecastUrl)
+        .then(forecastData => {
+          handleSnowToday(forecastData)
+          handleSnowTomorrow(forecastData)
+        })
+        .then(() => {
+          return forecastHourlyUrl
         })
     })
-    // Get hourly forecast data
-    .then(data => {
-      const forecastHourlyUrl = data.properties.forecastHourly
-      fetch(forecastHourlyUrl, {
-        headers: {
-          'User-Agent': 'calvaryeagles.org (langdon@calvaryeagles.org)'
-        }
-      })
-        .then(response => response.json())
-        // Get 7am temp forecast
-        .then(data => {
-          const tomorrow7amForecast = data.properties.periods.find(period => {
-            return period.startTime.includes('T07:00')
-          })
-          if (tomorrow7amForecast) {
-            document.getElementById('temp').value =
-              tomorrow7amForecast.temperature
-          } else {
-            document.getElementById('temp').value = ''
-            document
-              .getElementById('error-container')
-              .insertAdjacentText(
-                'beforeend',
-                '|| No forecast available for 7am tomorrow ||'
-              )
-          }
-          // Get 5am precipitation
-          const tomorrow5amForecast = data.properties.periods.find(period => {
-            return period.startTime.includes('T05:00')
-          })
-          if (tomorrow5amForecast) {
-            document.getElementById('precip').value =
-              tomorrow5amForecast.probabilityOfPrecipitation.value
-          } else {
-            document.getElementById('precip').value = ''
-            document
-              .getElementById('error-container')
-              .insertAdjacentText(
-                'beforeend',
-                '|| No forecast available for 5am tomorrow ||'
-              )
-          }
-        })
+    .then(forecastHourlyUrl => {
+      return handleForecastHourly(forecastHourlyUrl)
     })
     .catch(error => {
       console.error('Error fetching weather data:', error)
-      document.getElementById('temp').value = ''
-      document.getElementById('precip').value = ''
-      errorGettingWeather
+      errorGettingWeather()
     })
 }
 
