@@ -316,11 +316,11 @@ const ProjectCards = [
     cardButton: 'A Python Game'
   },
   {
-    imgLink: 'projects/index.html',
-    imgSource: 'http://snowdaymichigan.com/',
+    imgLink: 'http://snowdaymichigan.com/',
+    imgSource: 'images/snowday.jpg',
     altText: 'App screenshot of snow day calculator',
     cardTitle: 'Snow Day Calculator',
-    cardText: "GoogleMap and Weather.gov API's",
+    cardText: "Using Weather.gov's API",
     buttonLink: 'http://snowdaymichigan.com/',
     cardButton: 'Will we have school?'
   },
