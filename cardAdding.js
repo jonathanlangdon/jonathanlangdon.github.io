@@ -311,7 +311,7 @@ const ProjectCards = [
     imgSource: 'images/fomcore.jpg',
     altText: 'space invaders fork image',
     cardTitle: 'Fomcore Invaders',
-    cardText: 'Using classes & objects',
+    cardText: 'Practice with OOP using classes & objects',
     buttonLink: 'projects/index.html',
     cardButton: 'A Python Game'
   },
@@ -320,7 +320,7 @@ const ProjectCards = [
     imgSource: 'images/snowday.jpg',
     altText: 'App screenshot of snow day calculator',
     cardTitle: 'Snow Day Calculator',
-    cardText: "Using Weather.gov's API",
+    cardText: "Using Weather.gov's API and a Node.js server-side app",
     buttonLink: 'http://snowdaymichigan.com/',
     cardButton: 'Will we have school?'
   },
@@ -331,7 +331,7 @@ const ProjectCards = [
     cardTitle: 'Memorization App',
     cardText: 'A duolingo-like memorization app ',
     buttonLink: '/swordbuff',
-    cardButton: 'A JS heavy app'
+    cardButton: 'A JavaScript heavy app'
   }
 ]
 
