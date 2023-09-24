@@ -320,7 +320,7 @@ const ProjectCards = [
     imgSource: 'images/snowday.jpg',
     altText: 'App screenshot of snow day calculator',
     cardTitle: 'Snow Day Calculator',
-    cardText: "Using Weather.gov's API and a Node.js server-side app",
+    cardText: "Weather.gov's API and a Node.js server app",
     buttonLink: 'http://snowdaymichigan.com/',
     cardButton: 'Will we have school?'
   },
@@ -331,7 +331,7 @@ const ProjectCards = [
     cardTitle: 'Memorization App',
     cardText: 'A duolingo-like memorization app ',
     buttonLink: '/swordbuff',
-    cardButton: 'A JavaScript heavy app'
+    cardButton: 'A JS heavy app'
   }
 ]
 
