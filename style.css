@@ -58,3 +58,7 @@ textarea#message {
 .pointer {
   cursor: pointer;
 }
+
+.darker-button-shadow {
+  background-color: rgba(0, 0, 0, 0.5);
+}
