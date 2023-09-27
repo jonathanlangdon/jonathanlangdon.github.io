@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jonathan Langdon's Portfolio</title>
+    <title>Jonathan Langdon's Portfolio: Training</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -29,8 +29,8 @@
       </div>
     </nav>
 
-    <div style="padding-top: 20px" class="col-md-12">
-      <h2>Training & Education</h2>
+    <div class="col-md-12 text-center toptitle">
+      <h1>Training & Education</h1>
       <p class="text-center fst-italic">An ecclectic source of learning</p>
     </div>
 
@@ -38,7 +38,17 @@
 
     <!-- Free Code Camp -->
     <section id="freecodecamp" class="section">
-      <h2>Free Code Camp</h2>
+      <div class="titleimages text-center">
+        <a
+          target="_blank"
+          class="text-center"
+          href="https://www.freecodecamp.org/jonathanlangdon"
+          ><img
+            src="../images/freecodecamplogo.jpg"
+            class="img-fluid mx-auto"
+            alt="free code camp logo"
+        /></a>
+      </div>
       <div class="text-center">
         <p>
           Profile and Certifications:
@@ -66,8 +76,8 @@
               <strong>Certifications in Progress:</strong>
             </div>
             <ul>
-              <li>Scientific Computing with Python</li>
-              <li>Front End Development Libraries</li>
+              <li>Scientific Computing with Python (80% Done)</li>
+              <li>Front End Development Libraries (70% Done)</li>
             </ul>
           </div>
           <!-- card end -->
@@ -98,7 +108,7 @@
             <img
               src="../images/freeCodeCamp-responsive.jpg"
               class="card-img-top"
-              alt="..."
+              alt="Reponsive Web Design Certificate"
             />
             <div class="card-body mx-auto">
               <div class="card-text">
@@ -132,7 +142,7 @@
             <img
               src="../images/freeCodeCamp-javascript.jpg"
               class="card-img-top"
-              alt="..."
+              alt="Javascript Certificate"
             />
             <div class="card-body mx-auto">
               <div class="card-text">
@@ -158,23 +168,25 @@
       </div>
     </section>
 
-    <!-- SoloLearn -->
-    <section id="sololearn" class="section">
-      <h2>Sololearn</h2>
-      <p class="text-center fst-italic">An ecclectic source of learning</p>
+    <!-- edX -->
+    <section id="edx" class="section">
+      <div class="text-center">
+        <a target="_blank" href="https://www.edx.org/search?q=georgia+tech"
+          ><img
+            src="../images/edXlogo.jpg"
+            class="img-fluid mx-auto"
+            alt="edX logo"
+        /></a>
+      </div>
       <div class="container">
         <div class="row">
-          <!-- Card - Certifications -->
+          <!-- Card - Certification Slider -->
           <div class="col-md-6 my-3 d-flex align-items-center">
-            <div
-              id="freecodecampslider"
-              class="carousel slide"
-              data-bs-ride="carousel"
-            >
+            <div id="edXslider" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-indicators darker-button-shadow">
                 <button
                   type="button"
-                  data-bs-target="#freecodecampslider"
+                  data-bs-target="#edXslider"
                   data-bs-slide-to="0"
                   class="active darker-button-shadow"
                   aria-current="true"
@@ -182,30 +194,82 @@
                 ></button>
                 <button
                   type="button"
-                  data-bs-target="#freecodecampslider"
+                  data-bs-target="#edXslider"
                   data-bs-slide-to="1"
                   aria-label="Slide 2"
+                ></button
+                ><button
+                  type="button"
+                  data-bs-target="#edXslider"
+                  data-bs-slide-to="2"
+                  aria-label="Slide 3"
+                ></button
+                ><button
+                  type="button"
+                  data-bs-target="#edXslider"
+                  data-bs-slide-to="3"
+                  aria-label="Slide 4"
+                ></button
+                ><button
+                  type="button"
+                  data-bs-target="#edXslider"
+                  data-bs-slide-to="4"
+                  aria-label="Slide 5"
+                ></button
+                ><button
+                  type="button"
+                  data-bs-target="#edXslider"
+                  data-bs-slide-to="5"
+                  aria-label="Slide 6"
                 ></button>
               </div>
               <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="10000">
                   <img
-                    src="../images/freeCodeCamp-responsive.jpg"
+                    src="../images/pythonprogram.jpg"
                     class="d-block w-100"
-                    alt="Responsive Design Certificate"
+                    alt="python program certificate"
                   />
                 </div>
                 <div class="carousel-item" data-bs-interval="10000">
                   <img
-                    src="../images/freeCodeCamp-javascript.jpg"
+                    src="../images/java1.jpg"
                     class="d-block w-100"
-                    alt="Javascript Certificate"
+                    alt="Java-1 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python1.jpg"
+                    class="d-block w-100"
+                    alt="Python-1 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python2.jpg"
+                    class="d-block w-100"
+                    alt="Python-2 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python3.jpg"
+                    class="d-block w-100"
+                    alt="Python-3 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python4.jpg"
+                    class="d-block w-100"
+                    alt="Python-4 certificate"
                   />
                 </div>
               </div>
               <a
                 class="carousel-control-prev"
-                href="#freecodecampslider"
+                href="#edXslider"
                 role="button"
                 data-bs-slide="prev"
               >
@@ -217,7 +281,7 @@
               </a>
               <a
                 class="carousel-control-next"
-                href="#freecodecampslider"
+                href="#edXslider"
                 role="button"
                 data-bs-slide="next"
               >
@@ -229,6 +293,7 @@
               </a>
             </div>
           </div>
+          <!-- end card  -->
 
           <!-- Card - Description -->
           <div
@@ -236,16 +301,312 @@
           >
             <div class="card bg-dark text-white">
               <div class="card-body mx-auto">
-                <h5 class="card-title text-center">Free Code Camp</h5>
+                <div class="text-center">
+                  <h5>edX Online Courses:</h5>
+                </div>
+                <p>
+                  Georgia Tech partnered with edX to offer some of their
+                  computer science courses in a MOOC format in a flexible and
+                  interactive environment.
+                </p>
                 <p class="card-text text-center">
-                  Profile and Certifications:
-                  <a href="https://www.freecodecamp.org/jonathanlangdon"
-                    >https://www.freecodecamp.org/jonathanlangdon</a
+                  Python Program Record:
+                  <a
+                    target="_blank"
+                    href="http://credentials.edx.org/records/programs/shared/7e56e6bf2dd745f689f6a8e4869ed731/"
+                    >Records and Certificates</a
                   >
+                </p>
+                <p class="card-text text-center">
+                  Java Program Record:
+                  <a
+                    target="_blank"
+                    href="http://credentials.edx.org/records/programs/shared/7e56e6bf2dd745f689f6a8e4869ed731/"
+                    >Records and Certificates</a
+                  >
+                </p>
+              </div>
+              <div class="card bg-dark">
+                <div class="card-body bg-dark mx-auto">
+                  <div class="card-text">
+                    <strong
+                      >GTx: Introduction to Python Programming: Complete</strong
+                    >
+                    <ul>
+                      <li>Fundamentals and Procedural Programming</li>
+                      <li>Control Structures</li>
+                      <li>Data Structures</li>
+                      <li>Objects & Algorithms</li>
+                    </ul>
+
+                    <strong
+                      >GTx: Introduction to Object-Oriented Programming with
+                      Java</strong
+                    >
+                    <ul>
+                      <li>
+                        <strong>Completed:</strong> Foundations and Syntax
+                        Basics
+                      </li>
+                      <li>
+                        <strong>In Progress:</strong> Object-Oriented Programs
+                        and Algorithms (62% Complete)
+                      </li>
+                      <li>
+                        Exceptions, Data Structures, Recursion, and GUIs
+                        (lectures complete)
+                      </li>
+                    </ul>
+
+                    <strong
+                      >HarvardX: CS50's Web Programming with Python and
+                      JavaScript (auditing only for lectures)</strong
+                    >
+                    <ul>
+                      <li>
+                        Lectures Watched: Intro, HTML, CSS, Git, Python, Django,
+                        SQL- Models- and Migrations
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End card -->
+        </div>
+      </div>
+    </section>
+
+    <!-- codeWars -->
+    <section id="codewars" class="section">
+      <div class="titleimages text-center">
+        <a
+          target="_blank"
+          class="card-img-top w-75"
+          class="text-center"
+          href="https://www.codewars.com/users/jonathanlangdon"
+          ><img
+            target="_blank"
+            src="../images/codewars.png"
+            alt="free code camp logo"
+        /></a>
+      </div>
+      <div class="text-center">
+        <p>
+          Honor and Kata Completed:
+          <a
+            target="_blank"
+            class="text-center"
+            href="https://www.codewars.com/users/jonathanlangdon"
+            >My Profile</a
+          >
+        </p>
+      </div>
+      <div class="container">
+        <div class="row">
+          <!-- Card -->
+          <div class="col-md-6 my-3 card bg-dark text-white mx-auto">
+            <div class="card-body mx-auto">
+              <div class="card-text">
+                <strong>CodeWars Profile:</strong>
+                <ul>
+                  <li>Total Unique Kata Completed: 228</li>
+                  <li>Honor: 734 (Top 9%)</li>
+                  <li>JavaScript Kata Completed: 228</li>
+                  <li>Python Kata Completed: 46</li>
+                  <li>Java Kata Completed: 15</li>
+                </ul>
+
+                <p>
+                  CodeWars offers a platform for aspiring developers to tackle
+                  coding challenges, known as kata, in various languages,
+                  helping them hone problem-solving skills. It nurtures a
+                  competitive yet collaborative environment, fostering peer
+                  learning and code review. This iterative, challenge-based
+                  learning sharpens logical thinking, making one adept in
+                  algorithmic tasks and software programming.
                 </p>
               </div>
             </div>
           </div>
+          <!-- end of card -->
+
+          <!-- Card -->
+          <div class="col-md-6 my-3 card bg-dark text-white mx-auto">
+            <img
+              src="../images/codewarsProfile.jpg"
+              class="card-img-top"
+              alt="Reponsive Web Design Certificate"
+            />
+          </div>
+          <!-- card end -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SoloLearn -->
+    <section id="sololearn" class="section">
+      <div class="titleimages text-center">
+        <a
+          target="_blank"
+          class="card-img-top w-75"
+          class="text-center"
+          href="https://www.sololearn.com/Profile/28212796"
+          ><img
+            target="_blank"
+            src="../images/sololearn.png"
+            alt="sololearn logo"
+        /></a>
+      </div>
+      <div class="mx-auto description-title card-body bg-dark">
+        <p class="text-center">
+          <a
+            target="_blank"
+            class="text-center"
+            href="https://www.sololearn.com/Profile/28212796"
+            >Profile and Progress</a
+          >
+        </p>
+        <div class="mx-auto text-center">
+          <p>8,583 XP</p>
+          <p>Level 12</p>
+        </div>
+        <p>
+          SoloLearn offers a comprehensive platform for learning coding Similar
+          to Mimo, the learning platform is only introductory and it is hard to
+          get a firm grasp on concepts with the limited practice given… but it
+          is fun and an excellent introduction to many programming languages and
+          concepts.
+        </p>
+      </div>
+      <div class="container">
+        <div class="row">
+          <!-- Card - Certification Slider -->
+          <div class="col-md-4 my-3 d-flex align-items-center">
+            <div id="edXslider" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                  <img
+                    src="../images/pythonprogram.jpg"
+                    class="d-block w-100"
+                    alt="python program certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/java1.jpg"
+                    class="d-block w-100"
+                    alt="Java-1 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python1.jpg"
+                    class="d-block w-100"
+                    alt="Python-1 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python2.jpg"
+                    class="d-block w-100"
+                    alt="Python-2 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python3.jpg"
+                    class="d-block w-100"
+                    alt="Python-3 certificate"
+                  />
+                </div>
+                <div class="carousel-item" data-bs-interval="10000">
+                  <img
+                    src="../images/python4.jpg"
+                    class="d-block w-100"
+                    alt="Python-4 certificate"
+                  />
+                </div>
+              </div>
+              <a
+                class="carousel-control-prev"
+                href="#edXslider"
+                role="button"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon darker-button-shadow"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </a>
+              <a
+                class="carousel-control-next"
+                href="#edXslider"
+                role="button"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon darker-button-shadow"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </a>
+            </div>
+          </div>
+          <!-- end card  -->
+          <!-- Card - Responsive Course -->
+          <div class="col-md-4 my-3 card bg-dark text-white mx-auto">
+            <div class="card-body">
+              <div class="card-text">
+                <div class="text-center">
+                  <strong>12 Introductory Courses Completed:</strong>
+                </div>
+                <ul>
+                  <li>Tech for Everyone</li>
+                  <li>Introduction to HTML</li>
+                  <li>Introduction to CSS</li>
+                  <li>Introduction to Python</li>
+                  <li>Introduction to JavaScript</li>
+                  <li>JavaScript Intermediate</li>
+                  <li>Introduction to Java</li>
+                  <li>Java Intermediate</li>
+                  <li>Introduction to C</li>
+                  <li>Introduction to C++</li>
+                  <li>Introduction to SQL</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- end of card -->
+          <!-- Card - Responsive Course -->
+          <div class="col-md-4 my-3 card bg-dark text-white mx-auto">
+            <div class="card-body">
+              <div class="card-text">
+                <div class="text-center">
+                  <strong>Future Planned Learning:</strong>
+                </div>
+                <ul>
+                  <li>SQL Intermediate</li>
+                  <li>React + Redux</li>
+                  <li>Introduction to C#</li>
+                  <li>Web Developer with Angular</li>
+                  <li>Angular</li>
+                  <li>PHP</li>
+                  <li>Web Development</li>
+                  <li>Data Programming</li>
+                  <li>C Intermediate</li>
+                  <li>C++ Intermediate</li>
+                  <li>C# Intermediate</li>
+                  <li>Python Developer</li>
+                  <li>Coding Foundations</li>
+                  <li>Python Intermediate</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- end of card -->
         </div>
       </div>
     </section>

@@ -62,3 +62,15 @@ textarea#message {
 .darker-button-shadow {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.titleimages {
+  margin-bottom: 20px;
+}
+
+.toptitle {
+  margin-top: 30px;
+}
+
+.description-title {
+  max-width: 800px;
+}
