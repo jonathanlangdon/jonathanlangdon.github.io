@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
   const navItems = [
-    { text: 'Experience', link: '/#languages' },
     { text: 'Story', link: '/#mystory' },
     { text: 'Training', link: '/#training' },
+    { text: 'Experience', link: '/#languages' },
     { text: 'Tools', link: '/#tools' },
     { text: 'Goals', link: '/#goals' },
     { text: 'Projects', link: '/#projects' },

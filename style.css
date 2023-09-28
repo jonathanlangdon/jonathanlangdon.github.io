@@ -74,3 +74,11 @@ textarea#message {
 .description-title {
   max-width: 800px;
 }
+
+#training {
+  padding-top: 0;
+}
+
+#profilepic {
+  max-width: 300px;
+}
