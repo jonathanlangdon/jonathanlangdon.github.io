@@ -1,5 +1,5 @@
 .section {
-  padding: 3em 0 1em;
+  padding: 2em 0 1em;
 }
 
 a {
@@ -68,7 +68,7 @@ textarea#message {
 }
 
 .toptitle {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .description-title {
@@ -76,9 +76,17 @@ textarea#message {
 }
 
 #training {
-  padding-top: 0;
+  padding-top: 20px;
 }
 
 #profilepic {
   max-width: 300px;
+}
+
+#ecclectic {
+  margin-bottom: 0;
+}
+
+#mystory {
+  margin-top: 20px;
 }
