@@ -90,3 +90,7 @@ textarea#message {
 #mystory {
   margin-top: 20px;
 }
+
+#arrow {
+  max-width: 150px;
+}
