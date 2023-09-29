@@ -88,7 +88,7 @@
           >
             <div class="card bg-dark text-white">
               <div class="card-body text-center">
-                <h5 class="card-title text-center">Fomcore Invaders</h5>
+                <h2 class="card-title text-center mb-5">Fomcore Invaders</h2>
                 <p class="card-text text-center">
                   This was a fun project that I did for a friend who worked for
                   a local company in Muskegon. They were going to a trade show
@@ -155,7 +155,11 @@
                 </p>
                 <p class="card-text text-center">
                   Here is the link to my repository on GitHub:
-                  <a href="">Fomcore Invaders</a>
+                  <a
+                    target="_blank"
+                    href="https://github.com/jonathanlangdon/fomcore_space_invaders"
+                    >Fomcore Invaders</a
+                  >
                 </p>
               </div>
             </div>
@@ -166,51 +170,80 @@
     </section>
 
     <!-- Section -->
-    <section id="os" class="section">
-      <h2>Operating Systems</h2>
-      <p class="text-center fst-italic">How I feel about the 3 main systems</p>
-      <div class="mx-auto col-md-5">
-        <img src="../images/os.png" alt="office suites" class="card-img-top" />
+    <section id="snowday" class="section">
+      <h2>Snow Day Calculator</h2>
+      <p class="text-center fst-italic">
+        Using an API from weather.gov and running a server-side node.js
+        application
+      </p>
+      <div class="mx-auto col-md-6">
+        <a href="https://snowdaymichigan.com/" target="_blank">
+          <img
+            src="../images/snowDayWide.jpg"
+            alt="office suites"
+            class="card-img-top"
+        /></a>
       </div>
       <div class="container">
         <div class="row justify-content-center">
           <!-- Card --->
-          <div
-            class="col-md-4 my-3 d-flex justify-content-center align-items-center"
-          >
+          <div class="col-md-4 my-3">
             <div class="card bg-dark text-white">
-              <div class="card-body text-center">
-                <h5 class="card-title text-center">Which One?</h5>
-                <p class="card-text text-center">
-                  When it comes to Operating Systems, I can navigate any system
-                  with ease and am flexible with whichever I need to use. I used
-                  Windows for about 15 years before switching to Linux (Linux
-                  Mint to be specific - a derivation of Ubuntu). At our church,
-                  we use iMac's for our livestream software and I recently
-                  purchased a MacBook pro this past summer so I am comfortable
-                  in that environment as well.
-                </p>
-                <p></p>
-              </div>
+              <p class="card-text text-center">
+                Another fun thing I've done over the past 8 years is to collect
+                data on what factors influence whether or not we have snow days
+                in our local district. I created a snow day calculator in an
+                Excel spreadsheet that correctly fit the data from the past 8
+                years with a 90% accuracy, and was eager to make a website that
+                would share that calculation with others.
+              </p>
             </div>
           </div>
           <!-- Card end -->
 
           <!-- Card --->
-          <div
-            class="col-md-4 my-3 d-flex justify-content-center align-items-center"
-          >
+          <div class="col-md-4 my-3">
             <div class="card bg-dark text-white">
-              <div class="card-body text-center">
-                <p class="card-text text-center">
-                  If I were forced to make a choice as to which OS i prefer, I
-                  would lean towards Linux Mint. I am free to customize software
-                  the way I like, it is more friendly for developer tools like
-                  terminal and SSH usage, and I like the Open Source philosophy.
-                </p>
-              </div>
+              <p class="card-text text-center">
+                One thing I thought would be cool to incorporate into the
+                application would be the integration of a weather API that pulls
+                in the forecasted data and any weather alerts. Weather.gov's API
+                proved to be an excellent candidate.
+              </p>
+              <p class="card-text text-center">
+                Another factor in developing this project was creating a Node.js
+                application on the server to keep the calculation formula
+                private. Keeping the calculation on the server side protects the
+                intellectual property of the snow day calculator so that someone
+                else can't easily pirate the site.
+              </p>
             </div>
           </div>
+          <!-- Card end --><!-- Card --->
+          <div class="col-md-4 my-3">
+            <div class="card bg-dark text-white">
+              <p class="card-text text-center">
+                In future revisions I hope to add a feature that allows you to
+                grab the user's device location and get the GPS coordinates that
+                way to make it one step easier for users. I would also like to
+                add advertisements to the site to help pay for the server costs.
+                A third improvement would be loading animations for users to
+                know whether the API fetching is taking a long time or just
+                broken.
+              </p>
+              <p class="card-text text-center">
+                <a href="https://snowdaymichigan.com/" target="_blank"
+                  >Link to Snow Day Calculator</a
+                >
+              </p>
+              <p class="card-text text-center">
+                <a href="https://snowdaymichigan.com/" target="_blank"
+                  >GitHub Repository</a
+                >
+              </p>
+            </div>
+          </div>
+          <!-- Card end -->
         </div>
       </div>
     </section>
