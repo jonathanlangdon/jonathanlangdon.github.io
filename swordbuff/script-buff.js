@@ -239,24 +239,27 @@ resetButton.addEventListener('click', () => {
   }
 })
 
+function nextOrDone() {
+  if (verseIndex < numVerses - 1) {
+    newButton.textContent = 'NEXT'
+    newButton.id = 'next-button'
+    checkArea.appendChild(newButton)
+  } else {
+    newButton.textContent = 'DONE'
+    newButton.id = 'done'
+    checkArea.appendChild(newButton)
+    newButton.addEventListener('click', () => {
+      location.reload()
+    })
+  }
+}
+
 document.addEventListener('click', event => {
   if (event.target && event.target.id === 'check') {
     wordButtonsEnabled = false
     checkUserInput()
     const checkButton = document.querySelector('#check')
     checkButton.remove()
-    if (verseIndex < numVerses - 1) {
-      newButton.textContent = 'NEXT'
-      newButton.id = 'next-button'
-      checkArea.appendChild(newButton)
-    } else {
-      newButton.textContent = 'DONE'
-      newButton.id = 'done'
-      checkArea.appendChild(newButton)
-      newButton.addEventListener('click', () => {
-        location.reload()
-      })
-    }
   } else if (event.target && event.target.id === 'next-button') {
     verseString = verses[(verseIndex += 1)].text
     verseContainer.textContent =
