@@ -277,4 +277,3 @@ document.addEventListener('click', event => {
     progressBar.value += 1
   }
 })
-// })

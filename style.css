@@ -94,3 +94,7 @@ textarea#message {
 #arrow {
   max-width: 150px;
 }
+
+.project-pic {
+  max-width: 600px;
+}
