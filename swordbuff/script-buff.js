@@ -1,17 +1,3 @@
-function shuffle(array) {
-  let currentIndex = array.length,
-    temporaryValue,
-    randomIndex
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
-    temporaryValue = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temporaryValue
-  }
-  return array
-}
-
 // Initially I setup website with a MySQL server to test it out... but for the purposes of demonstration, I'm replacing the SQL database with a simple object
 
 // $.get('http://192.168.3.11:5000/random-verse', function (data) {
@@ -96,6 +82,20 @@ verseContainer.textContent =
   ':' +
   currentVerse.verse_start
 
+function shuffle(array) {
+  let currentIndex = array.length,
+    temporaryValue,
+    randomIndex
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex -= 1
+    temporaryValue = array[currentIndex]
+    array[currentIndex] = array[randomIndex]
+    array[randomIndex] = temporaryValue
+  }
+  return array
+}
+
 function createWordButtons(whichArray) {
   const fragment = document.createDocumentFragment()
   whichArray.forEach(word => {
@@ -123,43 +123,6 @@ function createWordButtons(whichArray) {
     })
   })
 }
-
-function listenKeyboard() {
-  document.addEventListener('DOMContentLoaded', function () {
-    const inputBox = document.getElementById('keyboard-input')
-    const wordBankContainer = document.getElementById('word-bank')
-    inputBox.addEventListener('keydown', function (event) {
-      if (event.key === ' ' || event.key === 'Enter') {
-        event.preventDefault()
-        useKeyboardInput()
-      }
-    })
-
-    function useKeyboardInput() {
-      let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase()
-
-      inputBox.value = ''
-
-      let bankWordButtons = Array.from(
-        wordBankContainer.querySelectorAll('button')
-      )
-
-      bankWordButtons.some(button => {
-        let buttonWord = button.textContent
-          .replace(/[^\w\s]/gi, '')
-          .toLowerCase()
-
-        if (keyboardWord === buttonWord) {
-          button.click()
-          return true // Stop the loop when the first match is found
-        }
-        return false // Continue the loop
-      })
-    }
-  })
-}
-
-listenKeyboard()
 
 function resetWordsInContainer(containerName) {
   while (containerName.firstChild) {
@@ -220,6 +183,21 @@ if (parseInt(wordBankContainer.style.height) < 236) {
   dropAreaContainer.style.height = '236px'
 }
 
+function nextOrDone() {
+  if (verseIndex < numVerses - 1) {
+    newButton.textContent = 'NEXT'
+    newButton.id = 'next-button'
+    checkArea.appendChild(newButton)
+  } else {
+    newButton.textContent = 'DONE'
+    newButton.id = 'done'
+    checkArea.appendChild(newButton)
+    newButton.addEventListener('click', () => {
+      location.reload()
+    })
+  }
+}
+
 resetButton.addEventListener('click', () => {
   wordButtonsEnabled = true
   resetWordsInContainer(wordBankContainer)
@@ -239,20 +217,34 @@ resetButton.addEventListener('click', () => {
   }
 })
 
-function nextOrDone() {
-  if (verseIndex < numVerses - 1) {
-    newButton.textContent = 'NEXT'
-    newButton.id = 'next-button'
-    checkArea.appendChild(newButton)
-  } else {
-    newButton.textContent = 'DONE'
-    newButton.id = 'done'
-    checkArea.appendChild(newButton)
-    newButton.addEventListener('click', () => {
-      location.reload()
+function listenKeyboard() {
+  document.addEventListener('DOMContentLoaded', function () {
+    const inputBox = document.getElementById('keyboard-input')
+    const wordBankContainer = document.getElementById('word-bank')
+    inputBox.addEventListener('keydown', function (event) {
+      if (event.key === ' ' || event.key === 'Enter') {
+        event.preventDefault()
+        let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase()
+        inputBox.value = ''
+        let bankWordButtons = Array.from(
+          wordBankContainer.querySelectorAll('button')
+        )
+        bankWordButtons.some(button => {
+          let buttonWord = button.textContent
+            .replace(/[^\w\s]/gi, '')
+            .toLowerCase()
+          if (keyboardWord === buttonWord) {
+            button.click()
+            return true // Stop the loop when the first match is found
+          }
+          return false // Continue the loop
+        })
+      }
     })
-  }
+  })
 }
+
+listenKeyboard()
 
 document.addEventListener('click', event => {
   if (event.target && event.target.id === 'check') {
@@ -260,6 +252,7 @@ document.addEventListener('click', event => {
     checkUserInput()
     const checkButton = document.querySelector('#check')
     checkButton.remove()
+    nextOrDone()
   } else if (event.target && event.target.id === 'next-button') {
     verseString = verses[(verseIndex += 1)].text
     verseContainer.textContent =
@@ -282,7 +275,6 @@ document.addEventListener('click', event => {
     newButton.id = 'check'
     checkArea.appendChild(newButton)
     progressBar.value += 1
-    listenKeyboard()
   }
 })
 // })
