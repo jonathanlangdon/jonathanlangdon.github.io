@@ -14,7 +14,9 @@ button {
   background-color: white;
 }
 
-h1, h2 {
+h1,
+h2,
+h4 {
   text-align: center;
   margin: 0;
 }
@@ -23,10 +25,11 @@ h1, h2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    "sidebar-left header sidebar-right"
-    "sidebar-left drop-area sidebar-right"
-    "sidebar-left word-bank sidebar-right"
-    "sidebar-left footer sidebar-right"
+    'sidebar-left header sidebar-right'
+    'sidebar-left drop-area sidebar-right'
+    'sidebar-left word-bank sidebar-right'
+    'sidebar-left footer sidebar-right'
+    'feedback feedback feedback';
 }
 
 header {
@@ -44,11 +47,15 @@ header {
   border-radius: 20px;
   background-image: linear-gradient(to right, lightgray 0%, lightgray 100%);
 }
-  
+
 #progress-bar::-moz-progress-bar {
-  background-image: linear-gradient(to right, rgb(0, 226, 0) 0%, rgb(0, 226, 0) 100%);
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 226, 0) 0%,
+    rgb(0, 226, 0) 100%
+  );
 }
-  
+
 #progress-bar.complete {
   background-image: linear-gradient(to right, lightgreen 0%, lightgreen 100%);
 }
@@ -59,7 +66,11 @@ header {
 }
 
 #progress-bar::-webkit-progress-value {
-  background-image: linear-gradient(to right, rgb(0, 226, 0) 0%, rgb(0, 226, 0) 100%);
+  background-image: linear-gradient(
+    to right,
+    rgb(0, 226, 0) 0%,
+    rgb(0, 226, 0) 100%
+  );
   border-radius: 20px;
 }
 
@@ -88,7 +99,7 @@ header {
   flex-wrap: wrap;
   padding: 10px 0;
   overflow: auto;
-  }
+}
 
 #word-bank {
   grid-area: word-bank;
@@ -99,7 +110,6 @@ header {
   margin-bottom: 10px;
   margin-top: 10px;
   overflow: auto;
-  
 }
 
 .title {
@@ -131,6 +141,10 @@ nav img {
   grid-area: verse;
 }
 
+#feedback {
+  grid-area: feedback;
+  margin: 20px;
+}
 
 #footer {
   grid-area: footer;
@@ -140,7 +154,8 @@ nav img {
   z-index: 9999;
 }
 
-#input-box, #keyboard-input {
+#input-box,
+#keyboard-input {
   border-radius: 12px;
   font-size: 16px;
   padding: 8px;
@@ -224,12 +239,14 @@ nav img {
   .grid-container {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "header"
-      "drop-area"
-      "word-bank"
-      "footer"
+      'header'
+      'drop-area'
+      'word-bank'
+      'footer';
   }
-  .sidebar-left, .sidebar-right, .side-bottom {
+  .sidebar-left,
+  .sidebar-right,
+  .side-bottom {
     display: none;
   }
 }

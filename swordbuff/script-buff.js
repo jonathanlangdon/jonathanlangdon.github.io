@@ -82,7 +82,7 @@ const buttonLabels = []
 let wordButtonsEnabled = true
 const resetButton = document.querySelector('#reset')
 const checkArea = document.querySelector('#check-button-container')
-const checkResultsContainer = document.querySelector('#check-results')
+const checkResultsContainer = document.querySelector('#feedback')
 const newButton = document.createElement('button')
 let verseContainer = document.getElementById('verse')
 let verseArray = shuffle(verseString.split(' '))
@@ -128,9 +128,6 @@ function listenKeyboard() {
   document.addEventListener('DOMContentLoaded', function () {
     const inputBox = document.getElementById('keyboard-input')
     const wordBankContainer = document.getElementById('word-bank')
-    document.addEventListener('keydown', function () {
-      inputBox.focus()
-    })
     inputBox.addEventListener('keydown', function (event) {
       if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault()
@@ -240,12 +237,6 @@ resetButton.addEventListener('click', () => {
     newButton.id = 'check'
     checkArea.appendChild(newButton)
   }
-  const inputBox = document.createElement('input')
-  inputBox.type = 'text'
-  inputBox.id = 'keyboard-input'
-  inputBox.placeholder = 'Keyboard Input'
-  checkResultsContainer.appendChild(inputBox)
-  listenKeyboard()
 })
 
 document.addEventListener('click', event => {
@@ -287,11 +278,6 @@ document.addEventListener('click', event => {
     newButton.textContent = 'CHECK'
     newButton.id = 'check'
     checkArea.appendChild(newButton)
-    const inputBox = document.createElement('input')
-    inputBox.type = 'text'
-    inputBox.id = 'keyboard-input'
-    inputBox.placeholder = 'Keyboard Input'
-    checkResultsContainer.appendChild(inputBox)
     progressBar.value += 1
     listenKeyboard()
   }
