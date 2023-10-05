@@ -214,14 +214,13 @@ createWordButtons(verseArray)
 const headerHeight = document.querySelector('header').offsetHeight
 const footerHeight = document.getElementById('footer').offsetHeight
 const windowHeight = window.innerHeight
-const setWordBankHeight = (windowHeight - headerHeight - footerHeight - 36) / 2
-console.log(parseInt(wordBankContainer.style.height))
-if (parseInt(wordBankContainer.style.height) < 236) {
+const setWordBankHeight = (windowHeight - headerHeight - footerHeight - 85) / 2
+if (window.innerWidth > 800) {
+  wordBankContainer.style.height = '250px'
+  dropAreaContainer.style.height = '250px'
+} else {
   wordBankContainer.style.height = `${setWordBankHeight}px`
   dropAreaContainer.style.height = `${setWordBankHeight}px`
-} else {
-  wordBankContainer.style.height = '236px'
-  dropAreaContainer.style.height = '236px'
 }
 
 function nextOrDone() {
