@@ -259,9 +259,9 @@ nav img {
   }
 }
 
-@media (max-width: 415px) {
+@media (max-width: 480px) {
   button {
     font-size: 12px;
-    padding: 5px;
+    padding: 4px;
   }
 }

@@ -35,6 +35,7 @@ const data = {
   ]
 }
 
+// put verses into array ready for DOM
 let verses = []
 data.verses.forEach(function (verseData) {
   const text = verseData.text
@@ -55,16 +56,15 @@ data.verses.forEach(function (verseData) {
     verses.push(verseData)
   }
 })
+
 const numVerses = Object.keys(verses).length
 let verseIndex = 0
 let currentVerse = verses[0]
-let verseString = currentVerse.text
-verseString = verseString.replace(/^\d+:\s*/, '')
+let verseString = currentVerse.text.replace(/^\d+:\s*/, '')
 const progressBar = document.getElementById('progress-bar')
 const wordBankContainer = document.getElementById('word-bank')
 const dropAreaContainer = document.getElementById('drop-area')
 const dropLineContainer = document.getElementById('drop-line')
-const buttonLabels = []
 let wordButtonsEnabled = true
 const resetButton = document.querySelector('#reset')
 const checkArea = document.querySelector('#check-button-container')
@@ -75,7 +75,9 @@ let verseArray = shuffle(verseString.split(' '))
 let originalVerseArray = verseString.split(' ')
 
 progressBar.max = numVerses
-verseContainer.textContent =
+
+// Put current verse in header
+verseContainer.innerText =
   currentVerse.book +
   ' ' +
   currentVerse.chapter +
@@ -97,6 +99,7 @@ function shuffle(array) {
 }
 
 function createWordButtons(whichArray) {
+  const buttonLabels = []
   const fragment = document.createDocumentFragment()
   whichArray.forEach(word => {
     const button = document.createElement('button')
@@ -130,43 +133,80 @@ function resetWordsInContainer(containerName) {
   }
 }
 
-function checkUserInput() {
+function getSelectedWords(dropLineContainer) {
   const selectedWordsButtons = Array.from(
     dropLineContainer.querySelectorAll('button')
   )
-  const selectedWords = selectedWordsButtons.map(button =>
+  return selectedWordsButtons.map(button =>
     button.dataset.word.replace(/[^\w\s]/gi, '').toLowerCase()
   )
-  const correctVerseArray = verseString
+}
+
+function getCorrectVerseWords(verseString) {
+  return verseString
     .replace(/[^\w\s]/gi, '')
     .toLowerCase()
     .split(' ')
+}
+
+function updateButtonClasses(button, isSelectedWordCorrect) {
+  if (isSelectedWordCorrect) {
+    button.classList.add('correct')
+    button.classList.remove('incorrect')
+  } else {
+    button.classList.add('incorrect')
+    button.classList.remove('correct')
+  }
+}
+
+function compareWordsAndUpdateButtons(
+  selectedWordsButtons,
+  selectedWords,
+  correctVerseArray
+) {
   selectedWordsButtons.forEach((button, i) => {
-    const selectedWord = selectedWords[i]
-    const correctVerseWord = correctVerseArray[i]
-    if (selectedWord === correctVerseWord) {
-      button.classList.add('correct')
-      button.classList.remove('incorrect')
-    } else {
-      button.classList.add('incorrect')
-      button.classList.remove('correct')
-    }
+    const isSelectedWordCorrect = selectedWords[i] === correctVerseArray[i]
+    updateButtonClasses(button, isSelectedWordCorrect)
   })
-  resetWordsInContainer(wordBankContainer)
-  createWordButtons(originalVerseArray)
+}
+
+function getPercentageCorrect(selectedWords, correctVerseArray) {
   const wordsGood = selectedWords.reduce(
     (acc, word, i) => acc + (correctVerseArray[i] === word ? 1 : 0),
     0
   )
-  const totalWords = verseArray.length
-  const percentageCorrect = Math.round((wordsGood / totalWords) * 100)
-  let resultText
+  const totalWords = correctVerseArray.length
+  return Math.round((wordsGood / totalWords) * 100)
+}
+
+function getResultText(percentageCorrect) {
   if (percentageCorrect >= 60) {
-    resultText = `Great work! You got ${percentageCorrect}% correct!`
-  } else {
-    resultText = `Good effort! You got ${percentageCorrect}% correct. Want to try it again?`
+    return `Great work! You got ${percentageCorrect}% correct!`
   }
-  checkResultsContainer.textContent = resultText
+  return `You got ${percentageCorrect}% correct. Want to try it again?`
+}
+
+function checkUserInput() {
+  const selectedWordsButtons = Array.from(
+    dropLineContainer.querySelectorAll('button')
+  )
+  const selectedWords = getSelectedWords(dropLineContainer)
+  const correctVerseArray = getCorrectVerseWords(verseString)
+
+  compareWordsAndUpdateButtons(
+    selectedWordsButtons,
+    selectedWords,
+    correctVerseArray
+  )
+
+  resetWordsInContainer(wordBankContainer)
+  createWordButtons(originalVerseArray)
+
+  const percentageCorrect = getPercentageCorrect(
+    selectedWords,
+    correctVerseArray
+  )
+  checkResultsContainer.textContent = getResultText(percentageCorrect)
 }
 
 createWordButtons(verseArray)
@@ -175,6 +215,7 @@ const headerHeight = document.querySelector('header').offsetHeight
 const footerHeight = document.getElementById('footer').offsetHeight
 const windowHeight = window.innerHeight
 const setWordBankHeight = (windowHeight - headerHeight - footerHeight - 36) / 2
+console.log(parseInt(wordBankContainer.style.height))
 if (parseInt(wordBankContainer.style.height) < 236) {
   wordBankContainer.style.height = `${setWordBankHeight}px`
   dropAreaContainer.style.height = `${setWordBankHeight}px`
