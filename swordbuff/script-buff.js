@@ -209,18 +209,19 @@ function checkUserInput() {
   checkResultsContainer.textContent = getResultText(percentageCorrect)
 }
 
-createWordButtons(verseArray)
-
-const headerHeight = document.querySelector('header').offsetHeight
-const footerHeight = document.getElementById('footer').offsetHeight
-const windowHeight = window.innerHeight
-const setWordBankHeight = (windowHeight - headerHeight - footerHeight - 85) / 2
-if (window.innerWidth > 800) {
-  wordBankContainer.style.height = '250px'
-  dropAreaContainer.style.height = '250px'
-} else {
-  wordBankContainer.style.height = `${setWordBankHeight}px`
-  dropAreaContainer.style.height = `${setWordBankHeight}px`
+function setIdealHeight() {
+  const headerHeight = document.querySelector('header').offsetHeight
+  const footerHeight = document.getElementById('footer').offsetHeight
+  const windowHeight = window.innerHeight
+  const setWordBankHeight =
+    (windowHeight - headerHeight - footerHeight - 85) / 2
+  if (window.innerWidth > 800) {
+    wordBankContainer.style.height = '200px'
+    dropAreaContainer.style.height = '200px'
+  } else {
+    wordBankContainer.style.height = `${setWordBankHeight}px`
+    dropAreaContainer.style.height = `${setWordBankHeight}px`
+  }
 }
 
 function nextOrDone() {
@@ -237,25 +238,6 @@ function nextOrDone() {
     })
   }
 }
-
-resetButton.addEventListener('click', () => {
-  wordButtonsEnabled = true
-  resetWordsInContainer(wordBankContainer)
-  resetWordsInContainer(dropLineContainer)
-  resetWordsInContainer(checkResultsContainer)
-  verseArray = shuffle(verseString.split(' '))
-  createWordButtons(verseArray)
-  const nextButton = document.querySelector('#next-button')
-  if (nextButton) {
-    nextButton.remove()
-  }
-  const checkButton = document.querySelector('#check')
-  if (!checkButton) {
-    newButton.textContent = 'CHECK'
-    newButton.id = 'check'
-    checkArea.appendChild(newButton)
-  }
-})
 
 function listenKeyboard() {
   document.addEventListener('DOMContentLoaded', function () {
@@ -283,8 +265,6 @@ function listenKeyboard() {
     })
   })
 }
-
-listenKeyboard()
 
 document.addEventListener('click', event => {
   if (event.target && event.target.id === 'check') {
@@ -317,3 +297,26 @@ document.addEventListener('click', event => {
     progressBar.value += 1
   }
 })
+
+resetButton.addEventListener('click', () => {
+  wordButtonsEnabled = true
+  resetWordsInContainer(wordBankContainer)
+  resetWordsInContainer(dropLineContainer)
+  resetWordsInContainer(checkResultsContainer)
+  verseArray = shuffle(verseString.split(' '))
+  createWordButtons(verseArray)
+  const nextButton = document.querySelector('#next-button')
+  if (nextButton) {
+    nextButton.remove()
+  }
+  const checkButton = document.querySelector('#check')
+  if (!checkButton) {
+    newButton.textContent = 'CHECK'
+    newButton.id = 'check'
+    checkArea.appendChild(newButton)
+  }
+})
+
+createWordButtons(verseArray)
+setIdealHeight()
+listenKeyboard()
