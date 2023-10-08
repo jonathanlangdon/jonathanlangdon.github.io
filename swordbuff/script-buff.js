@@ -1,6 +1,7 @@
-// Initially I setup website with a MySQL server to test it out... but for the purposes of demonstration, I'm replacing the SQL database with a simple object
+// Initially this was set up on a website with a MySQL server... but for the purposes of demonstration, I'm replacing the SQL database with a simple object
 
 // $.get('http://192.168.3.11:5000/random-verse', function (data) {
+
 // The sample object to store your verses
 const data = {
   verses: [
@@ -37,7 +38,28 @@ const data = {
 
 // put verses into array ready for DOM
 let verses = []
-data.verses.forEach(function (verseData) {
+data.verses.forEach(verseData => versesIntoArray(verseData))
+
+const numVerses = Object.keys(verses).length
+const progressBar = document.getElementById('progress-bar')
+const wordBankContainer = document.getElementById('word-bank')
+const dropAreaContainer = document.getElementById('drop-area')
+const dropLineContainer = document.getElementById('drop-line')
+const resetButton = document.querySelector('#reset')
+const checkArea = document.querySelector('#check-button-container')
+const checkResultsContainer = document.querySelector('#feedback')
+const newButton = document.createElement('button')
+let verseIndex = 0
+let currentVerse = verses[0]
+let verseString = currentVerse.text.replace(/^\d+:\s*/, '')
+let wordButtonsEnabled = true
+let verseContainer = document.getElementById('verse')
+let verseArray = shuffle(verseString.split(' '))
+let originalVerseArray = verseString.split(' ')
+
+progressBar.max = numVerses
+
+function versesIntoArray(verseData) {
   const text = verseData.text
   const match = text.match(/(\d+):(.+?)(?=\s\d|"$)/g)
   if (match) {
@@ -55,34 +77,7 @@ data.verses.forEach(function (verseData) {
   } else {
     verses.push(verseData)
   }
-})
-
-const numVerses = Object.keys(verses).length
-let verseIndex = 0
-let currentVerse = verses[0]
-let verseString = currentVerse.text.replace(/^\d+:\s*/, '')
-const progressBar = document.getElementById('progress-bar')
-const wordBankContainer = document.getElementById('word-bank')
-const dropAreaContainer = document.getElementById('drop-area')
-const dropLineContainer = document.getElementById('drop-line')
-let wordButtonsEnabled = true
-const resetButton = document.querySelector('#reset')
-const checkArea = document.querySelector('#check-button-container')
-const checkResultsContainer = document.querySelector('#feedback')
-const newButton = document.createElement('button')
-let verseContainer = document.getElementById('verse')
-let verseArray = shuffle(verseString.split(' '))
-let originalVerseArray = verseString.split(' ')
-
-progressBar.max = numVerses
-
-// Put current verse in header
-verseContainer.innerText =
-  currentVerse.book +
-  ' ' +
-  currentVerse.chapter +
-  ':' +
-  currentVerse.verse_start
+}
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -134,9 +129,8 @@ function resetWordsInContainer(containerName) {
 }
 
 function getSelectedWords(dropLineContainer) {
-  const selectedWordsButtons = Array.from(
-    dropLineContainer.querySelectorAll('button')
-  )
+  const dropLineButtons = dropLineContainer.querySelectorAll('button')
+  const selectedWordsButtons = Array.from(dropLineButtons)
   return selectedWordsButtons.map(button =>
     button.dataset.word.replace(/[^\w\s]/gi, '').toLowerCase()
   )
@@ -162,20 +156,20 @@ function updateButtonClasses(button, isSelectedWordCorrect) {
 function compareWordsAndUpdateButtons(
   selectedWordsButtons,
   selectedWords,
-  correctVerseArray
+  correctVerse
 ) {
   selectedWordsButtons.forEach((button, i) => {
-    const isSelectedWordCorrect = selectedWords[i] === correctVerseArray[i]
+    const isSelectedWordCorrect = selectedWords[i] === correctVerse[i]
     updateButtonClasses(button, isSelectedWordCorrect)
   })
 }
 
-function getPercentageCorrect(selectedWords, correctVerseArray) {
+function getPercentageCorrect(selectedWords, correctVerse) {
   const wordsGood = selectedWords.reduce(
-    (acc, word, i) => acc + (correctVerseArray[i] === word ? 1 : 0),
+    (acc, word, i) => acc + (correctVerse[i] === word ? 1 : 0),
     0
   )
-  const totalWords = correctVerseArray.length
+  const totalWords = correctVerse.length
   return Math.round((wordsGood / totalWords) * 100)
 }
 
@@ -184,29 +178,6 @@ function getResultText(percentageCorrect) {
     return `Great work! You got ${percentageCorrect}% correct!`
   }
   return `You got ${percentageCorrect}% correct. Want to try it again?`
-}
-
-function checkUserInput() {
-  const selectedWordsButtons = Array.from(
-    dropLineContainer.querySelectorAll('button')
-  )
-  const selectedWords = getSelectedWords(dropLineContainer)
-  const correctVerseArray = getCorrectVerseWords(verseString)
-
-  compareWordsAndUpdateButtons(
-    selectedWordsButtons,
-    selectedWords,
-    correctVerseArray
-  )
-
-  resetWordsInContainer(wordBankContainer)
-  createWordButtons(originalVerseArray)
-
-  const percentageCorrect = getPercentageCorrect(
-    selectedWords,
-    correctVerseArray
-  )
-  checkResultsContainer.textContent = getResultText(percentageCorrect)
 }
 
 function setIdealHeight() {
@@ -266,39 +237,46 @@ function listenKeyboard() {
   })
 }
 
-document.addEventListener('click', event => {
-  if (event.target && event.target.id === 'check') {
-    wordButtonsEnabled = false
-    checkUserInput()
-    const checkButton = document.querySelector('#check')
-    checkButton.remove()
-    nextOrDone()
-  } else if (event.target && event.target.id === 'next-button') {
-    verseString = verses[(verseIndex += 1)].text
-    verseContainer.textContent =
-      verses[verseIndex].book +
-      ' ' +
-      verses[verseIndex].chapter +
-      ':' +
-      verses[verseIndex].verse_start
-    verseString = verseString.replace(/^\d+:\s*/, '')
-    wordButtonsEnabled = true
-    resetWordsInContainer(wordBankContainer)
-    resetWordsInContainer(dropLineContainer)
-    resetWordsInContainer(checkResultsContainer)
-    verseArray = shuffle(verseString.split(' '))
-    originalVerseArray = verseString.split(' ')
-    createWordButtons(verseArray)
-    const nextButton = document.querySelector('#next-button')
-    nextButton.remove()
-    newButton.textContent = 'CHECK'
-    newButton.id = 'check'
-    checkArea.appendChild(newButton)
-    progressBar.value += 1
-  }
-})
+function putVerseInHeader(verseIndex) {
+  currentVerse = verses[verseIndex]
+  verseContainer.innerText =
+    currentVerse.book +
+    ' ' +
+    currentVerse.chapter +
+    ':' +
+    currentVerse.verse_start
+}
 
-resetButton.addEventListener('click', () => {
+function setupNewVerse() {
+  verseString = verses[(verseIndex += 1)].text
+  putVerseInHeader(verseIndex)
+  verseString = verseString.replace(/^\d+:\s*/, '')
+  originalVerseArray = verseString.split(' ')
+  progressBar.value += 1
+  resetVerseContainers()
+}
+
+function checkUserInput() {
+  wordButtonsEnabled = false
+  const droplineButtons = dropLineContainer.querySelectorAll('button')
+  const selectedWordsButtons = Array.from(droplineButtons)
+  const selectedWords = getSelectedWords(dropLineContainer)
+  const correctVerse = getCorrectVerseWords(verseString)
+  compareWordsAndUpdateButtons(
+    selectedWordsButtons,
+    selectedWords,
+    correctVerse
+  )
+  resetWordsInContainer(wordBankContainer)
+  createWordButtons(originalVerseArray)
+  const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse)
+  checkResultsContainer.textContent = getResultText(percentageCorrect)
+  const checkButton = document.querySelector('#check')
+  checkButton.remove()
+  nextOrDone()
+}
+
+function resetVerseContainers() {
   wordButtonsEnabled = true
   resetWordsInContainer(wordBankContainer)
   resetWordsInContainer(dropLineContainer)
@@ -315,8 +293,17 @@ resetButton.addEventListener('click', () => {
     newButton.id = 'check'
     checkArea.appendChild(newButton)
   }
+}
+
+resetButton.addEventListener('click', resetVerseContainers)
+
+// Handle check & next button events
+document.addEventListener('click', event => {
+  if (event.target && event.target.id === 'check') checkUserInput()
+  else if (event.target && event.target.id === 'next-button') setupNewVerse()
 })
 
+putVerseInHeader(verseIndex)
 createWordButtons(verseArray)
 setIdealHeight()
 listenKeyboard()
