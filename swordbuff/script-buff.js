@@ -88,14 +88,11 @@ function shuffle(array) {
 
 function createWordButtons(whichArray) {
   const fragment = document.createDocumentFragment()
-
   whichArray.forEach(word => {
     const button = createButtonForWord(word)
     fragment.appendChild(button)
   })
-
   wordBankContainer.appendChild(fragment)
-  addWordButtonListeners()
 }
 
 function createButtonForWord(word) {
@@ -107,21 +104,16 @@ function createButtonForWord(word) {
   return button
 }
 
-function addWordButtonListeners() {
-  const wordButtons = document.querySelectorAll('.word-button')
+function moveWordsUp(e) {
+  if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
+    dropLineContainer.appendChild(e.target)
+  }
+}
 
-  wordButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      if (button.parentNode === wordBankContainer && wordButtonsEnabled) {
-        dropLineContainer.appendChild(button)
-      } else if (
-        button.parentNode === dropLineContainer &&
-        wordButtonsEnabled
-      ) {
-        wordBankContainer.appendChild(button)
-      }
-    })
-  })
+function moveWordsDown(e) {
+  if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
+    wordBankContainer.appendChild(e.target)
+  }
 }
 
 function resetWordsInContainer(containerName) {
@@ -265,6 +257,8 @@ function checkUserInput() {
   )
   resetWordsInContainer(wordBankContainer)
   createWordButtons(originalVerseArray)
+  correctButtons = [...wordBankContainer.children]
+  correctButtons.forEach(x => x.classList.add('correct'))
   const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse)
   checkResultsContainer.textContent = getResultText(percentageCorrect)
   document.getElementById('check').remove()
@@ -297,6 +291,9 @@ function init() {
   originalVerseArray = verseString.split(' ')
   numVerses = Object.keys(verses).length
   progressBar.max = numVerses
+
+  wordBankContainer.addEventListener('click', moveWordsUp)
+  dropLineContainer.addEventListener('click', moveWordsDown)
 
   const resetButton = document.getElementById('reset')
   resetButton.addEventListener('click', resetVerseContainers)
