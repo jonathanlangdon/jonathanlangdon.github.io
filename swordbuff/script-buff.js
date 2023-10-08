@@ -36,26 +36,21 @@ const data = {
   ]
 }
 
-// put verses into array ready for DOM
-
 const progressBar = document.getElementById('progress-bar')
+const checkArea = document.getElementById('check-button-container')
+const inputBox = document.getElementById('keyboard-input')
 const wordBankContainer = document.getElementById('word-bank')
-const dropAreaContainer = document.getElementById('drop-area')
 const dropLineContainer = document.getElementById('drop-line')
-const resetButton = document.querySelector('#reset')
-const checkArea = document.querySelector('#check-button-container')
-const checkResultsContainer = document.querySelector('#feedback')
+const checkResultsContainer = document.getElementById('feedback')
 const newButton = document.createElement('button')
+
 let verses = []
 let numVerses = 0
 let verseIndex = 0
-let currentVerse = verses[0]
-data.verses.forEach(verseData => versesIntoArray(verseData))
-let verseString = currentVerse.text.replace(/^\d+:\s*/, '')
 let wordButtonsEnabled = true
-let verseContainer = document.getElementById('verse')
-let verseArray = shuffle(verseString.split(' '))
-let originalVerseArray = verseString.split(' ')
+let currentVerse
+let verseString
+let originalVerseArray
 
 function versesIntoArray(verseData) {
   const text = verseData.text
@@ -188,6 +183,7 @@ function getResultText(percentageCorrect) {
 }
 
 function setIdealHeight() {
+  const dropAreaContainer = document.getElementById('drop-area')
   const headerHeight = document.querySelector('header').offsetHeight
   const footerHeight = document.getElementById('footer').offsetHeight
   const windowHeight = window.innerHeight
@@ -217,34 +213,27 @@ function nextOrDone() {
   }
 }
 
-function listenKeyboard() {
-  document.addEventListener('DOMContentLoaded', function () {
-    const inputBox = document.getElementById('keyboard-input')
-    const wordBankContainer = document.getElementById('word-bank')
-    inputBox.addEventListener('keydown', function (event) {
-      if (event.key === ' ' || event.key === 'Enter') {
-        event.preventDefault()
-        let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase()
-        inputBox.value = ''
-        let bankWordButtons = Array.from(
-          wordBankContainer.querySelectorAll('button')
-        )
-        bankWordButtons.some(button => {
-          let buttonWord = button.textContent
-            .replace(/[^\w\s]/gi, '')
-            .toLowerCase()
-          if (keyboardWord === buttonWord) {
-            button.click()
-            return true // Stop the loop when the first match is found
-          }
-          return false // Continue the loop
-        })
+function keyboardMoveWords(e) {
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault()
+    let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase()
+    inputBox.value = ''
+    let bankWordButtons = Array.from(
+      wordBankContainer.querySelectorAll('button')
+    )
+    bankWordButtons.some(button => {
+      let buttonWord = button.textContent.replace(/[^\w\s]/gi, '').toLowerCase()
+      if (keyboardWord === buttonWord) {
+        button.click()
+        return true // Stop the loop when the first match is found
       }
+      return false // Continue the loop
     })
-  })
+  }
 }
 
 function putVerseInHeader(verseIndex) {
+  const verseContainer = document.getElementById('verse')
   currentVerse = verses[verseIndex]
   verseContainer.innerText =
     currentVerse.book +
@@ -278,8 +267,7 @@ function checkUserInput() {
   createWordButtons(originalVerseArray)
   const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse)
   checkResultsContainer.textContent = getResultText(percentageCorrect)
-  const checkButton = document.querySelector('#check')
-  checkButton.remove()
+  document.getElementById('check').remove()
   nextOrDone()
 }
 
@@ -290,11 +278,11 @@ function resetVerseContainers() {
   resetWordsInContainer(checkResultsContainer)
   verseArray = shuffle(verseString.split(' '))
   createWordButtons(verseArray)
-  const nextButton = document.querySelector('#next-button')
+  const nextButton = document.getElementById('next-button')
   if (nextButton) {
     nextButton.remove()
   }
-  const checkButton = document.querySelector('#check')
+  const checkButton = document.getElementById('check')
   if (!checkButton) {
     newButton.textContent = 'CHECK'
     newButton.id = 'check'
@@ -303,6 +291,14 @@ function resetVerseContainers() {
 }
 
 function init() {
+  data.verses.forEach(verseData => versesIntoArray(verseData))
+  currentVerse = verses[verseIndex]
+  verseString = currentVerse.text.replace(/^\d+:\s*/, '')
+  originalVerseArray = verseString.split(' ')
+  numVerses = Object.keys(verses).length
+  progressBar.max = numVerses
+
+  const resetButton = document.getElementById('reset')
   resetButton.addEventListener('click', resetVerseContainers)
 
   // Handle check & next button events
@@ -312,11 +308,9 @@ function init() {
   })
 
   putVerseInHeader(verseIndex)
-  createWordButtons(verseArray)
-  numVerses = Object.keys(verses).length
-  progressBar.max = numVerses
+  resetVerseContainers()
   setIdealHeight()
-  listenKeyboard()
+  inputBox.addEventListener('keydown', keyboardMoveWords)
 }
 
 init()
