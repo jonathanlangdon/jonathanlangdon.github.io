@@ -51,8 +51,8 @@ const languages = [
     src: 'images/java.png',
     alt: 'Java',
     id: 'java',
-    desc: `<h5 class="text-white">Source of Learning:</h5>
-<p class="text-white">- Georgia Tech's Introduction to Object-Oriented Programming with Java on EdX</p>
+    desc: `<h5 class="text-white">Sources of Learning:</h5>
+<p class="text-white">- Georgia Tech's Introduction to Object-Oriented Programming with Java on EdX<br>- SoloLearn Courses</p>
 <h5 class="text-white">Used in:</h5>
 <p class="text-white">- Some in-class projects on Georgia Tech’s MOOC</p>
 <h5 class="text-white">Planned Further Learning:</h5>
