@@ -40,7 +40,7 @@ const progressBar = document.getElementById('progress-bar')
 const checkArea = document.getElementById('check-button-container')
 const inputBox = document.getElementById('keyboard-input')
 const wordBankContainer = document.getElementById('word-bank')
-const dropLineContainer = document.getElementById('drop-line')
+const answersContainer = document.getElementById('drop-line')
 const checkResultsContainer = document.getElementById('feedback')
 const newButton = document.createElement('button')
 
@@ -106,7 +106,7 @@ function createButtonForWord(word) {
 
 function moveWordsUp(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
-    dropLineContainer.appendChild(e.target)
+    answersContainer.appendChild(e.target)
   }
 }
 
@@ -122,8 +122,8 @@ function resetWordsInContainer(containerName) {
   }
 }
 
-function getSelectedWords(dropLineContainer) {
-  const dropLineButtons = dropLineContainer.querySelectorAll('button')
+function getSelectedWords(answersContainer) {
+  const dropLineButtons = answersContainer.querySelectorAll('button')
   const selectedWordsButtons = Array.from(dropLineButtons)
   return selectedWordsButtons.map(button =>
     button.dataset.word.replace(/[^\w\s]/gi, '').toLowerCase()
@@ -175,7 +175,7 @@ function getResultText(percentageCorrect) {
 }
 
 function setIdealHeight() {
-  const dropAreaContainer = document.getElementById('drop-area')
+  const answerContainer = document.getElementById('drop-area')
   const headerHeight = document.querySelector('header').offsetHeight
   const footerHeight = document.getElementById('footer').offsetHeight
   const windowHeight = window.innerHeight
@@ -183,10 +183,10 @@ function setIdealHeight() {
     (windowHeight - headerHeight - footerHeight - 85) / 2
   if (window.innerWidth > 800) {
     wordBankContainer.style.height = '200px'
-    dropAreaContainer.style.height = '200px'
+    answerContainer.style.height = '250px'
   } else {
     wordBankContainer.style.height = `${setWordBankHeight}px`
-    dropAreaContainer.style.height = `${setWordBankHeight}px`
+    answerContainer.style.height = `${setWordBankHeight}px`
   }
 }
 
@@ -213,6 +213,7 @@ function keyboardMoveWords(e) {
     let bankWordButtons = Array.from(
       wordBankContainer.querySelectorAll('button')
     )
+    if (bankWordButtons.length === 0) checkUserInput()
     bankWordButtons.some(button => {
       let buttonWord = button.textContent.replace(/[^\w\s]/gi, '').toLowerCase()
       if (keyboardWord === buttonWord) {
@@ -246,9 +247,9 @@ function setupNewVerse() {
 
 function checkUserInput() {
   wordButtonsEnabled = false
-  const droplineButtons = dropLineContainer.querySelectorAll('button')
+  const droplineButtons = answersContainer.querySelectorAll('button')
   const selectedWordsButtons = Array.from(droplineButtons)
-  const selectedWords = getSelectedWords(dropLineContainer)
+  const selectedWords = getSelectedWords(answersContainer)
   const correctVerse = getCorrectVerseWords(verseString)
   compareWordsAndUpdateButtons(
     selectedWordsButtons,
@@ -268,7 +269,7 @@ function checkUserInput() {
 function resetVerseContainers() {
   wordButtonsEnabled = true
   resetWordsInContainer(wordBankContainer)
-  resetWordsInContainer(dropLineContainer)
+  resetWordsInContainer(answersContainer)
   resetWordsInContainer(checkResultsContainer)
   verseArray = shuffle(verseString.split(' '))
   createWordButtons(verseArray)
@@ -284,6 +285,15 @@ function resetVerseContainers() {
   }
 }
 
+function focusKeyboard(e) {
+  const active = document.activeElement.id
+  const enterKey = e.key === 'Enter' || e.keyCode === 13
+
+  if (!enterKey && active !== inputBox) {
+    inputBox.focus()
+  }
+}
+
 function init() {
   data.verses.forEach(verseData => versesIntoArray(verseData))
   currentVerse = verses[verseIndex]
@@ -293,7 +303,7 @@ function init() {
   progressBar.max = numVerses
 
   wordBankContainer.addEventListener('click', moveWordsUp)
-  dropLineContainer.addEventListener('click', moveWordsDown)
+  answersContainer.addEventListener('click', moveWordsDown)
 
   const resetButton = document.getElementById('reset')
   resetButton.addEventListener('click', resetVerseContainers)
@@ -302,6 +312,8 @@ function init() {
     if (event.target && event.target.id === 'check') checkUserInput()
     else if (event.target && event.target.id === 'next-button') setupNewVerse()
   })
+
+  document.addEventListener('keydown', focusKeyboard)
 
   putVerseInHeader(verseIndex)
   resetVerseContainers()
