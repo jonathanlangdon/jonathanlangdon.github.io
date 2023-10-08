@@ -37,10 +37,7 @@ const data = {
 }
 
 // put verses into array ready for DOM
-let verses = []
-data.verses.forEach(verseData => versesIntoArray(verseData))
 
-const numVerses = Object.keys(verses).length
 const progressBar = document.getElementById('progress-bar')
 const wordBankContainer = document.getElementById('word-bank')
 const dropAreaContainer = document.getElementById('drop-area')
@@ -49,15 +46,16 @@ const resetButton = document.querySelector('#reset')
 const checkArea = document.querySelector('#check-button-container')
 const checkResultsContainer = document.querySelector('#feedback')
 const newButton = document.createElement('button')
+let verses = []
+let numVerses = 0
 let verseIndex = 0
 let currentVerse = verses[0]
+data.verses.forEach(verseData => versesIntoArray(verseData))
 let verseString = currentVerse.text.replace(/^\d+:\s*/, '')
 let wordButtonsEnabled = true
 let verseContainer = document.getElementById('verse')
 let verseArray = shuffle(verseString.split(' '))
 let originalVerseArray = verseString.split(' ')
-
-progressBar.max = numVerses
 
 function versesIntoArray(verseData) {
   const text = verseData.text
@@ -94,20 +92,29 @@ function shuffle(array) {
 }
 
 function createWordButtons(whichArray) {
-  const buttonLabels = []
   const fragment = document.createDocumentFragment()
+
   whichArray.forEach(word => {
-    const button = document.createElement('button')
-    button.textContent = word
-    button.id = `button-${buttonLabels.length}`
-    button.classList.add('word-button')
-    button.dataset.word = word
-    buttonLabels.push(word)
-    wordBankContainer.appendChild(button)
+    const button = createButtonForWord(word)
     fragment.appendChild(button)
   })
+
   wordBankContainer.appendChild(fragment)
+  addWordButtonListeners()
+}
+
+function createButtonForWord(word) {
+  const button = document.createElement('button')
+  button.textContent = word
+  button.id = `button-${word}`
+  button.classList.add('word-button')
+  button.dataset.word = word
+  return button
+}
+
+function addWordButtonListeners() {
   const wordButtons = document.querySelectorAll('.word-button')
+
   wordButtons.forEach(button => {
     button.addEventListener('click', () => {
       if (button.parentNode === wordBankContainer && wordButtonsEnabled) {
@@ -295,15 +302,21 @@ function resetVerseContainers() {
   }
 }
 
-resetButton.addEventListener('click', resetVerseContainers)
+function init() {
+  resetButton.addEventListener('click', resetVerseContainers)
 
-// Handle check & next button events
-document.addEventListener('click', event => {
-  if (event.target && event.target.id === 'check') checkUserInput()
-  else if (event.target && event.target.id === 'next-button') setupNewVerse()
-})
+  // Handle check & next button events
+  document.addEventListener('click', event => {
+    if (event.target && event.target.id === 'check') checkUserInput()
+    else if (event.target && event.target.id === 'next-button') setupNewVerse()
+  })
 
-putVerseInHeader(verseIndex)
-createWordButtons(verseArray)
-setIdealHeight()
-listenKeyboard()
+  putVerseInHeader(verseIndex)
+  createWordButtons(verseArray)
+  numVerses = Object.keys(verses).length
+  progressBar.max = numVerses
+  setIdealHeight()
+  listenKeyboard()
+}
+
+init()
