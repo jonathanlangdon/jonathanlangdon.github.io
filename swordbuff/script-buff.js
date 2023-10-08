@@ -298,7 +298,6 @@ function init() {
   const resetButton = document.getElementById('reset')
   resetButton.addEventListener('click', resetVerseContainers)
 
-  // Handle check & next button events
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput()
     else if (event.target && event.target.id === 'next-button') setupNewVerse()
