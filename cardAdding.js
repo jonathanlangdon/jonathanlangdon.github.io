@@ -24,15 +24,13 @@ const languages = [
 `
   },
   {
-    src: 'images/bash.png',
-    alt: 'Bash',
-    id: 'bash',
+    src: 'images/csharp.png',
+    alt: 'C#',
+    id: 'C#',
     desc: `<h5 class="text-white">Learned through:</h5>
-<p class="text-white">-  On-the-job needs</p>
-<h5 class="text-white">Used in:</h5>
-<p class="text-white">-  Various projects at school</p>
+<p class="text-white">- Udemy<br>- SoloLearn</p>
 <h5 class="text-white">Planned Further Learning:</h5>
-<p class="text-white">-  Udemy Course</p>
+<p class="text-white">-  Udemy Courses<br>- freeCodeCamp</p>
 `
   },
   {
@@ -60,13 +58,15 @@ const languages = [
 `
   },
   {
-    src: 'images/bootstrap.png',
-    alt: 'Bootstrap',
-    id: 'bootstrap',
+    src: 'images/sql.png',
+    alt: 'SQL',
+    id: 'SQL',
     desc: `<h5 class="text-white">Sources of Learning:</h5>
-<p class="text-white">- ChatGPT - so I could use with portfolio</p>
+<p class="text-white">- Mimo<br>- SoloLearn<br>ChatGPT Challenges</p>
+<h5 class="text-white">Used in:</h5>
+<p class="text-white">- Memorization App</p>
 <h5 class="text-white">Planned Further Learning:</h5>
-<p class="text-white">- Udemy Course</p>
+<p class="text-white">- Udemy Courses<br>- freeCodeCamp</p>
 `
   }
 ]
