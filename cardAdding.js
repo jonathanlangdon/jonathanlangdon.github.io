@@ -25,8 +25,8 @@ const languages = [
   },
   {
     src: 'images/csharp.png',
-    alt: 'C#',
-    id: 'C#',
+    alt: 'CSharp',
+    id: 'CSharp',
     desc: `<h5 class="text-white">Learned through:</h5>
 <p class="text-white">- Udemy<br>- SoloLearn</p>
 <h5 class="text-white">Planned Further Learning:</h5>
@@ -52,7 +52,7 @@ const languages = [
     desc: `<h5 class="text-white">Sources of Learning:</h5>
 <p class="text-white">- Georgia Tech's Introduction to Object-Oriented Programming with Java on EdX<br>- SoloLearn Courses</p>
 <h5 class="text-white">Used in:</h5>
-<p class="text-white">- Some in-class projects on Georgia Tech’s MOOC</p>
+<p class="text-white">- In-class projects on Georgia Tech’s MOOC</p>
 <h5 class="text-white">Planned Further Learning:</h5>
 <p class="text-white">- Further exercises on EdX</p>
 `
@@ -62,7 +62,7 @@ const languages = [
     alt: 'SQL',
     id: 'SQL',
     desc: `<h5 class="text-white">Sources of Learning:</h5>
-<p class="text-white">- Mimo<br>- SoloLearn<br>ChatGPT Challenges</p>
+<p class="text-white">- Mimo<br>- SoloLearn<br>- ChatGPT Challenges</p>
 <h5 class="text-white">Used in:</h5>
 <p class="text-white">- Memorization App</p>
 <h5 class="text-white">Planned Further Learning:</h5>
@@ -191,7 +191,7 @@ const TrainingCards = [
     imgSource: 'images/sololearn.png',
     altText: 'SoloLearn Logo',
     cardTitle: '0',
-    cardText: 'Completed 12 introductory programming courses',
+    cardText: 'Completed introductory programming courses',
     buttonLink: 'training/#sololearn',
     cardButton: 'Completed Courses'
   },
@@ -200,7 +200,7 @@ const TrainingCards = [
     imgSource: 'images/mimo.png',
     altText: 'Mimo Logo',
     cardTitle: '0',
-    cardText: 'Completed 5 introductory courses in HTML, JS, SQL and Python',
+    cardText: 'Completed introductory courses in HTML, JS, SQL and Python',
     buttonLink: 'training/#mimo',
     cardButton: 'Completed Courses'
   },
@@ -209,7 +209,7 @@ const TrainingCards = [
     imgSource: 'images/udemy.png',
     altText: 'Udemy Logo',
     cardTitle: '0',
-    cardText: 'Completed 5 courses about GitHub, SEO, JS and more',
+    cardText: 'Completed courses about GitHub, SEO, JS and more',
     buttonLink: 'training/#udemy',
     cardButton: 'Completed Courses'
   },
