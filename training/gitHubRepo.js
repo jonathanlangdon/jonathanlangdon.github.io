@@ -25,5 +25,8 @@ fetchGitHubRepos()
     ).innerText = `Repository of ${challengeCount} challenges`
   })
   .catch(error => {
+    document.getElementById(
+      'chatGPTRepoCount'
+    ).innerText = `Repository of ChatGPT challenges`
     console.log('Error fetching GitHub data')
   })
