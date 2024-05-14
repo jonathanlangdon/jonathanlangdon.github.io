@@ -28,9 +28,9 @@ const languages = [
     alt: 'CSharp',
     id: 'CSharp',
     desc: `<h5 class="text-white">Learned through:</h5>
-<p class="text-white">- Udemy<br>- SoloLearn</p>
+<p class="text-white">- Udemy<br>- SoloLearn<br>- WGU<br>- Codewars</p>
 <h5 class="text-white">Planned Further Learning:</h5>
-<p class="text-white">-  Udemy Courses<br>- freeCodeCamp</p>
+<p class="text-white">-  Udemy Courses<br>- freeCodeCamp<br>- CodeWars</p>
 `
   },
   {
@@ -38,7 +38,7 @@ const languages = [
     alt: 'Python',
     id: 'python',
     desc: `<h5 class="text-white">Sources of Learning:</h5>
-<p class="text-white">- Free Code Camp<br>- Georgia Tech’s Introduction to Python Programming on EdX<br>- CodeWars</p>
+<p class="text-white">- Free Code Camp<br>- Georgia Tech’s EdX Course<br>- CodeWars</p>
 <h5 class="text-white">Used in:</h5>
 <p class="text-white">-  Fomcore Invaders</p>
 <h5 class="text-white">Planned Further Learning:</h5>
@@ -50,11 +50,11 @@ const languages = [
     alt: 'Java',
     id: 'java',
     desc: `<h5 class="text-white">Sources of Learning:</h5>
-<p class="text-white">- Georgia Tech's Introduction to Object-Oriented Programming with Java on EdX<br>- SoloLearn Courses</p>
+<p class="text-white">- WGU<br>- Georgia Tech's EdX Course<br>- SoloLearn Courses</p>
 <h5 class="text-white">Used in:</h5>
 <p class="text-white">- In-class projects on Georgia Tech’s MOOC</p>
 <h5 class="text-white">Planned Further Learning:</h5>
-<p class="text-white">- Further exercises on EdX</p>
+<p class="text-white">- CodeWars</p>
 `
   },
   {
@@ -62,99 +62,99 @@ const languages = [
     alt: 'SQL',
     id: 'SQL',
     desc: `<h5 class="text-white">Sources of Learning:</h5>
-<p class="text-white">- Mimo<br>- SoloLearn<br>- ChatGPT Challenges</p>
+<p class="text-white">- WGU<br>- Mimo<br>- SoloLearn</p>
 <h5 class="text-white">Used in:</h5>
 <p class="text-white">- Memorization App</p>
 <h5 class="text-white">Planned Further Learning:</h5>
-<p class="text-white">- Udemy Courses<br>- freeCodeCamp</p>
+<p class="text-white">- Udemy Courses<br>- freeCodeCamp<br>- CodeWars</p>
 `
   }
-]
+];
 
 // Add the images of Languages I know
 function createColumn(language) {
-  const col = document.createElement('div')
-  col.className = 'col-md-4 col-sm-6 lang-logo'
+  const col = document.createElement('div');
+  col.className = 'col-md-4 col-sm-6 lang-logo';
 
-  const img = document.createElement('img')
-  img.src = language.src
-  img.alt = language.alt
-  img.className = 'img-fluid mx-auto'
+  const img = document.createElement('img');
+  img.src = language.src;
+  img.alt = language.alt;
+  img.className = 'img-fluid mx-auto';
 
-  const figcaption = document.createElement('figcaption')
-  figcaption.className = 'figure-caption text-center'
+  const figcaption = document.createElement('figcaption');
+  figcaption.className = 'figure-caption text-center';
 
-  const p = createDescriptionParagraph(language, figcaption)
+  const p = createDescriptionParagraph(language, figcaption);
 
-  figcaption.appendChild(p)
-  col.appendChild(img)
-  col.appendChild(figcaption)
+  figcaption.appendChild(p);
+  col.appendChild(img);
+  col.appendChild(figcaption);
 
-  return col
+  return col;
 }
 
 function createDescriptionParagraph(language, figcaption) {
-  const p = document.createElement('p')
-  p.id = language.id
+  const p = document.createElement('p');
+  p.id = language.id;
   p.className =
-    'text-decoration-underline text-white fst-italic lang-description pointer'
-  p.textContent = 'More about this'
+    'text-decoration-underline text-white fst-italic lang-description pointer';
+  p.textContent = 'More about this';
 
-  p.isExpanded = false
+  p.isExpanded = false;
 
   p.onclick = function () {
-    const description = document.querySelector(`#${language.id}-description`)
+    const description = document.querySelector(`#${language.id}-description`);
 
     if (!p.isExpanded) {
-      const newDiv = document.createElement('div')
-      newDiv.id = `${language.id}-description`
-      newDiv.innerHTML = language.desc
-      figcaption.insertBefore(newDiv, p)
-      p.innerText = 'Hide this'
+      const newDiv = document.createElement('div');
+      newDiv.id = `${language.id}-description`;
+      newDiv.innerHTML = language.desc;
+      figcaption.insertBefore(newDiv, p);
+      p.innerText = 'Hide this';
     } else {
-      description.remove()
-      p.innerText = 'More about this'
+      description.remove();
+      p.innerText = 'More about this';
     }
 
-    p.isExpanded = !p.isExpanded
-  }
+    p.isExpanded = !p.isExpanded;
+  };
 
-  return p
+  return p;
 }
 
 function descriptionVisibility(setVisibility) {
-  const languageDescriptions = document.querySelectorAll('.lang-description')
+  const languageDescriptions = document.querySelectorAll('.lang-description');
   if (setVisibility === 'show') {
     languageDescriptions.forEach(description => {
-      if (!description.isExpanded) description.click()
-    })
+      if (!description.isExpanded) description.click();
+    });
   } else if (setVisibility === 'hide') {
     languageDescriptions.forEach(description => {
-      if (description.isExpanded) description.click()
-    })
+      if (description.isExpanded) description.click();
+    });
   }
 }
 
 function appendLanguages() {
-  const container = document.getElementById('language-cells')
-  const row = document.createElement('div')
-  row.className = 'row'
+  const container = document.getElementById('language-cells');
+  const row = document.createElement('div');
+  row.className = 'row';
 
-  const expandAllLink = document.getElementById('expand-all-lang')
-  expandAllLink.onclick = () => descriptionVisibility('show')
+  const expandAllLink = document.getElementById('expand-all-lang');
+  expandAllLink.onclick = () => descriptionVisibility('show');
 
-  const hideAllLink = document.getElementById('hide-all-lang')
-  hideAllLink.onclick = () => descriptionVisibility('hide')
+  const hideAllLink = document.getElementById('hide-all-lang');
+  hideAllLink.onclick = () => descriptionVisibility('hide');
 
   languages.forEach(language => {
-    const col = createColumn(language)
-    row.appendChild(col)
-  })
+    const col = createColumn(language);
+    row.appendChild(col);
+  });
 
-  container.appendChild(row)
+  container.appendChild(row);
 }
 
-document.addEventListener('DOMContentLoaded', appendLanguages)
+document.addEventListener('DOMContentLoaded', appendLanguages);
 
 // Section Card Content
 const TrainingCards = [
@@ -182,7 +182,7 @@ const TrainingCards = [
     imgSource: 'images/codewars.png',
     altText: 'Codewars Logo',
     cardTitle: '0',
-    cardText: 'Over 200 challenges done in JS, Python and Java',
+    cardText: 'Over 700 challenges done in C#, JS, Python, Java and C#',
     buttonLink: 'training/#codewars',
     cardButton: 'Honor & Rank'
   },
@@ -240,7 +240,7 @@ const TrainingCards = [
     buttonLink: 'training/#beercity',
     cardButton: 'The code conference'
   }
-]
+];
 
 const ToolCards = [
   {
@@ -270,7 +270,7 @@ const ToolCards = [
     buttonLink: 'tools/#os',
     cardButton: 'Operating Systems'
   }
-]
+];
 const GoalCards = [
   {
     imgLink: 'goals/#learning',
@@ -303,7 +303,7 @@ const GoalCards = [
     buttonLink: 'goals/#personal',
     cardButton: 'Life outside of work'
   }
-]
+];
 const ProjectCards = [
   {
     imgLink: 'projects/#fomcore',
@@ -332,77 +332,77 @@ const ProjectCards = [
     buttonLink: 'projects/#swordbuff',
     cardButton: 'A JS heavy app'
   }
-]
+];
 
 // Function to create a card
 const createCard = cardInfo => {
-  const colDiv = document.createElement('div')
-  colDiv.className = 'col-md-4 my-3'
+  const colDiv = document.createElement('div');
+  colDiv.className = 'col-md-4 my-3';
 
-  const cardDiv = document.createElement('div')
-  cardDiv.className = 'card bg-dark text-white'
+  const cardDiv = document.createElement('div');
+  cardDiv.className = 'card bg-dark text-white';
 
-  const anchorImg = document.createElement('a')
-  anchorImg.href = cardInfo.imgLink
+  const anchorImg = document.createElement('a');
+  anchorImg.href = cardInfo.imgLink;
   if (cardInfo.imgLink.includes('https')) {
-    anchorImg.target = '_blank'
+    anchorImg.target = '_blank';
   }
 
-  const cardImage = document.createElement('img')
-  cardImage.className = 'card-img-top w-100 mx-auto'
-  cardImage.src = cardInfo.imgSource
-  cardImage.alt = cardInfo.altText
+  const cardImage = document.createElement('img');
+  cardImage.className = 'card-img-top w-100 mx-auto';
+  cardImage.src = cardInfo.imgSource;
+  cardImage.alt = cardInfo.altText;
 
-  const cardBodyDiv = document.createElement('div')
-  cardBodyDiv.className = 'card-body mx-auto'
+  const cardBodyDiv = document.createElement('div');
+  cardBodyDiv.className = 'card-body mx-auto';
 
-  const cardTitle = document.createElement('h5')
-  cardTitle.className = 'card-title text-center'
-  cardTitle.innerText = cardInfo.cardTitle
+  const cardTitle = document.createElement('h5');
+  cardTitle.className = 'card-title text-center';
+  cardTitle.innerText = cardInfo.cardTitle;
 
-  const cardText = document.createElement('p')
-  cardText.className = 'card-text text-center'
-  cardText.innerText = cardInfo.cardText
+  const cardText = document.createElement('p');
+  cardText.className = 'card-text text-center';
+  cardText.innerText = cardInfo.cardText;
 
-  const buttonDiv = document.createElement('div')
-  buttonDiv.className = 'col-12 text-center'
+  const buttonDiv = document.createElement('div');
+  buttonDiv.className = 'col-12 text-center';
 
-  const cardButton = document.createElement('a')
-  cardButton.className = 'btn btn-primary'
-  cardButton.href = cardInfo.buttonLink
+  const cardButton = document.createElement('a');
+  cardButton.className = 'btn btn-primary';
+  cardButton.href = cardInfo.buttonLink;
   if (cardInfo.buttonLink.includes('https')) {
-    cardButton.target = '_blank'
+    cardButton.target = '_blank';
   }
-  cardButton.innerText = cardInfo.cardButton
+  cardButton.innerText = cardInfo.cardButton;
 
   // Assembling the card
-  anchorImg.appendChild(cardImage)
-  buttonDiv.appendChild(cardButton)
+  anchorImg.appendChild(cardImage);
+  buttonDiv.appendChild(cardButton);
   if (cardInfo.cardTitle !== '0') {
-    cardBodyDiv.appendChild(cardTitle)
+    cardBodyDiv.appendChild(cardTitle);
   }
-  cardBodyDiv.appendChild(cardText)
-  cardBodyDiv.appendChild(buttonDiv)
-  cardDiv.appendChild(anchorImg)
-  cardDiv.appendChild(cardBodyDiv)
-  colDiv.appendChild(cardDiv)
+  cardBodyDiv.appendChild(cardText);
+  cardBodyDiv.appendChild(buttonDiv);
+  cardDiv.appendChild(anchorImg);
+  cardDiv.appendChild(cardBodyDiv);
+  colDiv.appendChild(cardDiv);
 
-  return colDiv
-}
+  return colDiv;
+};
 
 const CardSections = [
   [TrainingCards, 'training-cards'],
   [ToolCards, 'tool-cards'],
   [GoalCards, 'goal-cards'],
   [ProjectCards, 'project-cards']
-]
+];
 
 // Add each card section to DOM
 CardSections.forEach(([cards, containerId]) => {
-  const sectionContainer = document.getElementById(containerId)
+  const sectionContainer = document.getElementById(containerId);
 
   cards.forEach(cardInfo => {
-    const card = createCard(cardInfo)
-    sectionContainer.appendChild(card)
-  })
-})
+    const card = createCard(cardInfo);
+    sectionContainer.appendChild(card);
+  });
+});
