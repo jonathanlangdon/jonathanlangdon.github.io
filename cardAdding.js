@@ -181,8 +181,7 @@ const TrainingCards = [
     imgSource: 'images/georgiatech.png',
     altText: 'Georgia Tech and EdX Logo',
     cardTitle: '0',
-    cardText:
-      "Learned OOP principles in Python & Java through GeorgiaTech's comprehensive MOOC courses on EdX",
+    cardText: "Learned OOP principles through GeorgiaTech's comprehensive MOOC",
     buttonLink: 'training/#edx',
     cardButton: 'Completed Courses'
   },
@@ -191,7 +190,7 @@ const TrainingCards = [
     imgSource: 'images/codewars.png',
     altText: 'Codewars Logo',
     cardTitle: '0',
-    cardText: 'Over 700 challenges done in C#, JS, Python, Java and C#',
+    cardText: 'Over 700 challenges done in C#, JS, Python, Java and SQL',
     buttonLink: 'training/#codewars',
     cardButton: 'Honor & Rank'
   },
@@ -200,7 +199,7 @@ const TrainingCards = [
     imgSource: 'images/sololearn.png',
     altText: 'SoloLearn Logo',
     cardTitle: '0',
-    cardText: 'Completed introductory programming courses',
+    cardText: 'Completed introductory programming courses on many topics',
     buttonLink: 'training/#sololearn',
     cardButton: 'Completed Courses'
   },
@@ -227,7 +226,7 @@ const TrainingCards = [
     imgSource: 'images/books.jpg',
     altText: 'Various Programming Books',
     cardTitle: 'Books',
-    cardText: 'A few books have helped my journey as well',
+    cardText: 'A few books that have helped my journey',
     buttonLink: 'training/#books',
     cardButton: 'Finished Books'
   },
@@ -236,7 +235,7 @@ const TrainingCards = [
     imgSource: 'images/chatgpt.jpg',
     altText: 'ChatGPT logo',
     cardTitle: 'ChatGPT',
-    cardText: 'Besides a constant tutor, a source of coding challenges',
+    cardText: 'A constant tutor and a source of challenges',
     buttonLink: 'training/#chatgpt',
     cardButton: 'How AI helped'
   },
@@ -297,7 +296,7 @@ const GoalCards = [
     altText: 'image of someone typing code',
     cardTitle: 'Professional Goals',
     cardText:
-      "I'm yearning for something new and excited about a career in software/web development. ",
+      "I'm yearning for something new and excited about a career as a developer. ",
     buttonLink: 'goals/#professional',
     cardButton: 'Career Goals'
   },
