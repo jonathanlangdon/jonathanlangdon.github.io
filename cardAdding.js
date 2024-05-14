@@ -159,6 +159,15 @@ document.addEventListener('DOMContentLoaded', appendLanguages);
 // Section Card Content
 const TrainingCards = [
   {
+    imgLink: 'training/#wgu',
+    imgSource: 'images/wgu.png',
+    altText: 'WGU Logo',
+    cardTitle: 'WGU Bachelors',
+    cardText: 'Software Engineering',
+    buttonLink: 'training/#wgu',
+    cardButton: 'Bachelors Degree'
+  },
+  {
     imgLink: 'training/#freecodecamp',
     imgSource: 'images/freecodecamp.png',
     altText: 'FreeCodeCamp Logo',
