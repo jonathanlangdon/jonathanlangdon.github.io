@@ -247,6 +247,15 @@ const TrainingCards = [
     cardText: 'The 2023 Saturday Conference was a great experience',
     buttonLink: 'training/#beercity',
     cardButton: 'The code conference'
+  },
+  {
+    imgLink: 'training/#codingGames',
+    imgSource: 'images/codingGames.jpg',
+    altText: 'Programming Games',
+    cardTitle: '0',
+    cardText: 'I also had fun coding with some programming games!',
+    buttonLink: 'training/#codingGames',
+    cardButton: 'Coding Games'
   }
 ];
 
