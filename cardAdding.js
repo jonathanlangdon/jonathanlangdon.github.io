@@ -244,7 +244,7 @@ const TrainingCards = [
     imgSource: 'images/beercity.jpg',
     altText: 'Beer City Code logo',
     cardTitle: '0',
-    cardText: 'The 2023 Saturday Conference was a great experience',
+    cardText: 'This GR Tech Conference was a great experience',
     buttonLink: 'training/#beercity',
     cardButton: 'The code conference'
   },
