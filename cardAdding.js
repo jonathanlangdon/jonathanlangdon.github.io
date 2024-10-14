@@ -27,8 +27,8 @@ const languages = [
     src: 'images/csharp.png',
     alt: 'CSharp',
     id: 'CSharp',
-    desc: `<h5 class="text-white">Learned through:</h5>
-<p class="text-white">- Udemy<br>- SoloLearn<br>- WGU<br>- Codewars</p>
+    desc: `<h5 class="text-white">Sources of Learning:</h5>
+<p class="text-white">- Udemy<br>- SoloLearn<br>- Codewars</p>
 <h5 class="text-white">Planned Further Learning:</h5>
 <p class="text-white">-  Udemy Courses<br>- freeCodeCamp<br>- CodeWars</p>
 `
