@@ -20,7 +20,7 @@ const languages = [
 <h5 class="text-white">Used in:</h5>
 <p class="text-white">- This portfolio website<br>- Snow Day Calculator<br>- Memorization App</p>
 <h5 class="text-white">Planned Further Learning:</h5>
-<p class="text-white">- More Free Code Camp<br>- The Odin’s Project<br>- More CodeWars challenges<br>- frameworks on Udemy</p>
+<p class="text-white">- More Free Code Camp<br>- The Odin's Project<br>- More CodeWars challenges<br>- frameworks on Udemy</p>
 `
   },
   {
@@ -190,7 +190,7 @@ const TrainingCards = [
     imgSource: 'images/codewars.png',
     altText: 'Codewars Logo',
     cardTitle: '0',
-    cardText: 'Over 700 challenges done in C#, JS, Python, Java and SQL',
+    cardText: 'Over 1,000 challenges done in C#, JS, Python, Java and SQL',
     buttonLink: 'training/#codewars',
     cardButton: 'Honor & Rank'
   },
