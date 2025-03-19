@@ -168,6 +168,22 @@ function nextOrDone() {
 }
 
 function keyboardMoveWords(e) {
+  if (
+    (e.key === 'Backspace' || e.keyCode === 8) &&
+    inputBox.value.trim() === ''
+  ) {
+    e.preventDefault(); // Prevent default backspace behavior (navigating back)
+
+    // Get all buttons inside the answers container
+    let dropLineButtons = answersContainer.querySelectorAll('button');
+
+    // If there's at least one button, move the last one back to word bank
+    if (dropLineButtons.length > 0) {
+      let lastButton = dropLineButtons[dropLineButtons.length - 1]; // Get last button
+      wordBankContainer.appendChild(lastButton); // Move it back
+    }
+  }
+
   if (e.key === ' ' || e.key === 'Enter') {
     e.preventDefault();
     let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase();
@@ -176,15 +192,16 @@ function keyboardMoveWords(e) {
       wordBankContainer.querySelectorAll('button')
     );
     if (bankWordButtons.length === 0) checkUserInput();
+
     bankWordButtons.some(button => {
       let buttonWord = button.textContent
         .replace(/[^\w\s]/gi, '')
         .toLowerCase();
       if (keyboardWord === buttonWord) {
         button.click();
-        return true; // Stop the loop when the first match is found
+        return true; // Stop loop when the first match is found
       }
-      return false; // Continue the loop
+      return false; // Continue loop
     });
   }
 }
