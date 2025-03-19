@@ -1,34 +1,3 @@
-// Initially this was set up on a website with a MySQL server... but for the purposes of demonstration, I'm replacing the SQL database with a simple object
-
-// $.get('http://192.168.3.11:5000/random-verse', function (data) {
-
-// The sample object to store your verses
-const data = {
-  verses: [
-    {
-      book: 'Frank Herbert, Dune',
-      chapter: 1,
-      text: "The mystery of life isn't a problem to solve, but a reality to experience.",
-      verse_end: 1,
-      verse_start: 1
-    },
-    {
-      book: 'Frank Herbert, Dune',
-      chapter: 1,
-      text: 'What do you despise? By this are you truly known',
-      verse_end: 1,
-      verse_start: 1
-    },
-    {
-      book: 'Frank Herbert, Dune',
-      chapter: 1,
-      text: 'I must not fear. Fear is the mind-killer. Fear is the little-death that brings total obliteration. I will face my fear. I will permit it to pass over me and through me. And when it has gone past I will turn the inner eye to see its path. Where the fear has gone there will be nothing. Only I will remain.',
-      verse_end: 1,
-      verse_start: 1
-    }
-  ]
-};
-
 const progressBar = document.getElementById('progress-bar');
 const checkArea = document.getElementById('check-button-container');
 const inputBox = document.getElementById('keyboard-input');
@@ -252,7 +221,7 @@ function checkUserInput() {
   );
   resetWordsInContainer(wordBankContainer);
   createWordButtons(originalVerseArray);
-  correctButtons = [...wordBankContainer.children];
+  let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
   const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
   checkResultsContainer.textContent = getResultText(percentageCorrect);
@@ -265,7 +234,7 @@ function resetVerseContainers() {
   resetWordsInContainer(wordBankContainer);
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
-  verseArray = shuffle(verseString.split(' '));
+  let verseArray = shuffle(verseString.split(' '));
   createWordButtons(verseArray);
   const nextButton = document.getElementById('next-button');
   if (nextButton) {
