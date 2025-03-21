@@ -209,11 +209,12 @@ function keyboardMoveWords(e) {
 function putVerseInHeader(verseIndex) {
   const verseContainer = document.getElementById('verse');
   currentVerse = verses[verseIndex];
-  verseContainer.innerText = currentVerse.book;
-  // + ' ' +
-  // currentVerse.chapter +
-  // ':' +
-  // currentVerse.verse_start;
+  verseContainer.innerText =
+    currentVerse.book +
+    ' ' +
+    currentVerse.chapter +
+    ':' +
+    currentVerse.verse_start;
 }
 
 function setupNewVerse() {
