@@ -186,6 +186,16 @@ function keyboardMoveWords(e) {
 
   if (e.key === ' ' || e.key === 'Enter') {
     e.preventDefault();
+
+    // When Enter is pressed, check for the next button
+    if (e.key === 'Enter') {
+      let nextButton = document.getElementById('next-button');
+      if (nextButton) {
+        nextButton.click();
+        return; // Exit early if next button is found
+      }
+    }
+
     let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase();
     inputBox.value = '';
     let bankWordButtons = Array.from(
@@ -266,13 +276,8 @@ function resetVerseContainers() {
   }
 }
 
-function focusKeyboard(e) {
-  const active = document.activeElement.id;
-  const enterKey = e.key === 'Enter' || e.keyCode === 13;
-
-  if (!enterKey && active !== inputBox) {
-    inputBox.focus();
-  }
+function focusKeyboard() {
+  inputBox.focus();
 }
 
 function init() {

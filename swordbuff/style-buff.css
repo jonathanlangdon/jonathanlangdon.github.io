@@ -3,6 +3,11 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 body {
   min-width: 360px;
 }
@@ -103,6 +108,7 @@ header {
   flex-wrap: wrap;
   padding: 10px 0;
   overflow: auto;
+  align-self: flex-start;
 }
 
 #word-bank {
