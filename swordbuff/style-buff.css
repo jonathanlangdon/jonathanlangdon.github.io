@@ -257,8 +257,7 @@ nav img {
       'feedback';
   }
   .sidebar-left,
-  .sidebar-right,
-  .side-bottom {
+  .sidebar-right {
     display: none;
   }
 }
