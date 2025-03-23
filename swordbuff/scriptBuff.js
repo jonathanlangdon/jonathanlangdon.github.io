@@ -152,21 +152,6 @@ function setIdealHeight() {
   }
 }
 
-function nextOrDone() {
-  if (verseIndex < numVerses - 1) {
-    newButton.textContent = 'NEXT';
-    newButton.id = 'next-button';
-    checkArea.appendChild(newButton);
-  } else {
-    newButton.textContent = 'DONE';
-    newButton.id = 'done';
-    checkArea.appendChild(newButton);
-    newButton.addEventListener('click', () => {
-      location.reload();
-    });
-  }
-}
-
 function keyboardMoveWords(e) {
   if (
     (e.key === 'Backspace' || e.keyCode === 8) &&
@@ -227,13 +212,44 @@ function putVerseInHeader(verseIndex) {
     currentVerse.verse_start;
 }
 
-function setupNewVerse() {
-  verseString = verses[(verseIndex += 1)].text;
+function goToPrevVerse() {
+  if (verseIndex === 0) {
+    return;
+  } else {
+    verseIndex -= 1;
+    progressBar.value -= 1;
+  }
+  verseString = verses[verseIndex].text;
   putVerseInHeader(verseIndex);
   verseString = verseString.replace(/^\d+:\s*/, '');
   originalVerseArray = verseString.split(' ');
-  progressBar.value += 1;
   resetVerseContainers();
+}
+
+function goToNextVerse() {
+  addDoneButtonIfEnd();
+  if (verseIndex === verses.length - 1) {
+    progressBar.value += 1;
+  } else {
+    verseString = verses[(verseIndex += 1)].text;
+    putVerseInHeader(verseIndex);
+    verseString = verseString.replace(/^\d+:\s*/, '');
+    originalVerseArray = verseString.split(' ');
+    progressBar.value += 1;
+    resetVerseContainers();
+  }
+}
+
+function addDoneButtonIfEnd() {
+  if (verseIndex == numVerses - 1) {
+    document.getElementById('next-button').remove();
+    newButton.textContent = 'DONE';
+    newButton.id = 'done';
+    document.getElementById('move-buttons').appendChild(newButton);
+    newButton.addEventListener('click', () => {
+      location.reload();
+    });
+  }
 }
 
 function checkUserInput() {
@@ -253,8 +269,6 @@ function checkUserInput() {
   correctButtons.forEach(x => x.classList.add('correct'));
   const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
   checkResultsContainer.textContent = getResultText(percentageCorrect);
-  document.getElementById('check').remove();
-  nextOrDone();
 }
 
 function resetVerseContainers() {
@@ -265,9 +279,6 @@ function resetVerseContainers() {
   let verseArray = shuffle(verseString.split(' '));
   createWordButtons(verseArray);
   const nextButton = document.getElementById('next-button');
-  if (nextButton) {
-    nextButton.remove();
-  }
   const checkButton = document.getElementById('check');
   if (!checkButton) {
     newButton.textContent = 'CHECK';
@@ -296,7 +307,8 @@ function init() {
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput();
-    else if (event.target && event.target.id === 'next-button') setupNewVerse();
+    else if (event.target && event.target.id === 'prev-button') goToPrevVerse();
+    else if (event.target && event.target.id === 'next-button') goToNextVerse();
   });
 
   document.addEventListener('keydown', focusKeyboard);

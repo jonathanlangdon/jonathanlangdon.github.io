@@ -195,7 +195,8 @@ nav img {
   font-weight: bold;
 }
 
-#next-button {
+#next-button,
+#prev-button {
   background-color: #1364c9;
   color: white;
   font-weight: bold;
