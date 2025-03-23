@@ -262,7 +262,7 @@ export const data = {
     {
       book: 'Isaiah',
       chapter: 40,
-      text: 'than he blows on them and they wither and a whirlwind sweeps them away like chaff',
+      text: 'then he blows on them and they wither and a whirlwind sweeps them away like chaff',
       verse_start: 24.2,
       verse_end: 24.2
     },
