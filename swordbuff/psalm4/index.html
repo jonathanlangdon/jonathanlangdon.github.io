@@ -28,7 +28,7 @@
       href="../graphics/favicon.png"
       sizes="32x32"
     />
-    <link rel="stylesheet" type="text/css" href="../style-buff.css" />
+    <link rel="stylesheet" type="text/css" href="../style-buff.css?v=1.0" />
     <title>Sword Buff</title>
   </head>
   <body>
@@ -55,7 +55,9 @@
       <div id="footer">
         <div class="side-bottom"></div>
         <div class="check-area">
-          <button id="reset-show" class="blue-button">SHOW VERSE</button>
+          <div>
+            <button id="reset-show" class="blue-button">SHOW VERSE</button>
+          </div>
           <div id="check-results">
             <div>
               <input
@@ -67,21 +69,21 @@
             </div>
           </div>
           <div id="check-button-container">
-            <button id="check">CHECK</button>
+            <button id="check" class="green-button">CHECK</button>
           </div>
         </div>
         <div class="side-bottom" id="move-buttons">
-          <button id="prev-button">PREV</button
-          ><button id="next-button">NEXT</button>
+          <button id="prev-button" class="blue-button">PREV</button
+          ><button id="next-button" class="blue-button">NEXT</button>
         </div>
       </div>
       <h4 id="feedback"></h4>
     </div>
     <script type="module">
-      const verseFile = './psalm4.js';
+      const verseFile = './psalm4.js?v=1.0';
       import(verseFile).then(module => {
         window.data = module.data;
-        import('../scriptBuff.js');
+        import('../scriptBuff.js?v=1.0');
       });
     </script>
   </body>

@@ -309,23 +309,32 @@ function updateResetButton() {
 
 function addShortcutListeners() {
   document.addEventListener('keydown', function (event) {
-    if (event.ctrlKey && (event.key === 'c' || event.key === 'C')) {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      (event.key === 'c' || event.key === 'C')
+    ) {
       event.preventDefault();
       checkUserInput();
     }
-    if (event.ctrlKey && (event.key === 'r' || event.key === 'R')) {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      (event.key === 'r' || event.key === 'R')
+    ) {
       event.preventDefault();
       resetVerseContainers();
     }
-    if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
+    if (
+      (event.ctrlKey || event.metaKey) &&
+      (event.key === 's' || event.key === 'S')
+    ) {
       event.preventDefault();
       showCorrectAnswer();
     }
-    if (event.ctrlKey && event.key === 'ArrowLeft') {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
       event.preventDefault();
       document.getElementById('prev-button').click();
     }
-    if (event.ctrlKey && event.key === 'ArrowRight') {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowRight') {
       event.preventDefault();
       document.getElementById('next-button').click();
     }

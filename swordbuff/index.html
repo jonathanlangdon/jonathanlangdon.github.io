@@ -28,8 +28,8 @@
       href="graphics/favicon.png"
       sizes="32x32"
     />
-    <link rel="stylesheet" type="text/css" href="style-buff.css" />
-    <title>Quote Memorization App</title>
+    <link rel="stylesheet" type="text/css" href="style-buff.css?v=1.0" />
+    <title>Sword Buff</title>
   </head>
   <body>
     <div class="grid-container">
@@ -80,10 +80,10 @@
       <h4 id="feedback"></h4>
     </div>
     <script type="module">
-      const verseFile = './sampleVerses.js';
+      const verseFile = './sampleVerses.js?v=1.0';
       import(verseFile).then(module => {
         window.data = module.data;
-        import('./scriptBuff.js');
+        import('./scriptBuff.js?v=1.0');
       });
     </script>
   </body>
