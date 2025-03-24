@@ -269,8 +269,10 @@ function showCorrectAnswer() {
   createWordButtons(originalVerseArray);
   let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
-  const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
-  checkResultsContainer.textContent = getResultText(percentageCorrect);
+  if (answersContainer.children.length > 0) {
+    const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
+    checkResultsContainer.textContent = getResultText(percentageCorrect);
+  }
   updateResetButton();
 }
 
