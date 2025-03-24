@@ -9,16 +9,16 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline';
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' data:;
-    font-src 'self';
-    connect-src 'self' https://api.github.com;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-  "
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        font-src 'self';
+        connect-src 'self' https://api.github.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+      "
     />
 
     <link
@@ -34,36 +34,77 @@
     <div class="grid-container">
       <header>
         <div class="logo">
-          <a href="https://jonathanlangdon.github.io/swordbuff/list.html">
-            <img src="../graphics/logo-zoom1.png" alt="Sword Cartoon Logo" />
+          <a href="https://jonathanlangdon.github.io/swordbuff">
+            <img src="./graphics/logo-zoom1.png" alt="Sword Cartoon Logo" />
           </a>
         </div>
         <div class="title">
-          <h1>Sword Buff Verses</h1>
+          <h1>Sword Buff</h1>
           <h2><div id="verse"></div></h2>
         </div>
       </header>
       <div class="sidebar-left"></div>
-      <div id="drop-area"><div id="verse-list"></div></div>
+      <div id="drop-area">
+        <progress id="progress-bar" value="0" max="100"></progress>
+        <div id="drop-line">
+          <div id="verse-list"></div>
+        </div>
+      </div>
+      <!-- word bank with possible words to use-->
+      <div id="word-bank"></div>
       <div class="sidebar-right"></div>
+      <div id="footer">
+        <div class="side-bottom"></div>
+        <div class="check-area">
+          <div>
+            <button id="reset-show" class="blue-button">SHOW VERSE</button>
+          </div>
+          <div id="check-results">
+            <div>
+              <input
+                type="text"
+                id="keyboard-input"
+                placeholder="Keyboard Input"
+                autofocus
+              />
+            </div>
+          </div>
+          <div id="check-button-container">
+            <button id="check" class="green-button">CHECK</button>
+          </div>
+        </div>
+        <div class="side-bottom" id="move-buttons">
+          <button id="prev-button" class="blue-button">PREV</button
+          ><button id="next-button" class="blue-button">NEXT</button>
+        </div>
+      </div>
+      <h4 id="feedback"></h4>
     </div>
-    <script src="../listVerses.js?v=1.0"></script>
-    <script type="module">
-      // Parse the URL for a verse parameter. If none is provided, you can default to a fallback (or show a list)
-      const params = new URLSearchParams(window.location.search);
-      const verseName = params.get('verse') || 'defaultVerse'; // Use 'defaultVerse' or any default
 
-      // Dynamically import the corresponding data module based on the verse name.
-      import(`./${verseName}.js`)
-        .then(module => {
-          window.data = module.data; // Set the data globally (or pass it to your initialization)
-          // Now import your main script to initialize the page with the loaded data
-          import('./scriptBuff.js');
-        })
-        .catch(err => {
-          console.error('Error loading verse module:', err);
-          // Optionally, display an error message or redirect to a list page.
-        });
+    <!-- First, load the list script so the buttons get created when there's no query -->
+    <script src="../listVerses.js?v=1.0"></script>
+
+    <!-- Then add a module script to check for a verse parameter -->
+    <script type="module">
+      const params = new URLSearchParams(window.location.search);
+      const verseParam = params.get('verse');
+      if (verseParam) {
+        // Hide the list of verses
+        document.getElementById('verse-list').style.display = 'none';
+        // Build the path to the verse module (assuming your verse modules are in a folder, e.g., "./verses")
+        const verseFile = `./verses/${verseParam}.js?v=1.0`;
+        import(verseFile)
+          .then(module => {
+            // Set the verse data for your application
+            window.data = module.data;
+            // Now load the main application script to display the verse
+            import('./scriptBuff.js?v=1.0');
+          })
+          .catch(err => {
+            console.error('Error loading verse module:', err);
+            // Optionally, display an error message or redirect back to the list
+          });
+      }
     </script>
   </body>
 </html>
