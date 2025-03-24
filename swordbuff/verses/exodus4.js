@@ -1,11 +1,11 @@
 export const data = {
+  book: 'Exodus',
+  translation: 'NIV-2011',
   verses: [
     {
-      book: 'Exodus',
       chapter: 4,
       text: 'Now go; I will help you speak and will teach you what to say.',
-      verse_start: 12,
-      verse_end: 12
+      verse: '12'
     }
   ]
 };

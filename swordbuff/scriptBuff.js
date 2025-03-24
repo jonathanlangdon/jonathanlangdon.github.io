@@ -13,6 +13,7 @@ let wordButtonsEnabled = true;
 let currentVerse;
 let verseString;
 let originalVerseArray;
+let translation = '';
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -180,7 +181,13 @@ function putVerseInHeader(verseIndex) {
   const verseContainer = document.getElementById('verse');
   currentVerse = verses[verseIndex];
   verseContainer.innerText =
-    currentVerse.book + ' ' + currentVerse.chapter + ':' + currentVerse.verse;
+    data.book +
+    ' ' +
+    currentVerse.chapter +
+    ':' +
+    currentVerse.verse +
+    ' ' +
+    data.translation;
 }
 
 function goToPrevVerse() {
