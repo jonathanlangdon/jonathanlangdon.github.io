@@ -12,18 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       const directories = data.filter(item => item.type === 'dir');
       const verseListContainer = document.getElementById('verse-list');
-      const listElement = document.createElement('ul');
 
       directories.forEach(dir => {
-        const listItem = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = `./${dir.name}/`;
-        link.textContent = dir.name;
-        listItem.appendChild(link);
-        listElement.appendChild(listItem);
+        if (dir.name == 'graphics') return;
+        const button = document.createElement('button');
+        button.classList.add('blue-button');
+        button.textContent = dir.name;
+        button.addEventListener('click', () => {
+          // Navigate to the folder's page when the button is clicked
+          window.location.href = `./${dir.name}/`;
+        });
+        verseListContainer.appendChild(button);
       });
-
-      verseListContainer.appendChild(listElement);
     })
     .catch(err => console.error('Error fetching repository contents:', err));
 });
