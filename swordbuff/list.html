@@ -9,17 +9,17 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline';
-      style-src 'self';
-      img-src 'self' data:;
-      font-src 'self';
-      connect-src 'self';
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-      frame-ancestors 'self';
-    "
+    default-src 'self';
+    script-src 'self' 'unsafe-inline';
+    style-src 'self';
+    img-src 'self' data:;
+    font-src 'self';
+    connect-src 'self' https://api.github.com https://github.com;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'self';
+  "
     />
 
     <link
@@ -41,10 +41,8 @@
           <h1>Sword Buff Memorization List</h1>
         </div>
       </header>
-      <div class="sidebar-left"></div>
-      <div id="verse-list"></div>
-      <div class="sidebar-right"></div>
     </div>
+    <div id="verse-list"></div>
     <script src="listVerses.js"></script>
   </body>
 </html>
