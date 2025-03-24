@@ -81,30 +81,7 @@
       <h4 id="feedback"></h4>
     </div>
 
-    <!-- First, load the list script so the buttons get created when there's no query -->
     <script src="../listVerses.js?v=1.0"></script>
-
-    <!-- Then add a module script to check for a verse parameter -->
-    <script type="module">
-      const params = new URLSearchParams(window.location.search);
-      const verseParam = params.get('verse');
-      if (verseParam) {
-        // Hide the list of verses
-        document.getElementById('verse-list').style.display = 'none';
-        // Build the path to the verse module (assuming your verse modules are in a folder, e.g., "./verses")
-        const verseFile = `./verses/${verseParam}.js?v=1.0`;
-        import(verseFile)
-          .then(module => {
-            // Set the verse data for your application
-            window.data = module.data;
-            // Now load the main application script to display the verse
-            import('./scriptBuff.js?v=1.0');
-          })
-          .catch(err => {
-            console.error('Error loading verse module:', err);
-            // Optionally, display an error message or redirect back to the list
-          });
-      }
-    </script>
+    <script type="module" src="./dynamicPage.js"></script>
   </body>
 </html>

@@ -9,45 +9,48 @@
     <meta
       http-equiv="Content-Security-Policy"
       content="
-      default-src 'self';
-      script-src 'self' 'unsafe-inline';
-      style-src 'self' 'unsafe-inline';
-      img-src 'self' data:;
-      font-src 'self';
-      connect-src 'self';
-      object-src 'none';
-      base-uri 'self';
-      form-action 'self';
-    "
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' data:;
+        font-src 'self';
+        connect-src 'self' https://api.github.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'self';
+      "
     />
 
     <link
       rel="icon"
       type="image/png"
-      href="graphics/favicon.png"
+      href="../graphics/favicon.png"
       sizes="32x32"
     />
-    <link rel="stylesheet" type="text/css" href="style-buff.css?v=1.0" />
-    <title>Sword Buff Sample</title>
+    <link rel="stylesheet" type="text/css" href="../style-buff.css?v=1.1" />
+    <title>Sword Buff List</title>
   </head>
   <body>
     <div class="grid-container">
       <header>
         <div class="logo">
-          <a href="https://jonathanlangdon.github.io/swordbuff/list.html">
-            <img src="graphics/logo-zoom1.png" alt="Sword Cartoon Logo" />
+          <a href="https://jonathanlangdon.github.io/swordbuff">
+            <img src="./graphics/logo-zoom1.png" alt="Sword Cartoon Logo" />
           </a>
         </div>
         <div class="title">
-          <h1>Quote Memorization App</h1>
+          <h1>Sword Buff</h1>
           <h2><div id="verse"></div></h2>
         </div>
       </header>
       <div class="sidebar-left"></div>
       <div id="drop-area">
         <progress id="progress-bar" value="0" max="100"></progress>
-        <div id="drop-line"></div>
+        <div id="drop-line">
+          <div id="verse-list"></div>
+        </div>
       </div>
+      <!-- word bank with possible words to use-->
       <div id="word-bank"></div>
       <div class="sidebar-right"></div>
       <div id="footer">
@@ -77,12 +80,8 @@
       </div>
       <h4 id="feedback"></h4>
     </div>
-    <script type="module">
-      const verseFile = './sampleVerses.js?v=1.0';
-      import(verseFile).then(module => {
-        window.data = module.data;
-        import('./scriptBuff.js?v=1.0');
-      });
-    </script>
+
+    <script src="../listVerses.js?v=1.0"></script>
+    <script type="module" src="./dynamicPage.js"></script>
   </body>
 </html>

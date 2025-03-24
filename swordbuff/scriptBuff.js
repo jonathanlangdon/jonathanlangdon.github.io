@@ -14,26 +14,6 @@ let currentVerse;
 let verseString;
 let originalVerseArray;
 
-function versesIntoArray(verseData) {
-  const text = verseData.text;
-  const match = text.match(/(\d+):(.+?)(?=\s\d|"$)/g);
-  if (match) {
-    match.forEach(function (verseString) {
-      const verseNum = parseInt(verseString.match(/\d+/)[0], 10);
-      const verse = {
-        book: verseData.book,
-        chapter: verseData.chapter,
-        text: verseString,
-        verse_start: verseNum,
-        verse_end: verseNum
-      };
-      verses.push(verse);
-    });
-  } else {
-    verses.push(verseData);
-  }
-}
-
 function shuffle(array) {
   let currentIndex = array.length,
     temporaryValue,
@@ -200,11 +180,7 @@ function putVerseInHeader(verseIndex) {
   const verseContainer = document.getElementById('verse');
   currentVerse = verses[verseIndex];
   verseContainer.innerText =
-    currentVerse.book +
-    ' ' +
-    currentVerse.chapter +
-    ':' +
-    currentVerse.verse_start;
+    currentVerse.book + ' ' + currentVerse.chapter + ':' + currentVerse.verse;
 }
 
 function goToPrevVerse() {
@@ -348,7 +324,7 @@ function focusKeyboard() {
 }
 
 function init() {
-  data.verses.forEach(verseData => versesIntoArray(verseData));
+  data.verses.forEach(verseData => verses.push(verseData));
   currentVerse = verses[verseIndex];
   verseString = currentVerse.text.replace(/^\d+:\s*/, '');
   originalVerseArray = verseString.split(' ');

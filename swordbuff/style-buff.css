@@ -255,6 +255,12 @@ nav img {
   margin: 5;
 }
 
+#progress-bar,
+#word-bank,
+#footer {
+  display: none;
+}
+
 @media (min-width: 769px) {
   .grid-container {
     grid-template-columns: 1fr minmax(768px, 1fr) 1fr;
