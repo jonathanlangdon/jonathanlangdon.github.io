@@ -317,6 +317,10 @@ function addShortcutListeners() {
       event.preventDefault();
       resetVerseContainers();
     }
+    if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
+      event.preventDefault();
+      showCorrectAnswer();
+    }
     if (event.ctrlKey && event.key === 'ArrowLeft') {
       event.preventDefault();
       document.getElementById('prev-button').click();
