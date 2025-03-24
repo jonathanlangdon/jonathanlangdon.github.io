@@ -74,6 +74,8 @@ function moveWordsUp(e) {
 
 function moveWordsDown(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
+    e.target.classList.remove('incorrect');
+    e.target.classList.remove('correct');
     wordBankContainer.appendChild(e.target);
   }
 }
@@ -157,28 +159,19 @@ function keyboardMoveWords(e) {
     (e.key === 'Backspace' || e.keyCode === 8) &&
     inputBox.value.trim() === ''
   ) {
-    e.preventDefault(); // Prevent default backspace behavior (navigating back)
-
-    // Get all buttons inside the answers container
+    e.preventDefault();
     let dropLineButtons = answersContainer.querySelectorAll('button');
-
-    // If there's at least one button, move the last one back to word bank
     if (dropLineButtons.length > 0) {
-      let lastButton = dropLineButtons[dropLineButtons.length - 1]; // Get last button
-      wordBankContainer.appendChild(lastButton); // Move it back
+      const lastButton = dropLineButtons[dropLineButtons.length - 1];
+      const syntheticEvent = { target: lastButton };
+      moveWordsDown(syntheticEvent);
     }
   }
 
   if (e.key === ' ' || e.key === 'Enter') {
     e.preventDefault();
-
-    // When Enter is pressed, check for the next button
-    if (e.key === 'Enter') {
-      let nextButton = document.getElementById('next-button');
-      if (nextButton) {
-        nextButton.click();
-        return; // Exit early if next button is found
-      }
+    if ((e.key === 'Enter') & (wordBankContainer.children.length == 0)) {
+      checkUserInput();
     }
 
     let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase();
@@ -253,7 +246,6 @@ function addDoneButtonIfEnd() {
 }
 
 function checkUserInput() {
-  wordButtonsEnabled = false;
   const droplineButtons = answersContainer.querySelectorAll('button');
   const selectedWordsButtons = Array.from(droplineButtons);
   const selectedWords = getSelectedWords(answersContainer);
@@ -263,12 +255,15 @@ function checkUserInput() {
     selectedWords,
     correctVerse
   );
-  resetWordsInContainer(wordBankContainer);
-  createWordButtons(originalVerseArray);
-  let correctButtons = [...wordBankContainer.children];
-  correctButtons.forEach(x => x.classList.add('correct'));
-  const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
-  checkResultsContainer.textContent = getResultText(percentageCorrect);
+  if (wordBankContainer.children.length == 0) {
+    wordButtonsEnabled = false;
+    resetWordsInContainer(wordBankContainer);
+    createWordButtons(originalVerseArray);
+    let correctButtons = [...wordBankContainer.children];
+    correctButtons.forEach(x => x.classList.add('correct'));
+    const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
+    checkResultsContainer.textContent = getResultText(percentageCorrect);
+  }
 }
 
 function resetVerseContainers() {
@@ -286,6 +281,29 @@ function resetVerseContainers() {
     checkArea.appendChild(newButton);
   }
 }
+
+function addShortcutListeners() {
+  document.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && (event.key === 'c' || event.key === 'C')) {
+      event.preventDefault();
+      checkUserInput();
+    }
+    if (event.ctrlKey && (event.key === 'r' || event.key === 'R')) {
+      event.preventDefault();
+      resetVerseContainers();
+    }
+    if (event.ctrlKey && event.key === 'ArrowLeft') {
+      event.preventDefault();
+      document.getElementById('prev-button').click();
+    }
+    if (event.ctrlKey && event.key === 'ArrowRight') {
+      event.preventDefault();
+      document.getElementById('next-button').click();
+    }
+  });
+}
+
+// Call the function to enable the CTRL+C listener
 
 function focusKeyboard() {
   inputBox.focus();
@@ -317,6 +335,7 @@ function init() {
   resetVerseContainers();
   setIdealHeight();
   inputBox.addEventListener('keydown', keyboardMoveWords);
+  addShortcutListeners();
 }
 
 init();
