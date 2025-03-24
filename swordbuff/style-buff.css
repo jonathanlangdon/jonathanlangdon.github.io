@@ -183,20 +183,19 @@ nav img {
   padding: 0 10px;
 }
 
-#reset {
+.red-button {
   background-color: red;
   color: white;
   font-weight: bold;
 }
 
-#check {
+.green-button {
   background-color: #40cc02;
   color: white;
   font-weight: bold;
 }
 
-#next-button,
-#prev-button {
+.blue-button {
   background-color: #1364c9;
   color: white;
   font-weight: bold;

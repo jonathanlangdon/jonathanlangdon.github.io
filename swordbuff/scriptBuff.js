@@ -69,6 +69,7 @@ function createButtonForWord(word) {
 function moveWordsUp(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
     answersContainer.appendChild(e.target);
+    updateResetButton();
   }
 }
 
@@ -77,6 +78,7 @@ function moveWordsDown(e) {
     e.target.classList.remove('incorrect');
     e.target.classList.remove('correct');
     wordBankContainer.appendChild(e.target);
+    updateResetButton();
   }
 }
 
@@ -255,15 +257,21 @@ function checkUserInput() {
     selectedWords,
     correctVerse
   );
-  if (wordBankContainer.children.length == 0) {
-    wordButtonsEnabled = false;
-    resetWordsInContainer(wordBankContainer);
-    createWordButtons(originalVerseArray);
-    let correctButtons = [...wordBankContainer.children];
-    correctButtons.forEach(x => x.classList.add('correct'));
-    const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
-    checkResultsContainer.textContent = getResultText(percentageCorrect);
-  }
+  if (wordBankContainer.children.length == 0) showCorrectAnswer();
+  updateResetButton();
+}
+
+function showCorrectAnswer() {
+  const selectedWords = getSelectedWords(answersContainer);
+  const correctVerse = getCorrectVerseWords(verseString);
+  wordButtonsEnabled = false;
+  resetWordsInContainer(wordBankContainer);
+  createWordButtons(originalVerseArray);
+  let correctButtons = [...wordBankContainer.children];
+  correctButtons.forEach(x => x.classList.add('correct'));
+  const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
+  checkResultsContainer.textContent = getResultText(percentageCorrect);
+  updateResetButton();
 }
 
 function resetVerseContainers() {
@@ -279,6 +287,23 @@ function resetVerseContainers() {
     newButton.textContent = 'CHECK';
     newButton.id = 'check';
     checkArea.appendChild(newButton);
+  }
+  updateResetButton();
+}
+
+function updateResetButton() {
+  const resetButton = document.getElementById('reset-show');
+  if (
+    answersContainer.children.length > 0 ||
+    wordBankContainer.children[0].classList.contains('correct')
+  ) {
+    resetButton.textContent = 'RESET';
+    resetButton.className = 'red-button';
+    resetButton.onclick = resetVerseContainers;
+  } else {
+    resetButton.textContent = 'SHOW VERSE';
+    resetButton.className = 'blue-button';
+    resetButton.onclick = showCorrectAnswer;
   }
 }
 
@@ -303,8 +328,6 @@ function addShortcutListeners() {
   });
 }
 
-// Call the function to enable the CTRL+C listener
-
 function focusKeyboard() {
   inputBox.focus();
 }
@@ -317,11 +340,11 @@ function init() {
   numVerses = Object.keys(verses).length;
   progressBar.max = numVerses;
 
+  document.addEventListener('keydown', focusKeyboard);
+  inputBox.addEventListener('keydown', keyboardMoveWords);
+
   wordBankContainer.addEventListener('click', moveWordsUp);
   answersContainer.addEventListener('click', moveWordsDown);
-
-  const resetButton = document.getElementById('reset');
-  resetButton.addEventListener('click', resetVerseContainers);
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput();
@@ -329,12 +352,13 @@ function init() {
     else if (event.target && event.target.id === 'next-button') goToNextVerse();
   });
 
-  document.addEventListener('keydown', focusKeyboard);
+  document
+    .getElementById('reset-show')
+    .addEventListener('click', updateResetButton);
 
   putVerseInHeader(verseIndex);
   resetVerseContainers();
   setIdealHeight();
-  inputBox.addEventListener('keydown', keyboardMoveWords);
   addShortcutListeners();
 }
 
