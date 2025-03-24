@@ -19,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.classList.add('blue-button');
         button.textContent = dir.name;
         button.addEventListener('click', () => {
-          // Navigate to the folder's page when the button is clicked
-          window.location.href = `./${dir.name}/`;
+          window.location.href = `../${dir.name}/`;
         });
         verseListContainer.appendChild(button);
       });

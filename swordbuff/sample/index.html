@@ -24,22 +24,22 @@
     <link
       rel="icon"
       type="image/png"
-      href="./graphics/favicon.png"
+      href="graphics/favicon.png"
       sizes="32x32"
     />
-    <link rel="stylesheet" type="text/css" href="./style-buff.css?v=1.0" />
-    <title>Sword Buff</title>
+    <link rel="stylesheet" type="text/css" href="style-buff.css?v=1.0" />
+    <title>Sword Buff Sample</title>
   </head>
   <body>
     <div class="grid-container">
       <header>
         <div class="logo">
-          <a href="https://jonathanlangdon.github.io/swordbuff">
-            <img src="./graphics/logo-zoom1.png" alt="Sword Cartoon Logo" />
+          <a href="https://jonathanlangdon.github.io/swordbuff/list.html">
+            <img src="graphics/logo-zoom1.png" alt="Sword Cartoon Logo" />
           </a>
         </div>
         <div class="title">
-          <h1>Sword Buff</h1>
+          <h1>Quote Memorization App</h1>
           <h2><div id="verse"></div></h2>
         </div>
       </header>
@@ -48,7 +48,6 @@
         <progress id="progress-bar" value="0" max="100"></progress>
         <div id="drop-line"></div>
       </div>
-      <!-- word bank with possible words to use-->
       <div id="word-bank"></div>
       <div class="sidebar-right"></div>
       <div id="footer">
@@ -79,7 +78,7 @@
       <h4 id="feedback"></h4>
     </div>
     <script type="module">
-      const verseFile = './psalm88.js?v=1.0';
+      const verseFile = './sampleVerses.js?v=1.0';
       import(verseFile).then(module => {
         window.data = module.data;
         import('./scriptBuff.js?v=1.0');
