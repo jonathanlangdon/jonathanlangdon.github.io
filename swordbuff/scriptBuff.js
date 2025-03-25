@@ -15,6 +15,7 @@ let currentVerse;
 let verseString;
 let originalVerseArray;
 let translation = '';
+let numIncorrect = 0;
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -83,43 +84,6 @@ function getCorrectVerseWords(verseString) {
     .replace(/[^\w\s]/gi, '')
     .toLowerCase()
     .split(' ');
-}
-
-function updateButtonClasses(button, isSelectedWordCorrect) {
-  if (isSelectedWordCorrect) {
-    button.classList.add('correct');
-    button.classList.remove('incorrect');
-  } else {
-    button.classList.add('incorrect');
-    button.classList.remove('correct');
-  }
-}
-
-function compareWordsAndUpdateButtons(
-  selectedWordsButtons,
-  selectedWords,
-  correctVerse
-) {
-  selectedWordsButtons.forEach((button, i) => {
-    const isSelectedWordCorrect = selectedWords[i] === correctVerse[i];
-    updateButtonClasses(button, isSelectedWordCorrect);
-  });
-}
-
-function getPercentageCorrect(selectedWords, correctVerse) {
-  const wordsGood = selectedWords.reduce(
-    (acc, word, i) => acc + (correctVerse[i] === word ? 1 : 0),
-    0
-  );
-  const totalWords = correctVerse.length;
-  return Math.round((wordsGood / totalWords) * 100);
-}
-
-function getResultText(percentageCorrect) {
-  if (percentageCorrect >= 60) {
-    return `Great work! You got ${percentageCorrect}% correct!`;
-  }
-  return `You got ${percentageCorrect}% correct. Want to try it again?`;
 }
 
 function setIdealHeight() {
@@ -245,6 +209,43 @@ function checkUserInput() {
   updateResetButton();
 }
 
+function updateButtonClasses(button, isSelectedWordCorrect) {
+  if (isSelectedWordCorrect) {
+    button.classList.add('correct');
+    button.classList.remove('incorrect');
+  } else {
+    button.classList.add('incorrect');
+    button.classList.remove('correct');
+    numIncorrect += 1;
+  }
+}
+
+function compareWordsAndUpdateButtons(
+  selectedWordsButtons,
+  selectedWords,
+  correctVerse
+) {
+  selectedWordsButtons.forEach((button, i) => {
+    const isSelectedWordCorrect = selectedWords[i] === correctVerse[i];
+    updateButtonClasses(button, isSelectedWordCorrect);
+  });
+}
+
+function getPercentageCorrect(selectedWords, correctVerse) {
+  let numCorrect = 0;
+  const totalWords = correctVerse.length;
+  console.log('Number of incorrect: ' + numIncorrect);
+  if (numIncorrect < totalWords) numCorrect = totalWords - numIncorrect;
+  return Math.round((numCorrect / totalWords) * 100);
+}
+
+function getResultText(percentageCorrect) {
+  if (percentageCorrect >= 60) {
+    return `Great work! You got ${percentageCorrect}% correct!`;
+  }
+  return `You got ${percentageCorrect}% correct. Want to try it again?`;
+}
+
 function showCorrectAnswer() {
   const selectedWords = getSelectedWords(answersContainer);
   const correctVerse = getCorrectVerseWords(verseString);
@@ -276,6 +277,7 @@ function resetVerseContainers() {
   }
   updateResetButton();
   toggleWordBank();
+  numIncorrect = 0;
 }
 
 function updateResetButton() {
