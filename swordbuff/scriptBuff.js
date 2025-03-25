@@ -234,7 +234,6 @@ function compareWordsAndUpdateButtons(
 function getPercentageCorrect(selectedWords, correctVerse) {
   let numCorrect = 0;
   const totalWords = correctVerse.length;
-  console.log('Number of incorrect: ' + numIncorrect);
   if (numIncorrect < totalWords) numCorrect = totalWords - numIncorrect;
   return Math.round((numCorrect / totalWords) * 100);
 }

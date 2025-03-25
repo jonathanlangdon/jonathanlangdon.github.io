@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Check if the URL contains the "verse" parameter
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('verse')) {
+    // If we're in a dynamic page (e.g., index.html?verse=luke12), don't run the code below
+    return;
+  }
+
   // API URL for the "verses" folder in your repository
   const apiUrl =
     'https://api.github.com/repos/jonathanlangdon/jonathanlangdon.github.io/contents/swordbuff/verses?ref=main';
