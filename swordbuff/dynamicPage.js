@@ -23,7 +23,7 @@ if (verseParam) {
   import(verseFile)
     .then(module => {
       window.data = module.data;
-      import('./scriptBuff.js?v=1.0');
+      import('./scriptBuff.js?v=1.1');
     })
     .catch(err => {
       console.error('Error loading verse module:', err);
