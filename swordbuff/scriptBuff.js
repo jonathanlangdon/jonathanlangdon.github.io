@@ -5,6 +5,7 @@ const wordBankContainer = document.getElementById('word-bank');
 const answersContainer = document.getElementById('drop-line');
 const checkResultsContainer = document.getElementById('feedback');
 const newButton = document.createElement('button');
+const wordBankToggle = document.getElementById('word-bank-toggle');
 
 let verses = [];
 let numVerses = 0;
@@ -330,6 +331,16 @@ function focusKeyboard() {
   inputBox.focus();
 }
 
+function toggleWordBank(e) {
+  Array.from(wordBankContainer.children).forEach(button => {
+    if (e.target.checked) {
+      button.classList.remove('hidden');
+    } else {
+      button.classList.add('hidden');
+    }
+  });
+}
+
 function init() {
   data.verses.forEach(verseData => verses.push(verseData));
   currentVerse = verses[verseIndex];
@@ -343,6 +354,7 @@ function init() {
 
   wordBankContainer.addEventListener('click', moveWordsUp);
   answersContainer.addEventListener('click', moveWordsDown);
+  wordBankToggle.addEventListener('change', e => toggleWordBank(e));
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput();

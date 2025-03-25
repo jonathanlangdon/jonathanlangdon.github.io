@@ -261,6 +261,76 @@ nav img {
   display: none;
 }
 
+/* Toggle container styling (optional, for spacing) */
+.toggle-container {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Custom Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: #1364c9;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #1364c9;
+}
+
+/* Optional: Style the label text */
+.toggle-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
 @media (min-width: 769px) {
   .grid-container {
     grid-template-columns: 1fr minmax(768px, 1fr) 1fr;
