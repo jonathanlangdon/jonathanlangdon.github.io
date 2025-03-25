@@ -275,6 +275,7 @@ function resetVerseContainers() {
     checkArea.appendChild(newButton);
   }
   updateResetButton();
+  toggleWordBank();
 }
 
 function updateResetButton() {
@@ -331,9 +332,9 @@ function focusKeyboard() {
   inputBox.focus();
 }
 
-function toggleWordBank(e) {
+function toggleWordBank() {
   Array.from(wordBankContainer.children).forEach(button => {
-    if (e.target.checked) {
+    if (wordBankToggle.checked) {
       button.classList.remove('hidden');
     } else {
       button.classList.add('hidden');
