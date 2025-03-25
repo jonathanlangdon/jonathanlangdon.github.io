@@ -343,6 +343,14 @@ function toggleWordBank() {
   });
 }
 
+function getSetInitialWordBankStatus() {
+  const storedState = localStorage.getItem('bankToggleIsChecked');
+  if (storedState != null) {
+    wordBankToggle.checked = storedState === 'true';
+  }
+  toggleWordBank();
+}
+
 function init() {
   data.verses.forEach(verseData => verses.push(verseData));
   currentVerse = verses[verseIndex];
@@ -356,7 +364,7 @@ function init() {
 
   wordBankContainer.addEventListener('click', moveWordsUp);
   answersContainer.addEventListener('click', moveWordsDown);
-  wordBankToggle.addEventListener('change', e => toggleWordBank(e));
+  wordBankToggle.addEventListener('change', toggleWordBank);
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput();
@@ -372,6 +380,7 @@ function init() {
   resetVerseContainers();
   setIdealHeight();
   addShortcutListeners();
+  getSetInitialWordBankStatus();
 }
 
 init();

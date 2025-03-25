@@ -1,5 +1,17 @@
 const params = new URLSearchParams(window.location.search);
 const verseParam = params.get('verse');
+const wordBankToggle = document.getElementById('word-bank-toggle');
+
+function getSetInitialWordBankStatus() {
+  const storedState = localStorage.getItem('bankToggleIsChecked');
+  if (storedState != null) {
+    wordBankToggle.checked = storedState === 'true';
+  }
+}
+
+function setWordBankStoredState() {
+  localStorage.setItem('bankToggleIsChecked', wordBankToggle.checked);
+}
 
 if (verseParam) {
   document.getElementById('progress-bar').style.display = 'block';
@@ -17,3 +29,10 @@ if (verseParam) {
       console.error('Error loading verse module:', err);
     });
 }
+
+function init() {
+  getSetInitialWordBankStatus();
+  wordBankToggle.addEventListener('change', setWordBankStoredState);
+}
+
+init();
