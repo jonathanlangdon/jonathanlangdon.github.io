@@ -29,7 +29,7 @@ export const data = {
     },
     {
       chapter: 4,
-      text: 'in your anger do not sin when you are on your beds search your hearts and be silent Selah',
+      text: 'in your anger do not sin when you are on your beds search your hearts and be silent',
       verse: '4'
     },
     {
