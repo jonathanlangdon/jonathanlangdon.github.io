@@ -16,6 +16,7 @@ let verseString;
 let originalVerseArray;
 let translation = '';
 let numIncorrect = 0;
+let stillLearning = false;
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -253,11 +254,70 @@ function showCorrectAnswer() {
   createWordButtons(originalVerseArray);
   let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
-  if (answersContainer.children.length > 0) {
-    const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
-    checkResultsContainer.textContent = getResultText(percentageCorrect);
-  }
+  const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
+  checkResultsContainer.textContent = getResultText(percentageCorrect);
+  storeResults(percentageCorrect);
   updateResetButton();
+}
+function getStoredRecord(storageKey) {
+  let record = localStorage.getItem(storageKey);
+  return record ? JSON.parse(record) : {};
+}
+
+function updateSM2(record, quality) {
+  if (quality < 3) {
+    record.repetitions = 0;
+    record.interval = 1;
+  } else {
+    record.repetitions++;
+    if (record.repetitions === 1) {
+      record.interval = 1;
+    } else if (record.repetitions === 2) {
+      record.interval = 6;
+    } else {
+      record.interval = Math.round(record.interval * record.ef);
+    }
+  }
+
+  record.ef = record.ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+  if (record.ef < 1.3) record.ef = 1.3;
+
+  const nextDue = new Date();
+  nextDue.setDate(nextDue.getDate() + record.interval);
+  record.dueDate = nextDue.toISOString();
+
+  return record;
+}
+
+function storeResults(percentageCorrect) {
+  const params = new URLSearchParams(window.location.search);
+  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
+
+  let allVerseData = getStoredRecord(storageKey);
+  let record = allVerseData[verseIndexKey] || {
+    repetitions: 0,
+    interval: 0,
+    ef: 2.5,
+    dueDate: new Date().toISOString(),
+    stillLearning: false,
+    percentRight: 0
+  };
+
+  const isDueForReview = record => new Date(record.dueDate) <= new Date();
+
+  if (!isDueForReview(record)) {
+    record.stillLearning = stillLearning;
+    record.percentRight = percentageCorrect;
+  } else {
+    const quality = Math.round(percentageCorrect / 20);
+    record = updateSM2(record, quality);
+    record.stillLearning = stillLearning;
+    record.percentRight = percentageCorrect;
+  }
+
+  allVerseData[verseIndexKey] = record;
+  localStorage.setItem(storageKey, JSON.stringify(allVerseData));
 }
 
 function resetVerseContainers() {
@@ -277,6 +337,7 @@ function resetVerseContainers() {
   updateResetButton();
   toggleWordBank();
   numIncorrect = 0;
+  stillLearning = false;
 }
 
 function updateResetButton() {
@@ -291,8 +352,13 @@ function updateResetButton() {
   } else {
     resetButton.textContent = 'SHOW VERSE';
     resetButton.className = 'blue-button';
-    resetButton.onclick = showCorrectAnswer;
+    resetButton.onclick = showVerse;
   }
+}
+
+function showVerse() {
+  stillLearning = true;
+  showCorrectAnswer();
 }
 
 function addShortcutListeners() {
