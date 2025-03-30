@@ -355,7 +355,8 @@ nav img {
   }
   .sidebar-left,
   .sidebar-right,
-  #check-results {
+  #check-results,
+  #toggle-wordbank {
     display: none;
   }
   .check-area > div {
