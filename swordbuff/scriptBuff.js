@@ -16,7 +16,6 @@ let verseString;
 let originalVerseArray;
 let translation = '';
 let numIncorrect = 0;
-let stillLearning = false;
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -240,10 +239,17 @@ function getPercentageCorrect(selectedWords, correctVerse) {
 }
 
 function getResultText(percentageCorrect) {
-  if (percentageCorrect >= 60) {
-    return `Great work! You got ${percentageCorrect}% correct!`;
-  }
-  return `You got ${percentageCorrect}% correct. Want to try it again?`;
+  const params = new URLSearchParams(window.location.search);
+  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  const verseData = storedData[verseIndex.toString()];
+  const dueDate = verseData
+    ? new Date(verseData.dueDate).toLocaleDateString()
+    : 'tomorrow';
+  const goodRecall = verseData ? verseData.repetitions : 0;
+  return `${percentageCorrect}% correct with a run of ${goodRecall} previous recall${
+    goodRecall == 1 ? '' : 's'
+  }<br>Lets practice ${dueDate}`;
 }
 
 function showCorrectAnswer() {
@@ -255,8 +261,12 @@ function showCorrectAnswer() {
   let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
   const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
-  checkResultsContainer.textContent = getResultText(percentageCorrect);
-  storeResults(percentageCorrect);
+  if (answersContainer.children.length > 0) {
+    checkResultsContainer.innerHTML = getResultText(percentageCorrect);
+    storeResults(percentageCorrect);
+  } else {
+    storeResults(0);
+  }
   updateResetButton();
 }
 function getStoredRecord(storageKey) {
@@ -300,19 +310,16 @@ function storeResults(percentageCorrect) {
     interval: 0,
     ef: 2.5,
     dueDate: new Date().toISOString(),
-    stillLearning: false,
     percentRight: 0
   };
 
   const isDueForReview = record => new Date(record.dueDate) <= new Date();
 
   if (!isDueForReview(record)) {
-    record.stillLearning = stillLearning;
     record.percentRight = percentageCorrect;
   } else {
     const quality = Math.round(percentageCorrect / 20);
     record = updateSM2(record, quality);
-    record.stillLearning = stillLearning;
     record.percentRight = percentageCorrect;
   }
 
@@ -337,7 +344,6 @@ function resetVerseContainers() {
   updateResetButton();
   toggleWordBank();
   numIncorrect = 0;
-  stillLearning = false;
 }
 
 function updateResetButton() {
@@ -352,13 +358,8 @@ function updateResetButton() {
   } else {
     resetButton.textContent = 'SHOW VERSE';
     resetButton.className = 'blue-button';
-    resetButton.onclick = showVerse;
+    resetButton.onclick = showCorrectAnswer;
   }
-}
-
-function showVerse() {
-  stillLearning = true;
-  showCorrectAnswer();
 }
 
 function addShortcutListeners() {
