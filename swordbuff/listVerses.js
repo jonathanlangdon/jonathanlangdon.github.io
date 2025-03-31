@@ -57,12 +57,20 @@ function formatVerseName(name) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selectedWho =
-    document
-      .querySelector('#user-select .toggle-button.active')
-      ?.getAttribute('data-value') || 'Evelyn';
+  const storedWho = localStorage.getItem('who') || 'Evelyn';
+  const toggleButtons = document.querySelectorAll(
+    '#user-select .toggle-button'
+  );
 
-  loadVersesFor(selectedWho);
+  toggleButtons.forEach(btn => {
+    if (btn.getAttribute('data-value') === storedWho) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  loadVersesFor(storedWho);
 });
 
 document.querySelectorAll('#user-select .toggle-button').forEach(button => {
@@ -74,7 +82,8 @@ document.querySelectorAll('#user-select .toggle-button').forEach(button => {
     this.classList.add('active');
     const selectedOption = this.getAttribute('data-value');
     console.log('Selected option:', selectedOption);
+    localStorage.setItem('who', selectedOption);
 
-    loadVersesFor(selectedOption); // ✅ reload the list
+    loadVersesFor(selectedOption); // Reload the list
   });
 });
