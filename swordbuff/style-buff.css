@@ -259,16 +259,15 @@ nav img {
   display: none;
 }
 
-/* Toggle container styling (optional, for spacing) */
 .toggle-container {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-left: 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-/* Custom Toggle Switch */
 .switch {
   position: relative;
   display: inline-block;
