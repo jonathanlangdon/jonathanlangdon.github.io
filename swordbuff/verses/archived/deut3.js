@@ -1,6 +1,7 @@
 export const data = {
   book: 'Deuteronomy',
   translation: 'NIV-2011',
+  who: 'Brielle',
   verses: [
     {
       chapter: 3,

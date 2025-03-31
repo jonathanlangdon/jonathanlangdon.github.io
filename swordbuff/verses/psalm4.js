@@ -1,6 +1,7 @@
 export const data = {
   book: 'Psalms',
   translation: 'NIV-1984',
+  who: 'Daddy',
   verses: [
     {
       chapter: 4,

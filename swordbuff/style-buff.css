@@ -320,11 +320,40 @@ nav img {
   box-shadow: 0 0 1px #1364c9;
 }
 
-/* Optional: Style the label text */
 .toggle-label {
   font-size: 16px;
   font-weight: 500;
   color: #333;
+}
+
+.toggle-button-group {
+  display: inline-flex;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.toggle-button {
+  background: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  flex: 1;
+  transition: background-color 0.3s;
+  font-size: 16px;
+}
+
+.toggle-button:not(:last-child) {
+  border-right: 1px solid #ccc;
+}
+
+.toggle-button.active {
+  background: #1364c9;
+  color: #fff;
+}
+
+#user-select {
+  margin: auto;
 }
 
 .hidden {

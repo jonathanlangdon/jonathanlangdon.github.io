@@ -1,6 +1,7 @@
 export const data = {
   book: 'Luke',
   translation: 'NIV-2011',
+  who: 'Brielle',
   verses: [
     {
       chapter: 12,

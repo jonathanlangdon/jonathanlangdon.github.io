@@ -1,6 +1,7 @@
 export const data = {
   book: 'Exodus',
   translation: 'NIV-2011',
+  who: 'Evelyn',
   verses: [
     {
       chapter: 4,
