@@ -6,6 +6,7 @@ const answersContainer = document.getElementById('drop-line');
 const checkResultsContainer = document.getElementById('feedback');
 const newButton = document.createElement('button');
 const wordBankToggle = document.getElementById('word-bank-toggle');
+const autoGradeToggle = document.getElementById('auto-grade-toggle');
 
 let verses = [];
 let numVerses = 0;
@@ -16,6 +17,7 @@ let verseString;
 let originalVerseArray;
 let translation = '';
 let numIncorrect = 0;
+let autoGrade = true;
 
 function shuffle(array) {
   let currentIndex = array.length,
@@ -53,6 +55,7 @@ function moveWordsUp(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
     answersContainer.appendChild(e.target);
     updateResetButton();
+    if (autoGrade) checkUserInput();
   }
 }
 
@@ -410,12 +413,24 @@ function toggleWordBank() {
   });
 }
 
+function toggleAutoGrade() {
+  autoGrade = autoGradeToggle.checked ? true : false;
+}
+
 function getSetInitialWordBankStatus() {
   const storedState = localStorage.getItem('bankToggleIsChecked');
   if (storedState != null) {
     wordBankToggle.checked = storedState === 'true';
   }
   toggleWordBank();
+}
+
+function getSetInitialAutoGradeStatus() {
+  const storedState = localStorage.getItem('autoGrade');
+  if (storedState != null) {
+    wordBankToggle.checked = storedState === 'true';
+  }
+  autoGrade = autoGradeToggle.checked ? true : false;
 }
 
 function init() {
@@ -432,6 +447,7 @@ function init() {
   wordBankContainer.addEventListener('click', moveWordsUp);
   answersContainer.addEventListener('click', moveWordsDown);
   wordBankToggle.addEventListener('change', toggleWordBank);
+  autoGradeToggle.addEventListener('change', toggleAutoGrade);
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput();
@@ -448,6 +464,7 @@ function init() {
   setIdealHeight();
   addShortcutListeners();
   getSetInitialWordBankStatus();
+  getSetInitialAutoGradeStatus();
 }
 
 init();

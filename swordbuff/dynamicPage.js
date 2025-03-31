@@ -1,6 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const verseParam = params.get('verse');
 const wordBankToggle = document.getElementById('word-bank-toggle');
+const autoGradeToggle = document.getElementById('auto-grade-toggle');
 
 function getSetInitialWordBankStatus() {
   const storedState = localStorage.getItem('bankToggleIsChecked');
@@ -9,8 +10,19 @@ function getSetInitialWordBankStatus() {
   }
 }
 
+function getSetInitialAutoGradeStatus() {
+  const storedState = localStorage.getItem('autoGrade');
+  if (storedState != null) {
+    autoGradeToggle.checked = storedState === 'true';
+  }
+}
+
 function setWordBankStoredState() {
   localStorage.setItem('bankToggleIsChecked', wordBankToggle.checked);
+}
+
+function setAutoGradeStoredState() {
+  localStorage.setItem('autoGrade', autoGradeToggle.checked);
 }
 
 if (verseParam) {
@@ -33,7 +45,9 @@ if (verseParam) {
 
 function init() {
   getSetInitialWordBankStatus();
+  getSetInitialAutoGradeStatus();
   wordBankToggle.addEventListener('change', setWordBankStoredState);
+  autoGradeToggle.addEventListener('change', setAutoGradeStoredState);
 }
 
 init();
