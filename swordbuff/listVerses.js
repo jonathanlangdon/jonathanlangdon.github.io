@@ -20,7 +20,7 @@ function loadVersesFor(selectedWho) {
 
       jsFiles.forEach(file => {
         const fileName = file.name.replace(/\.js$/, '');
-        const fileUrl = `/verses/${file.name}`;
+        const fileUrl = `./verses/${file.name}`;
 
         fetch(fileUrl)
           .then(response => response.text())
