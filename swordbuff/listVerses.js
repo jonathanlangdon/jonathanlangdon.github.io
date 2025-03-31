@@ -13,17 +13,14 @@ document.querySelectorAll('#user-select .toggle-button').forEach(button => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Get the active selection from the toggle button group.
   const selectedWho =
     document
       .querySelector('#user-select .toggle-button.active')
       ?.getAttribute('data-value') || 'Evelyn';
 
-  // Only run this code if not in a dynamic page
   const params = new URLSearchParams(window.location.search);
   if (params.has('verse')) return;
 
-  // API URL for the verses folder in your repository
   const apiUrl =
     'https://api.github.com/repos/jonathanlangdon/jonathanlangdon.github.io/contents/swordbuff/verses?ref=main';
 
@@ -34,20 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
       return response.json();
     })
     .then(data => {
-      // Filter for .js files only
       const jsFiles = data.filter(
         item => item.type === 'file' && item.name.endsWith('.js')
       );
       const verseListContainer = document.getElementById('verse-list');
 
       jsFiles.forEach(file => {
-        // Dynamically import the module using its download_url
-        import(file.download_url)
-          .then(module => {
-            const verseData = module.data;
-            // Only list if the verse's "who" matches the selected option
-            if (verseData.who === selectedWho) {
-              // Remove the .js extension for display
+        // Fetch the file content as text
+        fetch(file.download_url)
+          .then(response => response.text())
+          .then(text => {
+            // Use regex to extract the value for 'who'
+            const match = text.match(/who\s*:\s*['"]([^'"]+)['"]/);
+            if (match && match[1] === selectedWho) {
               const fileName = file.name.replace(/\.js$/, '');
               const smartName = formatVerseName(fileName);
               const button = document.createElement('button');
@@ -60,13 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           })
           .catch(err =>
-            console.error('Error loading verse file:', file.name, err)
+            console.error('Error loading file content:', file.name, err)
           );
       });
     })
     .catch(err => console.error('Error fetching repository contents:', err));
 
-  // Helper function to smart-format file names for display.
   function formatVerseName(name) {
     const match = name.match(/^([a-z]+)([\d:.-]+)$/i);
     if (match) {
