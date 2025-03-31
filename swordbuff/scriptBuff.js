@@ -54,8 +54,8 @@ function createButtonForWord(word) {
 function moveWordsUp(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
     answersContainer.appendChild(e.target);
-    updateResetButton();
     if (autoGrade) checkUserInput();
+    updateResetButton();
   }
 }
 
@@ -234,7 +234,7 @@ function compareWordsAndUpdateButtons(
   });
 }
 
-function getPercentageCorrect(selectedWords, correctVerse) {
+function getPercentageCorrect(correctVerse) {
   let numCorrect = 0;
   const totalWords = correctVerse.length;
   if (numIncorrect < totalWords) numCorrect = totalWords - numIncorrect;
@@ -263,7 +263,7 @@ function showCorrectAnswer() {
   createWordButtons(originalVerseArray);
   let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
-  const percentageCorrect = getPercentageCorrect(selectedWords, correctVerse);
+  const percentageCorrect = getPercentageCorrect(correctVerse);
   if (answersContainer.children.length > 0) {
     checkResultsContainer.innerHTML = getResultText(percentageCorrect);
     storeResults(percentageCorrect);
