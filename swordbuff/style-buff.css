@@ -35,6 +35,7 @@ h4 {
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
     'sidebar-left header sidebar-right'
+    'sidebar-left user-verses sidebar-right'
     'sidebar-left drop-area sidebar-right'
     'sidebar-left word-bank sidebar-right'
     'sidebar-left footer sidebar-right'
@@ -186,19 +187,16 @@ nav img {
 .red-button {
   background-color: red;
   color: white;
-  font-weight: bold;
 }
 
 .green-button {
   background-color: #40cc02;
   color: white;
-  font-weight: bold;
 }
 
 .blue-button {
   background-color: #1364c9;
   color: white;
-  font-weight: bold;
 }
 
 #move-buttons {
@@ -328,7 +326,6 @@ nav img {
 
 .toggle-button-group {
   display: inline-flex;
-  border: 1px solid #ccc;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -352,8 +349,18 @@ nav img {
   color: #fff;
 }
 
+#user-verses {
+  margin: 20px auto;
+  grid-area: user-verses;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 #user-select {
   margin: auto;
+  margin-bottom: 20px;
+  border-bottom: 4px solid lightgray;
 }
 
 .hidden {
@@ -377,6 +384,7 @@ nav img {
     grid-template-columns: 1fr;
     grid-template-areas:
       'header'
+      'user-verses'
       'drop-area'
       'word-bank'
       'footer'
@@ -396,5 +404,8 @@ nav img {
   button {
     font-size: 20px;
     padding: 8px;
+  }
+  .toggle-button {
+    font-size: 20px;
   }
 }
