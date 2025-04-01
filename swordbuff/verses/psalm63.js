@@ -15,7 +15,7 @@ export const data = {
     },
     {
       chapter: 63,
-      text: 'i have seen you in the sanctuary and beheld your power and your glory',
+      text: 'I have seen you in the sanctuary and beheld your power and your glory',
       verse: '2'
     },
     {
@@ -25,7 +25,7 @@ export const data = {
     },
     {
       chapter: 63,
-      text: 'i will praise you as long as I live and in your name I will lift up my hands',
+      text: 'I will praise you as long as I live and in your name I will lift up my hands',
       verse: '4'
     },
     {
