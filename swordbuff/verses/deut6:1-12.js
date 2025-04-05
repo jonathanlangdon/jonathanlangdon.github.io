@@ -76,7 +76,7 @@ export const data = {
     {
       chapter: 6,
       verse: '10b',
-      text: 'to give you—a land with large, flourishing cities you did not build,'
+      text: 'to give you —a land with large, flourishing cities you did not build,'
     },
     {
       chapter: 6,
@@ -86,7 +86,7 @@ export const data = {
     {
       chapter: 6,
       verse: '11b',
-      text: 'and vineyards and olive groves you did not plant—then when you eat and are satisfied,'
+      text: 'and vineyards and olive groves you did not plant —then when you eat and are satisfied,'
     },
     {
       chapter: 6,

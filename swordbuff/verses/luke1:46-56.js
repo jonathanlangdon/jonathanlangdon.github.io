@@ -26,7 +26,7 @@ export const data = {
     {
       chapter: 1,
       verse: '49',
-      text: 'for the Mighty One has done great things for me—holy is his name.'
+      text: 'for the Mighty One has done great things for me —holy is his name.'
     },
     {
       chapter: 1,

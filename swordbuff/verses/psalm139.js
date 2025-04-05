@@ -91,7 +91,7 @@ export const data = {
     {
       chapter: 139,
       verse: '18',
-      text: 'Were I to count them, they would outnumber the grains of sand—when I awake, I am still with you.'
+      text: 'Were I to count them, they would outnumber the grains of sand —when I awake, I am still with you.'
     },
     {
       chapter: 139,
