@@ -60,7 +60,7 @@ export const data = {
     },
     {
       chapter: 88,
-      text: 'is your love declared in the grave your faithfulness in Destruction',
+      text: 'is your love declared in the grave your faithfulness in destruction',
       verse: '11'
     },
     {
