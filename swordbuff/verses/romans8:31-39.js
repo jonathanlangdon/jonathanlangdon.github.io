@@ -21,7 +21,7 @@ export const data = {
     {
       chapter: 8,
       verse: '34a',
-      text: 'Who then is the one who condemns? No one. '
+      text: 'Who then is the one who condemns? No one.'
     },
     {
       chapter: 8,

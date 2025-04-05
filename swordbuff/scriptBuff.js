@@ -193,7 +193,8 @@ function addDoneButtonIfEnd() {
     newButton.id = 'done';
     document.getElementById('move-buttons').appendChild(newButton);
     newButton.addEventListener('click', () => {
-      location.reload();
+      const baseUrl = window.location.origin + window.location.pathname;
+      window.location.href = baseUrl;
     });
   }
 }
@@ -297,6 +298,7 @@ function updateSM2(record, quality) {
 
   const nextDue = new Date();
   nextDue.setDate(nextDue.getDate() + record.interval);
+  nextDue.setHours(0, 0, 0, 0);
   record.dueDate = nextDue.toISOString();
 
   return record;
@@ -306,17 +308,21 @@ function storeResults(percentageCorrect) {
   const params = new URLSearchParams(window.location.search);
   const storageKey = params.get('verse'); // e.g., "psalm23"
   const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
+  let tomorrow = new Date();
+  tomorrow.setHours(0, 0, 0, 0);
 
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
     repetitions: 0,
     interval: 0,
     ef: 2.5,
-    dueDate: new Date().toISOString(),
+    dueDate: tomorrow.toISOString(),
     percentRight: 0
   };
 
-  const isDueForReview = record => new Date(record.dueDate) <= new Date();
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const isDueForReview = record => new Date(record.dueDate) <= today;
 
   if (!isDueForReview(record)) {
     record.percentRight = percentageCorrect;
