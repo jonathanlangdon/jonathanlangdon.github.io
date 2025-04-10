@@ -289,15 +289,13 @@ function getStoredRecord(storageKey) {
 }
 
 function updateSM2(record, quality) {
-  if (quality < 3) {
+  if (quality < 1) {
     record.repetitions = 0;
     record.interval = 1;
   } else {
     record.repetitions++;
-    if (record.repetitions === 1) {
+    if (record.repetitions < 3) {
       record.interval = 1;
-    } else if (record.repetitions === 2) {
-      record.interval = 6;
     } else {
       record.interval = Math.round(record.interval * record.ef);
     }
@@ -337,7 +335,11 @@ function storeResults(percentageCorrect) {
   if (!isDueForReview(record)) {
     record.percentRight = percentageCorrect;
   } else {
-    const quality = Math.round(percentageCorrect / 20);
+    const quality =
+      percentageCorrect < 60
+        ? 0
+        : Math.round(((percentageCorrect - 60) / 40) * 6);
+
     record = updateSM2(record, quality);
     record.percentRight = percentageCorrect;
   }
