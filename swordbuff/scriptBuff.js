@@ -276,8 +276,8 @@ function showCorrectAnswer() {
   correctButtons.forEach(x => x.classList.add('correct'));
   const percentageCorrect = getPercentageCorrect(correctVerse);
   if (answersContainer.children.length > 0) {
-    checkResultsContainer.innerHTML = getResultText(percentageCorrect);
     storeResults(percentageCorrect);
+    checkResultsContainer.innerHTML = getResultText(percentageCorrect);
   } else {
     storeResults(0);
   }
@@ -316,20 +316,18 @@ function storeResults(percentageCorrect) {
   const params = new URLSearchParams(window.location.search);
   const storageKey = params.get('verse'); // e.g., "psalm23"
   const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
-  let tomorrow = new Date();
-  tomorrow.setHours(0, 0, 0, 0);
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
     repetitions: 0,
     interval: 0,
     ef: 2.5,
-    dueDate: tomorrow.toISOString(),
+    dueDate: today.toISOString(),
     percentRight: 0
   };
 
-  let today = new Date();
-  today.setHours(0, 0, 0, 0);
   const isDueForReview = record => new Date(record.dueDate) <= today;
 
   if (!isDueForReview(record)) {
