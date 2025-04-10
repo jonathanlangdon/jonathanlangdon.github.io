@@ -28,12 +28,48 @@ function loadVersesFor(selectedWho) {
             const match = text.match(/who\s*:\s*['"]([^'"]+)['"]/);
             if (match && match[1] === selectedWho) {
               const smartName = formatVerseName(fileName);
+
+              // 👉 Add LocalStorage read and average calculation
+              const record = JSON.parse(localStorage.getItem(fileName) || '{}');
+              const values = Object.values(record);
+
+              let averagePercent = 0;
+              let earliestDueDate = null;
+
+              if (values.length > 0) {
+                const sum = values.reduce(
+                  (acc, item) => acc + (item.percentRight || 0),
+                  0
+                );
+                averagePercent = Math.round(sum / values.length);
+
+                earliestDueDate = values
+                  .map(v => new Date(v.dueDate))
+                  .sort((a, b) => a - b)[0];
+              }
+
+              // Determine circle color
+              let today = new Date();
+              today.setHours(0, 0, 0, 0);
+              let circleColor = 'score-green';
+              if (earliestDueDate) {
+                earliestDueDate.setHours(0, 0, 0, 0);
+                if (earliestDueDate < today) circleColor = 'score-red';
+                else if (earliestDueDate.getTime() === today.getTime())
+                  circleColor = 'score-yellow';
+              }
+
+              // Circle element
+              const circle = `<span class="score-circle ${circleColor}">${averagePercent}</span>`;
+
+              // Build button
               const button = document.createElement('button');
-              button.classList.add('blue-button');
-              button.textContent = smartName;
+              // button.classList.add('blue-button');
+              button.innerHTML = `${smartName} ${circle}`;
               button.addEventListener('click', () => {
                 window.location.href = `index.html?verse=${fileName}`;
               });
+
               verseListContainer.appendChild(button);
             }
           })

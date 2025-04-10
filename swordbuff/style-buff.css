@@ -199,6 +199,31 @@ nav img {
   color: white;
 }
 
+.score-circle {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  margin-left: 10px;
+  font-weight: bold;
+  color: black;
+}
+
+.score-red {
+  background-color: rgb(255, 168, 183);
+}
+
+.score-yellow {
+  background-color: #ffe187;
+}
+
+.score-green {
+  background-color: #40cc02;
+}
+
 #move-buttons {
   display: flex;
   flex-direction: row;

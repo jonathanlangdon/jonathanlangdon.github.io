@@ -148,14 +148,24 @@ function keyboardMoveWords(e) {
 function putVerseInHeader(verseIndex) {
   const verseContainer = document.getElementById('verse');
   currentVerse = verses[verseIndex];
-  verseContainer.innerText =
-    data.book +
-    ' ' +
-    currentVerse.chapter +
-    ':' +
-    currentVerse.verse +
-    ' ' +
-    data.translation;
+
+  const params = new URLSearchParams(window.location.search);
+  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  const verseData = storedData[verseIndex.toString()];
+
+  let percent = verseData ? verseData.percentRight : 0;
+  let dueDate = verseData ? new Date(verseData.dueDate) : new Date();
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  dueDate.setHours(0, 0, 0, 0);
+
+  let colorClass = 'score-green';
+  if (dueDate < today) colorClass = 'score-red';
+  else if (dueDate.getTime() === today.getTime()) colorClass = 'score-yellow';
+
+  const circle = `<span class="score-circle ${colorClass}">${percent}</span>`;
+  verseContainer.innerHTML = `${data.book} ${currentVerse.chapter}:${currentVerse.verse} ${data.translation} ${circle}`;
 }
 
 function goToPrevVerse() {
