@@ -155,7 +155,9 @@ function putVerseInHeader(verseIndex) {
   const verseData = storedData[verseIndex.toString()];
 
   let percent = verseData ? verseData.percentRight : 0;
-  let dueDate = verseData ? new Date(verseData.dueDate) : new Date();
+  let dueDate = verseData
+    ? new Date(verseData.dueDate + +'T00:00:00')
+    : new Date();
   let today = new Date();
   today.setHours(0, 0, 0, 0);
   dueDate.setHours(0, 0, 0, 0);
@@ -258,7 +260,7 @@ function getResultText(percentageCorrect) {
   const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
   const verseData = storedData[verseIndex.toString()];
   const dueDate = verseData
-    ? new Date(verseData.dueDate).toLocaleDateString()
+    ? new Date(verseData.dueDate + 'T00:00:00').toLocaleDateString()
     : 'tomorrow';
   const goodRecall = verseData ? verseData.repetitions : 0;
   return `${percentageCorrect}% correct with a run of ${goodRecall} previous recall${
@@ -288,58 +290,48 @@ function getStoredRecord(storageKey) {
   return record ? JSON.parse(record) : {};
 }
 
-function updateSM2(record, quality) {
-  if (quality < 1) {
+function getPerfectInterval(reps) {
+  if (reps < -1) return 0;
+  if (reps == 0 || reps == 1) return 1;
+  return getInterval(reps - 2) + getInterval(reps - 3) + getInterval(reps - 4);
+}
+
+function updateTrainingRecord(record, percent) {
+  if (percent < 60) {
     record.repetitions = 0;
     record.interval = 1;
   } else {
     record.repetitions++;
-    if (record.repetitions < 3) {
-      record.interval = 1;
-    } else {
-      record.interval = Math.round(record.interval * record.ef);
-    }
+    record.interval = getPerfectInterval(record.repetitions);
   }
-
-  record.ef = record.ef + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-  if (record.ef < 1.3) record.ef = 1.3;
 
   const nextDue = new Date();
   nextDue.setDate(nextDue.getDate() + record.interval);
-  nextDue.setHours(0, 0, 0, 0);
-  record.dueDate = nextDue.toISOString();
-
+  record.dueDate = nextDue.toISOString().split('T')[0];
   return record;
 }
 
-function storeResults(percentageCorrect) {
+function storeResults(percent) {
   const params = new URLSearchParams(window.location.search);
   const storageKey = params.get('verse'); // e.g., "psalm23"
   const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
   let today = new Date();
-  today.setHours(0, 0, 0, 0);
 
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
     repetitions: 0,
     interval: 0,
-    ef: 2.5,
-    dueDate: today.toISOString(),
+    dueDate: today.toISOString().split('T')[0],
     percentRight: 0
   };
 
   const isDueForReview = record => new Date(record.dueDate) <= today;
 
   if (!isDueForReview(record)) {
-    record.percentRight = percentageCorrect;
+    record.percentRight = percent;
   } else {
-    const quality =
-      percentageCorrect < 60
-        ? 0
-        : Math.round(((percentageCorrect - 60) / 40) * 6);
-
-    record = updateSM2(record, quality);
-    record.percentRight = percentageCorrect;
+    record = updateTrainingRecord(record, percent);
+    record.percentRight = percent;
   }
 
   allVerseData[verseIndexKey] = record;
@@ -484,3 +476,5 @@ function init() {
 }
 
 init();
+
+export { getPerfectInterval };
