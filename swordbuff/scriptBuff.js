@@ -291,7 +291,11 @@ function getStoredRecord(storageKey) {
 function getPerfectInterval(reps) {
   if (reps < -1) return 0;
   if (reps == 0 || reps == 1) return 1;
-  return getInterval(reps - 2) + getInterval(reps - 3) + getInterval(reps - 4);
+  return (
+    getPerfectInterval(reps - 2) +
+    getPerfectInterval(reps - 3) +
+    getPerfectInterval(reps - 4)
+  );
 }
 
 function updateTrainingRecord(record, percent) {
@@ -473,6 +477,12 @@ function init() {
   getSetInitialAutoGradeStatus();
 }
 
-init();
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  try {
+    init();
+  } catch (err) {
+    console.error('Init error:', err);
+  }
+}
 
 export { getPerfectInterval };
