@@ -259,9 +259,10 @@ function getResultText(percentageCorrect) {
   const storageKey = params.get('verse'); // e.g., "psalm23"
   const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
   const verseData = storedData[verseIndex.toString()];
-  const dueDate = verseData
-    ? new Date(verseData.dueDate + 'T00:00:00').toLocaleDateString()
-    : 'tomorrow';
+  let today = new Date();
+  today = today.toISOString().split('T')[0];
+  let dueDate = verseData ? verseData.dueDate : today;
+  if (dueDate === today) dueDate = 'again today';
   const goodRecall = verseData ? verseData.repetitions : 0;
   return `${percentageCorrect}% correct with a run of ${goodRecall} previous recall${
     goodRecall == 1 ? '' : 's'
@@ -297,17 +298,17 @@ function getPerfectInterval(reps) {
 }
 
 function updateTrainingRecord(record, percent) {
+  let interval = 0;
   if (percent < 60) {
     record.repetitions = 0;
-    record.interval = 1;
   } else {
     record.repetitions++;
-    record.interval = getPerfectInterval(record.repetitions);
+    interval = getPerfectInterval(record.repetitions);
   }
-
-  const nextDue = new Date();
-  nextDue.setDate(nextDue.getDate() + record.interval);
+  const nextDue = new Date(); // default nextDue is today
+  nextDue.setDate(nextDue.getDate() + interval);
   record.dueDate = nextDue.toISOString().split('T')[0];
+  record.percentRight = percent;
   return record;
 }
 
@@ -320,14 +321,13 @@ function storeResults(percent) {
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
     repetitions: 0,
-    interval: 0,
     dueDate: today.toISOString().split('T')[0],
     percentRight: 0
   };
 
   const isDueForReview = record => new Date(record.dueDate) <= today;
 
-  if (!isDueForReview(record)) {
+  if (!isDueForReview(record) && percent >= 60) {
     record.percentRight = percent;
   } else {
     record = updateTrainingRecord(record, percent);
