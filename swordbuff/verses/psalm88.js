@@ -1,5 +1,5 @@
 export const data = {
-  translation: 'NIV-1984',
+  translation: 'NIV-84',
   book: 'Psalms',
   who: 'Daddy',
   verses: [

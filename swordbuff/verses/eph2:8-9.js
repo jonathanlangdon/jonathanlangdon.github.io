@@ -1,6 +1,6 @@
 export const data = {
   book: 'Ephesians',
-  translation: 'NIV-2011',
+  translation: 'NIV-11',
   who: 'Evelyn',
   verses: [
     {

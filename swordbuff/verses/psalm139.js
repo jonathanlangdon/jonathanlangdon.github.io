@@ -1,6 +1,6 @@
 export const data = {
   book: 'Psalms',
-  translation: 'NIV-2011',
+  translation: 'NIV-11',
   who: 'Brielle',
   verses: [
     {

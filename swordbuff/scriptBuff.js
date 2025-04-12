@@ -155,12 +155,9 @@ function putVerseInHeader(verseIndex) {
   const verseData = storedData[verseIndex.toString()];
 
   let percent = verseData ? verseData.percentRight : 0;
-  let dueDate = verseData
-    ? new Date(verseData.dueDate + +'T00:00:00')
-    : new Date();
   let today = new Date();
-  today.setHours(0, 0, 0, 0);
-  dueDate.setHours(0, 0, 0, 0);
+  today = new Date(today.toISOString().split('T')[0] + 'T00:00:00');
+  let dueDate = verseData ? new Date(verseData.dueDate + 'T00:00:00') : today;
 
   let colorClass = 'score-green';
   if (dueDate < today) colorClass = 'score-red';
@@ -336,6 +333,7 @@ function storeResults(percent) {
 
   allVerseData[verseIndexKey] = record;
   localStorage.setItem(storageKey, JSON.stringify(allVerseData));
+  putVerseInHeader(verseIndex);
 }
 
 function resetVerseContainers() {
