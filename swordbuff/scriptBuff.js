@@ -257,11 +257,15 @@ function getResultText(percentageCorrect) {
   const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
   const verseData = storedData[verseIndex.toString()];
   let today = new Date();
-  today = today.toISOString().split('T')[0];
-  let dueDate = verseData ? verseData.dueDate : today;
-  if (dueDate === today) dueDate = 'again today';
+  let tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  let todayStr = today.toISOString().split('T')[0];
+  let tomorrowStr = tomorrow.toISOString().split('T')[0];
+  let dueDate = verseData ? verseData.dueDate : todayStr;
+  if (dueDate === todayStr) dueDate = 'again today';
+  else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
   const goodRecall = verseData ? verseData.repetitions : 0;
-  return `${percentageCorrect}% correct with a run of ${goodRecall} previous recall${
+  return `${percentageCorrect}% and ${goodRecall} good spaced recalls${
     goodRecall == 1 ? '' : 's'
   }<br>Lets practice ${dueDate}`;
 }
@@ -298,13 +302,21 @@ function getPerfectInterval(reps) {
   );
 }
 
+function getAdjustedInterval(reps, percent) {
+  if (percent < 60) return 0;
+  const curInterval = getPerfectInterval(reps);
+  const lastInterval = getPerfectInterval(reps - 1);
+  const m = curInterval - lastInterval;
+  return Math.round(m * ((percent - 60) / 40) + lastInterval);
+}
+
 function updateTrainingRecord(record, percent) {
   let interval = 0;
   if (percent < 60) {
     record.repetitions = 0;
   } else {
     record.repetitions++;
-    interval = getPerfectInterval(record.repetitions);
+    interval = getAdjustedInterval(record.repetitions, percent);
   }
   const nextDue = new Date(); // default nextDue is today
   nextDue.setDate(nextDue.getDate() + interval);
@@ -485,4 +497,4 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   }
 }
 
-export { getPerfectInterval };
+export { getPerfectInterval, getAdjustedInterval };
