@@ -437,7 +437,12 @@ function toggleWordBank() {
 }
 
 function toggleAutoGrade() {
-  autoGrade = autoGradeToggle.checked ? true : false;
+  autoGrade = autoGradeToggle.checked;
+
+  const checkButton = document.getElementById('check');
+  if (checkButton) {
+    checkButton.style.display = autoGrade ? 'none' : '';
+  }
 }
 
 function getSetInitialWordBankStatus() {
@@ -454,6 +459,7 @@ function getSetInitialAutoGradeStatus() {
     wordBankToggle.checked = storedState === 'true';
   }
   autoGrade = autoGradeToggle.checked ? true : false;
+  toggleAutoGrade();
 }
 
 function init() {
