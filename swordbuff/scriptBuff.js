@@ -295,11 +295,12 @@ function getStoredRecord(storageKey) {
 function getPerfectInterval(reps) {
   if (reps < -1) return 0;
   if (reps == 0 || reps == 1) return 1;
-  return (
+  let interval =
     getPerfectInterval(reps - 2) +
     getPerfectInterval(reps - 3) +
-    getPerfectInterval(reps - 4)
-  );
+    getPerfectInterval(reps - 4);
+  interval = interval > 180 ? 180 : interval;
+  return interval;
 }
 
 function getAdjustedInterval(reps, percent) {

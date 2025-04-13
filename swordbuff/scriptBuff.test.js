@@ -33,6 +33,11 @@ describe('getPerfectInterval', () => {
     expect(getPerfectInterval(9)).toBe(19);
   });
 
+  test('returns 180 for intervals over 180', () => {
+    expect(getPerfectInterval(15)).toBe(180);
+    expect(getPerfectInterval(16)).toBe(180);
+  }); // max 180 days between practice
+
   test('returns 0 for negative input less than -1', () => {
     expect(getPerfectInterval(-2)).toBe(0);
     expect(getPerfectInterval(-5)).toBe(0);
