@@ -265,7 +265,7 @@ function getResultText(percentageCorrect) {
   if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
   const goodRecall = verseData ? verseData.repetitions : 0;
-  return `${percentageCorrect}% and ${goodRecall} good spaced recalls${
+  return `${percentageCorrect}% and ${goodRecall} good spaced recall${
     goodRecall == 1 ? '' : 's'
   }<br>Lets practice ${dueDate}`;
 }
