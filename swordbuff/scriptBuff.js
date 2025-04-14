@@ -89,6 +89,12 @@ function getCorrectVerseWords(verseString) {
     .split(' ');
 }
 
+function toLocalISODateString(date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
+    .toISOString()
+    .split('T')[0];
+}
+
 function setIdealHeight() {
   const answerContainer = document.getElementById('drop-area');
   const headerHeight = document.querySelector('header').offsetHeight;
@@ -155,9 +161,13 @@ function putVerseInHeader(verseIndex) {
   const verseData = storedData[verseIndex.toString()];
 
   let percent = verseData ? verseData.percentRight : 0;
-  let today = new Date();
-  today = new Date(today.toISOString().split('T')[0] + 'T00:00:00');
-  let dueDate = verseData ? new Date(verseData.dueDate + 'T00:00:00') : today;
+
+  let now = new Date();
+  let todayStr = toLocalISODateString(now);
+
+  let dueDateStr = verseData ? verseData.dueDate : todayStr;
+  let dueDate = new Date(dueDateStr + 'T00:00:00');
+  let today = new Date(todayStr + 'T00:00:00');
 
   let colorClass = 'score-green';
   if (dueDate < today) colorClass = 'score-red';
@@ -259,8 +269,8 @@ function getResultText(percentageCorrect) {
   let today = new Date();
   let tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-  let todayStr = today.toISOString().split('T')[0];
-  let tomorrowStr = tomorrow.toISOString().split('T')[0];
+  let todayStr = toLocalISODateString(today);
+  let tomorrowStr = toLocalISODateString(tomorrow);
   let dueDate = verseData ? verseData.dueDate : todayStr;
   if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
@@ -321,7 +331,7 @@ function updateTrainingRecord(record, percent) {
   }
   const nextDue = new Date(); // default nextDue is today
   nextDue.setDate(nextDue.getDate() + interval);
-  record.dueDate = nextDue.toISOString().split('T')[0];
+  record.dueDate = toLocalISODateString(nextDue);
   record.percentRight = percent;
   return record;
 }
@@ -335,7 +345,7 @@ function storeResults(percent) {
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
     repetitions: 0,
-    dueDate: today.toISOString().split('T')[0],
+    dueDate: toLocalISODateString(today),
     percentRight: 0
   };
 

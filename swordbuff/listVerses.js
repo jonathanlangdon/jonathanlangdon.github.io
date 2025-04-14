@@ -2,6 +2,11 @@ function loadVersesFor(selectedWho) {
   const params = new URLSearchParams(window.location.search);
   if (params.has('verse')) return;
 
+  function parseLocalDate(str) {
+    const [y, m, d] = str.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  }
+
   const apiUrl =
     'https://api.github.com/repos/jonathanlangdon/jonathanlangdon.github.io/contents/swordbuff/verses?ref=main';
 
@@ -44,7 +49,8 @@ function loadVersesFor(selectedWho) {
                 averagePercent = Math.round(sum / values.length);
 
                 earliestDueDate = values
-                  .map(v => new Date(v.dueDate))
+                  .map(v => v.dueDate && parseLocalDate(v.dueDate))
+                  .filter(Boolean)
                   .sort((a, b) => a - b)[0];
               }
 
