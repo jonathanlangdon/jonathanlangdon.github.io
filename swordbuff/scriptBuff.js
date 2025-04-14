@@ -57,6 +57,8 @@ function moveWordsUp(e) {
     if (autoGrade) checkUserInput();
     updateResetButton();
   }
+  if (e.target.classList.contains('correct'))
+    e.target.classList.remove('word-button');
 }
 
 function moveWordsDown(e) {
