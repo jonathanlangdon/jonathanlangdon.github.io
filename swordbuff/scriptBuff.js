@@ -186,6 +186,8 @@ function goToPrevVerse() {
     verseIndex -= 1;
     progressBar.value -= 1;
   }
+  removeDoneButton();
+  addNextButton();
   verseString = verses[verseIndex].text;
   putVerseInHeader(verseIndex);
   verseString = verseString.replace(/^\d+:\s*/, '');
@@ -193,9 +195,28 @@ function goToPrevVerse() {
   resetVerseContainers();
 }
 
+function removeDoneButton() {
+  const doneButton = document.getElementById('done');
+  if (doneButton) {
+    doneButton.remove();
+  }
+}
+
+function addNextButton() {
+  const existingNext = document.getElementById('next-button');
+  const moveButtons = document.getElementById('move-buttons');
+  if (!existingNext) {
+    const nextButton = document.createElement('button');
+    nextButton.id = 'next-button';
+    nextButton.textContent = 'NEXT';
+    nextButton.classList = 'blue-button';
+    moveButtons.appendChild(nextButton);
+  }
+}
+
 function goToNextVerse() {
-  addDoneButtonIfEnd();
   if (verseIndex === verses.length - 1) {
+    addDoneButton();
     progressBar.value += 1;
   } else {
     verseString = verses[(verseIndex += 1)].text;
@@ -207,17 +228,15 @@ function goToNextVerse() {
   }
 }
 
-function addDoneButtonIfEnd() {
-  if (verseIndex == numVerses - 1) {
-    document.getElementById('next-button').remove();
-    newButton.textContent = 'DONE';
-    newButton.id = 'done';
-    document.getElementById('move-buttons').appendChild(newButton);
-    newButton.addEventListener('click', () => {
-      const baseUrl = window.location.origin + window.location.pathname;
-      window.location.href = baseUrl;
-    });
-  }
+function addDoneButton() {
+  document.getElementById('next-button').remove();
+  newButton.textContent = 'DONE';
+  newButton.id = 'done';
+  document.getElementById('move-buttons').appendChild(newButton);
+  newButton.addEventListener('click', () => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    window.location.href = baseUrl;
+  });
 }
 
 function checkUserInput() {
