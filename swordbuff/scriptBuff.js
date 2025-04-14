@@ -179,6 +179,12 @@ function putVerseInHeader(verseIndex) {
   verseContainer.innerHTML = `${data.book} ${currentVerse.chapter}:${currentVerse.verse} ${data.translation} ${circle}`;
 }
 
+function setupVerseWords(verseString) {
+  putVerseInHeader(verseIndex);
+  verseString = verseString.replace(/^\d+:\s*/, '');
+  originalVerseArray = verseString.split(' ');
+}
+
 function goToPrevVerse() {
   if (verseIndex === 0) {
     return;
@@ -189,9 +195,7 @@ function goToPrevVerse() {
   removeDoneButton();
   addNextButton();
   verseString = verses[verseIndex].text;
-  putVerseInHeader(verseIndex);
-  verseString = verseString.replace(/^\d+:\s*/, '');
-  originalVerseArray = verseString.split(' ');
+  setupVerseWords(verseString);
   resetVerseContainers();
 }
 
@@ -220,9 +224,7 @@ function goToNextVerse() {
     progressBar.value += 1;
   } else {
     verseString = verses[(verseIndex += 1)].text;
-    putVerseInHeader(verseIndex);
-    verseString = verseString.replace(/^\d+:\s*/, '');
-    originalVerseArray = verseString.split(' ');
+    setupVerseWords(verseString);
     progressBar.value += 1;
     resetVerseContainers();
   }
@@ -493,17 +495,9 @@ function getSetInitialAutoGradeStatus() {
   toggleAutoGrade();
 }
 
-function init() {
-  data.verses.forEach(verseData => verses.push(verseData));
-  currentVerse = verses[verseIndex];
-  verseString = currentVerse.text.replace(/^\d+:\s*/, '');
-  originalVerseArray = verseString.split(' ');
-  numVerses = Object.keys(verses).length;
-  progressBar.max = numVerses;
-
+function initEventListeners() {
   document.addEventListener('keydown', focusKeyboard);
   inputBox.addEventListener('keydown', keyboardMoveWords);
-
   wordBankContainer.addEventListener('click', moveWordsUp);
   answersContainer.addEventListener('click', moveWordsDown);
   wordBankToggle.addEventListener('change', toggleWordBank);
@@ -518,8 +512,15 @@ function init() {
   document
     .getElementById('reset-show')
     .addEventListener('click', updateResetButton);
+}
 
-  putVerseInHeader(verseIndex);
+function init() {
+  data.verses.forEach(verseData => verses.push(verseData));
+  verseString = verses[verseIndex].text;
+  setupVerseWords(verseString);
+  numVerses = Object.keys(verses).length;
+  progressBar.max = numVerses;
+  initEventListeners();
   resetVerseContainers();
   setIdealHeight();
   addShortcutListeners();
