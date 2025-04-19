@@ -40,7 +40,7 @@ export const data = {
     },
     {
       chapter: 88,
-      text: 'your wrath lies heavily upon me you have overwhelmed me with all your waves Selah',
+      text: 'your wrath lies heavily upon me you have overwhelmed me with all your waves',
       verse: '7'
     },
     {
@@ -55,7 +55,7 @@ export const data = {
     },
     {
       chapter: 88,
-      text: 'do you show your wonders to the dead do those who are dead rise up and praise you Selah',
+      text: 'do you show your wonders to the dead do those who are dead rise up and praise you',
       verse: '10'
     },
     {
