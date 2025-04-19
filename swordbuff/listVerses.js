@@ -88,13 +88,25 @@ function loadVersesFor(selectedWho) {
 }
 
 function formatVerseName(name) {
-  const match = name.match(/^([a-z]+)([\d:.-]+)$/i);
+  const match = name.match(/^(\d+)([a-z]+)(\d+)$/i);
   if (match) {
-    let book = match[1];
-    let rest = match[2];
+    let number = match[1]; // Chapter number
+    let book = match[2]; // Book name
+    let chapter = match[3]; // Chapter number (after the book)
+
+    book = book.charAt(0).toUpperCase() + book.slice(1).toLowerCase(); // Capitalize book name
+
+    return `${number} ${book} ${chapter}`; // Return in the desired format
+  }
+
+  const matchFull = name.match(/^([a-z]+)([\d:.-]+)$/i); // Handle other formats like eph2:8-9
+  if (matchFull) {
+    let book = matchFull[1];
+    let rest = matchFull[2];
     book = book.charAt(0).toUpperCase() + book.slice(1).toLowerCase();
     return `${book} ${rest}`;
   }
+
   return name;
 }
 
