@@ -185,18 +185,15 @@ function setupVerseWords(verseString) {
   originalVerseArray = verseString.split(' ');
 }
 
-function goToPrevVerse() {
-  if (verseIndex === 0) {
-    return;
-  } else {
-    verseIndex -= 1;
-    progressBar.value -= 1;
-  }
-  removeDoneButton();
-  addNextButton();
-  verseString = verses[verseIndex].text;
-  setupVerseWords(verseString);
-  resetVerseContainers();
+function addDoneButton() {
+  document.getElementById('next-button').remove();
+  newButton.textContent = 'DONE';
+  newButton.id = 'done';
+  document.getElementById('move-buttons').appendChild(newButton);
+  newButton.addEventListener('click', () => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    window.location.href = baseUrl;
+  });
 }
 
 function removeDoneButton() {
@@ -218,6 +215,20 @@ function addNextButton() {
   }
 }
 
+function goToPrevVerse() {
+  if (verseIndex === 0) {
+    return;
+  } else {
+    verseIndex -= 1;
+    progressBar.value -= 1;
+  }
+  removeDoneButton();
+  addNextButton();
+  verseString = verses[verseIndex].text;
+  setupVerseWords(verseString);
+  resetVerseContainers();
+}
+
 function goToNextVerse() {
   if (verseIndex === verses.length - 1) {
     addDoneButton();
@@ -228,17 +239,6 @@ function goToNextVerse() {
     progressBar.value += 1;
     resetVerseContainers();
   }
-}
-
-function addDoneButton() {
-  document.getElementById('next-button').remove();
-  newButton.textContent = 'DONE';
-  newButton.id = 'done';
-  document.getElementById('move-buttons').appendChild(newButton);
-  newButton.addEventListener('click', () => {
-    const baseUrl = window.location.origin + window.location.pathname;
-    window.location.href = baseUrl;
-  });
 }
 
 function checkUserInput() {
