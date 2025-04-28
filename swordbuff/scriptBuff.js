@@ -345,11 +345,12 @@ function getAdjustedInterval(reps, percent) {
 }
 
 function updateTrainingRecord(record, percent) {
-  let interval = 0;
+  let interval = 1; // default to tomorrow for interval
   if (percent < 60) {
-    record.repetitions = 0;
+    record.repetitions -= 1;
+    // TODO show freshness strength decrease modal
   } else {
-    record.repetitions++;
+    record.repetitions += 1;
     interval = getAdjustedInterval(record.repetitions, percent);
   }
   const nextDue = new Date(); // default nextDue is today
