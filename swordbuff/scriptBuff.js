@@ -297,8 +297,8 @@ function getResultText(percentageCorrect) {
   let dueDate = verseData ? verseData.dueDate : todayStr;
   if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
-  const goodRecall = verseData ? verseData.repetitions : 0;
-  return `${percentageCorrect}% and a memory strength of ${goodRecall}<br>Lets practice ${dueDate}`;
+  const memoryStrength = verseData ? verseData.repetitions : 0;
+  return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
 function showCorrectAnswer() {
