@@ -51,7 +51,7 @@ function createButtonForWord(word) {
   return button;
 }
 
-function moveWordsUp(e) {
+function moveCorrectWords(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
     answersContainer.appendChild(e.target);
     if (autoGrade) checkUserInput();
@@ -61,6 +61,7 @@ function moveWordsUp(e) {
     e.target.classList.remove('word-button');
 }
 
+// remove this
 function moveWordsDown(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
     e.target.classList.remove('incorrect');
@@ -497,8 +498,8 @@ function getSetInitialAutoGradeStatus() {
 function initEventListeners() {
   document.addEventListener('keydown', focusKeyboard);
   inputBox.addEventListener('keydown', keyboardMoveWords);
-  wordBankContainer.addEventListener('click', moveWordsUp);
-  answersContainer.addEventListener('click', moveWordsDown);
+  wordBankContainer.addEventListener('click', moveCorrectWords);
+  answersContainer.addEventListener('click', moveWordsDown); // remove
   wordBankToggle.addEventListener('change', toggleWordBank);
   autoGradeToggle.addEventListener('change', toggleAutoGrade);
 
