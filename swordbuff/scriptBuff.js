@@ -15,7 +15,6 @@ let wordButtonsEnabled = true;
 let currentVerse;
 let verseString;
 let originalVerseArray;
-let translation = '';
 let numIncorrect = 0;
 let autoGrade = true;
 
@@ -298,7 +297,8 @@ function getResultText(percentageCorrect) {
   let todayStr = toLocalISODateString(today);
   let tomorrowStr = toLocalISODateString(tomorrow);
   let dueDate = verseData ? verseData.dueDate : todayStr;
-  if (dueDate === todayStr) dueDate = 'again today';
+  if (percentageCorrect < 60) dueDate = 'again!';
+  else if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
   const memoryStrength = verseData ? verseData.repetitions : 0;
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
@@ -349,6 +349,7 @@ function updateTrainingRecord(record, percent) {
   let interval = 1; // default to tomorrow for interval
   if (percent < 60) {
     record.repetitions -= 1;
+    if (record.repetitions < 0) record.repetitions = 0;
     // TODO show freshness strength decrease modal
   } else {
     record.repetitions += 1;
@@ -530,7 +531,12 @@ function init() {
   getSetInitialAutoGradeStatus();
 }
 
-if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+// only auto‐run in the real browser where `data` is defined
+if (
+  typeof window !== 'undefined' &&
+  typeof document !== 'undefined' &&
+  typeof data !== 'undefined'
+) {
   try {
     init();
   } catch (err) {
@@ -538,4 +544,4 @@ if (typeof window !== 'undefined' && typeof document !== 'undefined') {
   }
 }
 
-export { getPerfectInterval, getAdjustedInterval };
+export { getPerfectInterval, getAdjustedInterval, getResultText };

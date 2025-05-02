@@ -1,4 +1,9 @@
-import { getPerfectInterval, getAdjustedInterval } from './scriptBuff.js';
+import { jest } from '@jest/globals';
+import {
+  getPerfectInterval,
+  getAdjustedInterval,
+  getResultText
+} from './scriptBuff.js';
 
 describe('getPerfectInterval', () => {
   test('returns 1 for input 0', () => {
@@ -63,5 +68,73 @@ describe('getAdjustedInterval', () => {
 
   test('returns 0 for (14, 50)', () => {
     expect(getAdjustedInterval(14, 50)).toBe(0);
+  });
+});
+
+describe('getResultText', () => {
+  const originalLocation = window.location;
+  let getItemSpy;
+
+  beforeAll(() => {
+    jest.useFakeTimers('modern');
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  beforeEach(() => {
+    // freeze time at midnight May 1, 2025 local
+    jest.setSystemTime(new Date(2025, 4, 1));
+
+    // mock URLSearchParams
+    delete window.location;
+    window.location = { search: '?verse=testVerseKey' };
+
+    // mock toLocalISODateString (if you still want it)
+    global.toLocalISODateString = date =>
+      new Date(date.getFullYear(), date.getMonth(), date.getDate())
+        .toISOString()
+        .split('T')[0];
+
+    // spy on localStorage
+    getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
+  });
+
+  afterEach(() => {
+    // restore
+    window.location = originalLocation;
+    getItemSpy.mockRestore();
+    delete global.toLocalISODateString;
+  });
+
+  test('returns "again today" if dueDate matches today and ≥ 60%', () => {
+    global.verseIndex = 0;
+    getItemSpy.mockReturnValueOnce(
+      JSON.stringify({ 0: { repetitions: 5, dueDate: '2025-05-01' } })
+    );
+
+    const result = getResultText(75);
+    expect(result).toContain('75% and a memory strength of 5');
+    expect(result).toContain('Lets practice again today');
+  });
+
+  test('returns "again tomorrow" if dueDate is tomorrow and ≥ 60%', () => {
+    global.verseIndex = 0;
+    getItemSpy.mockReturnValueOnce(
+      JSON.stringify({ 0: { repetitions: 2, dueDate: '2025-05-02' } })
+    );
+
+    const result = getResultText(90);
+    expect(result).toContain('Lets practice again tomorrow');
+  });
+
+  test('falls back to today if no data', () => {
+    global.verseIndex = 0;
+    getItemSpy.mockReturnValueOnce('{}');
+
+    const result = getResultText(100);
+    expect(result).toContain('100% and a memory strength of 0');
+    expect(result).toContain('Lets practice again today');
   });
 });
