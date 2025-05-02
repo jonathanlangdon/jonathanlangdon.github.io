@@ -34,6 +34,27 @@ function loadVersesFor(selectedWho) {
             if (match && match[1] === selectedWho) {
               const smartName = formatVerseName(fileName);
 
+              // 👉 Extract number of verses from the JS file text
+              let totalVerses = 0;
+              try {
+                const versesArrayMatch = text.match(
+                  /verses\s*:\s*\[((?:.|\n)*?)\]/m
+                );
+                if (versesArrayMatch) {
+                  const itemsText = versesArrayMatch[1];
+
+                  // Count how many `{` or `[` start individual entries
+                  const count = (itemsText.match(/{/g) || []).length;
+                  totalVerses = count;
+                }
+              } catch (e) {
+                console.warn(
+                  'Could not extract verse count from file:',
+                  file.name,
+                  e
+                );
+              }
+
               // 👉 Add LocalStorage read and average calculation
               const record = JSON.parse(localStorage.getItem(fileName) || '{}');
               const values = Object.values(record);
@@ -57,12 +78,13 @@ function loadVersesFor(selectedWho) {
               // Determine circle color
               let today = new Date();
               today.setHours(0, 0, 0, 0);
-              let circleColor = 'score-green';
-              if (earliestDueDate) {
+              let circleColor = 'score-yellow';
+              if (averagePercent >= 60 && earliestDueDate) {
                 earliestDueDate.setHours(0, 0, 0, 0);
                 if (earliestDueDate < today) circleColor = 'score-red';
-                else if (earliestDueDate.getTime() === today.getTime())
+                else if (values.length < totalVerses)
                   circleColor = 'score-yellow';
+                else if (earliestDueDate > today) circleColor = 'score-green';
               }
 
               // Circle element

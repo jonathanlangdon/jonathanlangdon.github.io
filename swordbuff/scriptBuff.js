@@ -172,9 +172,11 @@ function putVerseInHeader(verseIndex) {
   let dueDate = new Date(dueDateStr + 'T00:00:00');
   let today = new Date(todayStr + 'T00:00:00');
 
-  let colorClass = 'score-green';
+  let colorClass = 'score-yellow';
   if (dueDate < today) colorClass = 'score-red';
-  else if (dueDate.getTime() === today.getTime()) colorClass = 'score-yellow';
+  else if (percent < 60) colorClass = 'score-yellow';
+  else if (dueDate === today) colorClass = 'score-yellow';
+  else if (dueDate > today) colorClass = 'score-green';
 
   const circle = `<span class="score-circle ${colorClass}">${percent}</span>`;
   verseContainer.innerHTML = `${data.book} ${currentVerse.chapter}:${currentVerse.verse} ${data.translation} ${circle}`;
