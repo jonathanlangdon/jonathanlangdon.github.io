@@ -286,6 +286,23 @@ function getPercentageCorrect(correctVerse) {
   return Math.round((numCorrect / totalWords) * 100);
 }
 
+function getInitialStats() {
+  const params = new URLSearchParams(window.location.search);
+  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  const verseData = storedData[verseIndex.toString()];
+  let today = new Date();
+  let tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  let todayStr = toLocalISODateString(today);
+  let tomorrowStr = toLocalISODateString(tomorrow);
+  let dueDate = verseData ? verseData.dueDate : todayStr;
+  if (dueDate === todayStr) dueDate = 'today';
+  else if (dueDate === tomorrowStr) dueDate = 'tomorrow';
+  const memoryStrength = verseData ? verseData.repetitions : 0;
+  return `Current Memory Strength: ${memoryStrength}<br>Due Date: ${dueDate}`;
+}
+
 function getResultText(percentageCorrect) {
   const params = new URLSearchParams(window.location.search);
   const storageKey = params.get('verse'); // e.g., "psalm23"
@@ -411,6 +428,7 @@ function resetVerseContainers() {
   }
   updateResetButton();
   toggleWordBank();
+  checkResultsContainer.innerHTML = getInitialStats();
   numIncorrect = 0;
 }
 
