@@ -304,14 +304,19 @@ function getResultText(percentageCorrect) {
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
-function showCorrectAnswer() {
-  const selectedWords = getSelectedWords(answersContainer);
-  const correctVerse = getCorrectVerseWords(verseString);
-  wordButtonsEnabled = false;
+// may not need after removing auto-check
+function showCorrectWordBank() {
   resetWordsInContainer(wordBankContainer);
   createWordButtons(originalVerseArray);
   let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
+}
+
+function showCorrectAnswer() {
+  const selectedWords = getSelectedWords(answersContainer);
+  const correctVerse = getCorrectVerseWords(verseString);
+  wordButtonsEnabled = false;
+  if (numIncorrect !== 0) showCorrectWordBank();
   const percentageCorrect = getPercentageCorrect(correctVerse);
   if (answersContainer.children.length > 0) {
     storeResults(percentageCorrect);
@@ -321,6 +326,7 @@ function showCorrectAnswer() {
   }
   updateResetButton();
 }
+
 function getStoredRecord(storageKey) {
   let record = localStorage.getItem(storageKey);
   return record ? JSON.parse(record) : {};
