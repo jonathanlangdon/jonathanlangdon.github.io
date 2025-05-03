@@ -299,7 +299,15 @@ function getInitialStats() {
   let dueDate = verseData ? verseData.dueDate : todayStr;
   if (dueDate === todayStr) dueDate = 'today';
   else if (dueDate === tomorrowStr) dueDate = 'tomorrow';
-  const memoryStrength = verseData ? verseData.repetitions : 0;
+  let memoryStrength;
+  if (verseData) {
+    if (!verseData.memoryStrength) {
+      verseData.memoryStrength = verseData.repetitions;
+    } // convert to memoryStrength if need be
+    memoryStrength = verseData.memoryStrength ? verseData.memoryStrength : 0;
+  } else {
+    memoryStrength = 0;
+  }
   return `Current Memory Strength: ${memoryStrength}<br>Due Date: ${dueDate}`;
 }
 
@@ -317,7 +325,15 @@ function getResultText(percentageCorrect) {
   if (percentageCorrect < 60) dueDate = 'again!';
   else if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
-  const memoryStrength = verseData ? verseData.repetitions : 0;
+  let memoryStrength;
+  if (verseData) {
+    if (!verseData.memoryStrength) {
+      verseData.memoryStrength = verseData.repetitions;
+    } // convert to memoryStrength if need be
+    memoryStrength = verseData.memoryStrength ? verseData.memoryStrength : 0;
+  } else {
+    memoryStrength = 0;
+  }
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
@@ -349,34 +365,36 @@ function getStoredRecord(storageKey) {
   return record ? JSON.parse(record) : {};
 }
 
-function getPerfectInterval(reps) {
-  if (reps < -1) return 0;
-  if (reps == 0 || reps == 1) return 1;
+function getPerfectInterval(memoryStrength) {
+  if (memoryStrength < -1) return 0;
+  if (memoryStrength == 0 || memoryStrength == 1) return 1;
   let interval =
-    getPerfectInterval(reps - 2) +
-    getPerfectInterval(reps - 3) +
-    getPerfectInterval(reps - 4);
+    getPerfectInterval(memoryStrength - 2) +
+    getPerfectInterval(memoryStrength - 3) +
+    getPerfectInterval(memoryStrength - 4);
   interval = interval > 180 ? 180 : interval;
   return interval;
 }
 
-function getAdjustedInterval(reps, percent) {
+function getAdjustedInterval(memoryStrength, percent) {
   if (percent < 60) return 0;
-  const curInterval = getPerfectInterval(reps);
-  const lastInterval = getPerfectInterval(reps - 1);
+  const curInterval = getPerfectInterval(memoryStrength);
+  const lastInterval = getPerfectInterval(memoryStrength - 1);
   const m = curInterval - lastInterval;
   return Math.round(m * ((percent - 60) / 40) + lastInterval);
 }
 
 function updateTrainingRecord(record, percent) {
+  // convert repititions to memoryStrength
+  if (!record.memoryStrength) {
+    record.memoryStrength = record.repetitions;
+  }
   let interval = 1; // default to tomorrow for interval
   if (percent < 60) {
-    record.repetitions -= 1;
-    if (record.repetitions < 0) record.repetitions = 0;
-    // TODO show freshness strength decrease modal
+    record.memoryStrength -= record.memoryStrength > 0 ? 1 : 0;
   } else {
-    record.repetitions += 1;
-    interval = getAdjustedInterval(record.repetitions, percent);
+    record.memoryStrength += 1;
+    interval = getAdjustedInterval(record.memoryStrength, percent);
   }
   const nextDue = new Date(); // default nextDue is today
   nextDue.setDate(nextDue.getDate() + interval);
@@ -393,7 +411,7 @@ function storeResults(percent) {
 
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
-    repetitions: 0,
+    memoryStrength: 0,
     dueDate: toLocalISODateString(today),
     percentRight: 0
   };
