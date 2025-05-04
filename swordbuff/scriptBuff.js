@@ -14,6 +14,7 @@ let wordButtonsEnabled = true;
 let currentVerse;
 let verseString;
 let numIncorrect = 0;
+let correctVerseArray = [];
 
 function shuffleArray(array) {
   let currentIndex = array.length,
@@ -49,12 +50,27 @@ function createButtonForWord(word) {
 
 function moveCorrectWords(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
-    answersContainer.appendChild(e.target);
-    checkUserInput();
+    const chosenButton = e.target;
+    let numCorrectButtons = answersContainer.children.length;
+    const indexToCheck = numCorrectButtons;
+    const isCorrect =
+      correctVerseArray[indexToCheck] === chosenButton.textContent;
+
+    if (isCorrect) {
+      const copiedButton = chosenButton.cloneNode(true);
+      copiedButton.classList.add('correct');
+      answersContainer.appendChild(copiedButton);
+      Array.from(wordBankContainer.children).forEach(button => {
+        button.classList.remove('incorrect');
+      });
+      numCorrectButtons = answersContainer.children.length;
+    } else {
+      numIncorrect += 1;
+      chosenButton.classList.add('incorrect');
+    }
+    if (numCorrectButtons === correctVerseArray.length) showCorrectAnswer();
     updateResetButton();
   }
-  if (e.target.classList.contains('correct'))
-    e.target.classList.remove('word-button');
 }
 
 // remove this
@@ -181,6 +197,7 @@ function putVerseInHeader(verseIndex) {
 function setupVerseWords(verseString) {
   putVerseInHeader(verseIndex);
   verseString = verseString.replace(/^\d+:\s*/, '');
+  correctVerseArray = verseString.split(' ');
 }
 
 function addDoneButton() {
@@ -249,7 +266,7 @@ function checkUserInput() {
     selectedWords,
     correctVerse
   );
-  if (wordBankContainer.children.length == 0) showCorrectAnswer();
+  if (numCorrectButtons === correctVerseArray.length) showCorrectAnswer();
   updateResetButton();
 }
 
@@ -275,9 +292,9 @@ function compareWordsAndUpdateButtons(
   });
 }
 
-function getPercentageCorrect(correctVerse) {
+function getPercentageCorrect() {
   let numCorrect = 0;
-  const totalWords = correctVerse.length;
+  const totalWords = correctVerseArray.length;
   if (numIncorrect < totalWords) numCorrect = totalWords - numIncorrect;
   return Math.round((numCorrect / totalWords) * 100);
 }
@@ -334,15 +351,20 @@ function getResultText(percentageCorrect) {
 }
 
 function showCorrectAnswer() {
-  const correctVerse = getCorrectVerseWords(verseString);
   wordButtonsEnabled = false;
-  const percentageCorrect = getPercentageCorrect(correctVerse);
+  const percentageCorrect = getPercentageCorrect();
   if (answersContainer.children.length > 0) {
     storeResults(percentageCorrect);
     checkResultsContainer.innerHTML = getResultText(percentageCorrect);
   } else {
     storeResults(0);
   }
+  resetWordsInContainer(wordBankContainer);
+  correctVerseArray.forEach(word => {
+    const button = createButtonForWord(word);
+    button.classList.add('correct');
+    wordBankContainer.appendChild(button);
+  });
   updateResetButton();
 }
 
@@ -352,8 +374,8 @@ function getStoredRecord(storageKey) {
 }
 
 function getPerfectInterval(memoryStrength) {
-  if (memoryStrength < -1) return 0;
-  if (memoryStrength == 0 || memoryStrength == 1) return 1;
+  if (memoryStrength < 0) return 0;
+  if (memoryStrength === 0 || memoryStrength === 1) return 1;
   let interval =
     getPerfectInterval(memoryStrength - 2) +
     getPerfectInterval(memoryStrength - 3) +
@@ -363,7 +385,6 @@ function getPerfectInterval(memoryStrength) {
 }
 
 function getAdjustedInterval(memoryStrength, percent) {
-  if (percent < 60) return 0;
   const curInterval = getPerfectInterval(memoryStrength);
   const lastInterval = getPerfectInterval(memoryStrength - 1);
   const m = curInterval - lastInterval;
@@ -372,8 +393,8 @@ function getAdjustedInterval(memoryStrength, percent) {
 
 function updateTrainingRecord(record, percent) {
   // convert repetitions to memoryStrength
-  if (!record.memoryStrength) {
-    record.memoryStrength = record.repetitions;
+  if (record.memoryStrength === undefined || record.memoryStrength === null) {
+    record.memoryStrength = record.repetitions || 0;
   }
   let interval = 1; // default to tomorrow for interval
   if (percent < 60) {
@@ -394,7 +415,6 @@ function storeResults(percent) {
   const storageKey = params.get('verse'); // e.g., "psalm23"
   const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
   let today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
 
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
@@ -402,16 +422,13 @@ function storeResults(percent) {
     dueDate: toLocalISODateString(today),
     percentRight: 0
   };
-
-  const isDueForReview = record => record.dueDate <= todayStr;
-
+  const isDueForReview = record => new Date(record.dueDate) <= today;
   if (!isDueForReview(record) && percent >= 60) {
     record.percentRight = percent;
   } else {
     record = updateTrainingRecord(record, percent);
     record.percentRight = percent;
   }
-
   allVerseData[verseIndexKey] = record;
   localStorage.setItem(storageKey, JSON.stringify(allVerseData));
   putVerseInHeader(verseIndex);
@@ -425,12 +442,6 @@ function resetVerseContainers() {
   let RandomizedVerseArray = shuffleArray(verseString.split(' '));
   createWordBankButtons(RandomizedVerseArray);
   const nextButton = document.getElementById('next-button');
-  const checkButton = document.getElementById('check');
-  if (!checkButton) {
-    newButton.textContent = 'CHECK';
-    newButton.id = 'check';
-    checkArea.appendChild(newButton);
-  }
   updateResetButton();
   toggleWordBank();
   checkResultsContainer.innerHTML = getInitialStats();
@@ -457,24 +468,10 @@ function addShortcutListeners() {
   document.addEventListener('keydown', function (event) {
     if (
       (event.ctrlKey || event.metaKey) &&
-      (event.key === 'c' || event.key === 'C')
-    ) {
-      event.preventDefault();
-      checkUserInput();
-    }
-    if (
-      (event.ctrlKey || event.metaKey) &&
       (event.key === 'r' || event.key === 'R')
     ) {
       event.preventDefault();
       resetVerseContainers();
-    }
-    if (
-      (event.ctrlKey || event.metaKey) &&
-      (event.key === 's' || event.key === 'S')
-    ) {
-      event.preventDefault();
-      showCorrectAnswer();
     }
     if ((event.ctrlKey || event.metaKey) && event.key === 'ArrowLeft') {
       event.preventDefault();

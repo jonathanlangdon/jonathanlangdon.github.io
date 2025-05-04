@@ -44,6 +44,7 @@ describe('getPerfectInterval', () => {
   }); // max 180 days between practice
 
   test('returns 0 for negative input less than -1', () => {
+    expect(getPerfectInterval(-1)).toBe(0);
     expect(getPerfectInterval(-2)).toBe(0);
     expect(getPerfectInterval(-5)).toBe(0);
   });
