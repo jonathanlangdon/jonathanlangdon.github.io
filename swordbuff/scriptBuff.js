@@ -408,6 +408,7 @@ function storeResults(percent) {
   const storageKey = params.get('verse'); // e.g., "psalm23"
   const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
   let today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
 
   let allVerseData = getStoredRecord(storageKey);
   let record = allVerseData[verseIndexKey] || {
@@ -416,7 +417,7 @@ function storeResults(percent) {
     percentRight: 0
   };
 
-  const isDueForReview = record => new Date(record.dueDate) <= today;
+  const isDueForReview = record => record.dueDate <= todayStr;
 
   if (!isDueForReview(record) && percent >= 60) {
     record.percentRight = percent;
