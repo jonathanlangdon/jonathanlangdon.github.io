@@ -32,7 +32,8 @@ function shuffleArray(array) {
 
 function createWordBankButtons(wordArray) {
   const fragment = document.createDocumentFragment();
-  wordArray.forEach(word => {
+  const uniqueWords = new Set(wordArray);
+  uniqueWords.forEach(word => {
     const button = createButtonForWord(word);
     fragment.appendChild(button);
   });
