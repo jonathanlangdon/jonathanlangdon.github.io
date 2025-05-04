@@ -73,35 +73,10 @@ function moveCorrectWords(e) {
   }
 }
 
-// remove this
-function moveWordsDown(e) {
-  if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
-    e.target.classList.remove('incorrect');
-    e.target.classList.remove('correct');
-    wordBankContainer.appendChild(e.target);
-    updateResetButton();
-  }
-}
-
 function resetWordsInContainer(containerName) {
   while (containerName.firstChild) {
     containerName.removeChild(containerName.firstChild);
   }
-}
-
-function getSelectedWords(answersContainer) {
-  const dropLineButtons = answersContainer.querySelectorAll('button');
-  const selectedWordsButtons = Array.from(dropLineButtons);
-  return selectedWordsButtons.map(button =>
-    button.dataset.word.replace(/[^\w\s]/gi, '').toLowerCase()
-  );
-}
-
-function getCorrectVerseWords(verseString) {
-  return verseString
-    .replace(/[^\w\s]/gi, '')
-    .toLowerCase()
-    .split(' ');
 }
 
 function toLocalISODateString(date) {
@@ -127,31 +102,14 @@ function setIdealHeight() {
 }
 
 function keyboardMoveWords(e) {
-  if (
-    (e.key === 'Backspace' || e.keyCode === 8) &&
-    inputBox.value.trim() === ''
-  ) {
-    e.preventDefault();
-    let dropLineButtons = answersContainer.querySelectorAll('button');
-    if (dropLineButtons.length > 0) {
-      const lastButton = dropLineButtons[dropLineButtons.length - 1];
-      const syntheticEvent = { target: lastButton };
-      moveWordsDown(syntheticEvent);
-    }
-  }
-
   if (e.key === ' ' || e.key === 'Enter') {
     e.preventDefault();
-    if ((e.key === 'Enter') & (wordBankContainer.children.length == 0)) {
-      checkUserInput();
-    }
 
     let keyboardWord = inputBox.value.replace(/[^\w\s]/gi, '').toLowerCase();
     inputBox.value = '';
     let bankWordButtons = Array.from(
       wordBankContainer.querySelectorAll('button')
     );
-    if (bankWordButtons.length === 0) checkUserInput();
 
     bankWordButtons.some(button => {
       let buttonWord = button.textContent
@@ -256,42 +214,6 @@ function goToNextVerse() {
   }
 }
 
-function checkUserInput() {
-  const droplineButtons = answersContainer.querySelectorAll('button');
-  const selectedWordsButtons = Array.from(droplineButtons);
-  const selectedWords = getSelectedWords(answersContainer);
-  const correctVerse = getCorrectVerseWords(verseString);
-  compareWordsAndUpdateButtons(
-    selectedWordsButtons,
-    selectedWords,
-    correctVerse
-  );
-  if (numCorrectButtons === correctVerseArray.length) showCorrectAnswer();
-  updateResetButton();
-}
-
-function updateButtonClasses(button, isSelectedWordCorrect) {
-  if (isSelectedWordCorrect) {
-    button.classList.add('correct');
-    button.classList.remove('incorrect');
-  } else {
-    button.classList.add('incorrect');
-    button.classList.remove('correct');
-    numIncorrect += 1;
-  }
-}
-
-function compareWordsAndUpdateButtons(
-  selectedWordsButtons,
-  selectedWords,
-  correctVerse
-) {
-  selectedWordsButtons.forEach((button, i) => {
-    const isSelectedWordCorrect = selectedWords[i] === correctVerse[i];
-    updateButtonClasses(button, isSelectedWordCorrect);
-  });
-}
-
 function getPercentageCorrect() {
   let numCorrect = 0;
   const totalWords = correctVerseArray.length;
@@ -385,6 +307,7 @@ function getPerfectInterval(memoryStrength) {
 }
 
 function getAdjustedInterval(memoryStrength, percent) {
+  if (percent < 60) return 0;
   const curInterval = getPerfectInterval(memoryStrength);
   const lastInterval = getPerfectInterval(memoryStrength - 1);
   const m = curInterval - lastInterval;
@@ -510,12 +433,10 @@ function initEventListeners() {
   document.addEventListener('keydown', focusKeyboard);
   inputBox.addEventListener('keydown', keyboardMoveWords);
   wordBankContainer.addEventListener('click', moveCorrectWords);
-  answersContainer.addEventListener('click', moveWordsDown); // remove
   wordBankToggle.addEventListener('change', toggleWordBank);
 
   document.addEventListener('click', event => {
-    if (event.target && event.target.id === 'check') checkUserInput();
-    else if (event.target && event.target.id === 'prev-button') goToPrevVerse();
+    if (event.target && event.target.id === 'prev-button') goToPrevVerse();
     else if (event.target && event.target.id === 'next-button') goToNextVerse();
   });
 
