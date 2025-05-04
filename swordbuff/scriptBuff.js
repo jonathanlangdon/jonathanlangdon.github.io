@@ -18,7 +18,7 @@ let originalVerseArray;
 let numIncorrect = 0;
 let autoGrade = true;
 
-function shuffle(array) {
+function shuffleArray(array) {
   let currentIndex = array.length,
     temporaryValue,
     randomIndex;
@@ -32,9 +32,9 @@ function shuffle(array) {
   return array;
 }
 
-function createWordButtons(whichArray) {
+function createWordBankButtons(wordArray) {
   const fragment = document.createDocumentFragment();
-  whichArray.forEach(word => {
+  wordArray.forEach(word => {
     const button = createButtonForWord(word);
     fragment.appendChild(button);
   });
@@ -340,7 +340,7 @@ function getResultText(percentageCorrect) {
 // may not need after removing auto-check
 function showCorrectWordBank() {
   resetWordsInContainer(wordBankContainer);
-  createWordButtons(originalVerseArray);
+  createWordBankButtons(originalVerseArray);
   let correctButtons = [...wordBankContainer.children];
   correctButtons.forEach(x => x.classList.add('correct'));
 }
@@ -385,7 +385,7 @@ function getAdjustedInterval(memoryStrength, percent) {
 }
 
 function updateTrainingRecord(record, percent) {
-  // convert repititions to memoryStrength
+  // convert repetitions to memoryStrength
   if (!record.memoryStrength) {
     record.memoryStrength = record.repetitions;
   }
@@ -436,8 +436,8 @@ function resetVerseContainers() {
   resetWordsInContainer(wordBankContainer);
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
-  let verseArray = shuffle(verseString.split(' '));
-  createWordButtons(verseArray);
+  let RandomizedVerseArray = shuffleArray(verseString.split(' '));
+  createWordBankButtons(RandomizedVerseArray);
   const nextButton = document.getElementById('next-button');
   const checkButton = document.getElementById('check');
   if (!checkButton) {
