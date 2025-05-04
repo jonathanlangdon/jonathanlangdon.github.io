@@ -6,7 +6,6 @@ const answersContainer = document.getElementById('drop-line');
 const checkResultsContainer = document.getElementById('feedback');
 const newButton = document.createElement('button');
 const wordBankToggle = document.getElementById('word-bank-toggle');
-const autoGradeToggle = document.getElementById('auto-grade-toggle');
 
 let verses = [];
 let numVerses = 0;
@@ -14,9 +13,7 @@ let verseIndex = 0;
 let wordButtonsEnabled = true;
 let currentVerse;
 let verseString;
-let originalVerseArray;
 let numIncorrect = 0;
-let autoGrade = true;
 
 function shuffleArray(array) {
   let currentIndex = array.length,
@@ -53,7 +50,7 @@ function createButtonForWord(word) {
 function moveCorrectWords(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
     answersContainer.appendChild(e.target);
-    if (autoGrade) checkUserInput();
+    checkUserInput();
     updateResetButton();
   }
   if (e.target.classList.contains('correct'))
@@ -184,7 +181,6 @@ function putVerseInHeader(verseIndex) {
 function setupVerseWords(verseString) {
   putVerseInHeader(verseIndex);
   verseString = verseString.replace(/^\d+:\s*/, '');
-  originalVerseArray = verseString.split(' ');
 }
 
 function addDoneButton() {
@@ -337,19 +333,9 @@ function getResultText(percentageCorrect) {
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
-// may not need after removing auto-check
-function showCorrectWordBank() {
-  resetWordsInContainer(wordBankContainer);
-  createWordBankButtons(originalVerseArray);
-  let correctButtons = [...wordBankContainer.children];
-  correctButtons.forEach(x => x.classList.add('correct'));
-}
-
 function showCorrectAnswer() {
-  const selectedWords = getSelectedWords(answersContainer);
   const correctVerse = getCorrectVerseWords(verseString);
   wordButtonsEnabled = false;
-  if (numIncorrect !== 0) showCorrectWordBank();
   const percentageCorrect = getPercentageCorrect(correctVerse);
   if (answersContainer.children.length > 0) {
     storeResults(percentageCorrect);
@@ -515,15 +501,6 @@ function toggleWordBank() {
   });
 }
 
-function toggleAutoGrade() {
-  autoGrade = autoGradeToggle.checked;
-
-  const checkButton = document.getElementById('check');
-  if (checkButton) {
-    checkButton.style.display = autoGrade ? 'none' : '';
-  }
-}
-
 function getSetInitialWordBankStatus() {
   const storedState = localStorage.getItem('bankToggleIsChecked');
   if (storedState != null) {
@@ -532,22 +509,12 @@ function getSetInitialWordBankStatus() {
   toggleWordBank();
 }
 
-function getSetInitialAutoGradeStatus() {
-  const storedState = localStorage.getItem('autoGrade');
-  if (storedState != null) {
-    wordBankToggle.checked = storedState === 'true';
-  }
-  autoGrade = autoGradeToggle.checked ? true : false;
-  toggleAutoGrade();
-}
-
 function initEventListeners() {
   document.addEventListener('keydown', focusKeyboard);
   inputBox.addEventListener('keydown', keyboardMoveWords);
   wordBankContainer.addEventListener('click', moveCorrectWords);
   answersContainer.addEventListener('click', moveWordsDown); // remove
   wordBankToggle.addEventListener('change', toggleWordBank);
-  autoGradeToggle.addEventListener('change', toggleAutoGrade);
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'check') checkUserInput();
@@ -571,7 +538,6 @@ function init() {
   setIdealHeight();
   addShortcutListeners();
   getSetInitialWordBankStatus();
-  getSetInitialAutoGradeStatus();
 }
 
 // only auto‐run in the real browser where `data` is defined
