@@ -76,9 +76,33 @@ function moveCorrectWords(e) {
       chosenButton.classList.add('incorrect');
       chosenButton.classList.remove('word-button');
     }
-    if (numCorrectButtons === correctVerseArray.length) showCorrectAnswer();
+    if (numCorrectButtons === correctVerseArray.length) celebrateDone();
     updateResetButton();
   }
+}
+
+function celebrateDone() {
+  resetWordsInContainer(wordBankContainer);
+  wordBankContainer.classList.add('celebrate');
+  setTimeout(() => {
+    wordBankContainer.classList.remove('celebrate');
+  }, 5000);
+  const percent = getPercentageCorrect();
+  const encouragements =
+    percent >= 60
+      ? ['Awesome!', "You're incredible!", 'Great job!', 'Well done!']
+      : [
+          "You'll get it next time!",
+          'Keep trying!',
+          "Don't give up!",
+          'You can do it!'
+        ];
+
+  const randomMsg =
+    encouragements[Math.floor(Math.random() * encouragements.length)];
+
+  wordBankContainer.innerHTML = `<span class="encouragement">${randomMsg}</span>`;
+  wordButtonsEnabled = false;
 }
 
 function resetWordsInContainer(containerName) {

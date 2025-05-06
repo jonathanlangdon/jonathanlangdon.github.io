@@ -440,3 +440,30 @@ nav img {
     font-size: 20px;
   }
 }
+
+/* Celebration animation for word bank container */
+.celebrate {
+  animation: pulse-glow 1s ease-in-out 2;
+}
+
+@keyframes pulse-glow {
+  0% {
+    text-shadow: 0 0 0px rgba(0, 255, 0, 0.7);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 255, 0, 0.9);
+  }
+  100% {
+    text-shadow: 0 0 0px rgba(0, 255, 0, 0.7);
+  }
+}
+
+/* Optional encouragement message style */
+.encouragement {
+  display: block;
+  color: black;
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
