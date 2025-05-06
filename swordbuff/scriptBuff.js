@@ -63,11 +63,13 @@ function moveCorrectWords(e) {
       answersContainer.appendChild(copiedButton);
       Array.from(wordBankContainer.children).forEach(button => {
         button.classList.remove('incorrect');
+        button.classList.add('word-button');
       });
       numCorrectButtons = answersContainer.children.length;
     } else {
       numIncorrect += 1;
       chosenButton.classList.add('incorrect');
+      chosenButton.classList.remove('word-button');
     }
     if (numCorrectButtons === correctVerseArray.length) showCorrectAnswer();
     updateResetButton();
