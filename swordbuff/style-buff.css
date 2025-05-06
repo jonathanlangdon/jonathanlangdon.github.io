@@ -223,7 +223,7 @@ nav img {
 }
 
 .score-red {
-  background-color: #ffaab8;
+  background-color: pink;
 }
 
 .score-yellow {
@@ -231,7 +231,7 @@ nav img {
 }
 
 .score-green {
-  background-color: #40cc02;
+  background-color: lightgreen;
 }
 
 #move-buttons {
