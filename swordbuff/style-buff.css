@@ -205,21 +205,25 @@ nav img {
   color: white;
 }
 
+.list-button {
+  font-weight: bold;
+}
+
 .score-circle {
   display: inline-block;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
   text-align: center;
   border-radius: 50%;
-  font-size: 0.75rem;
+  font-size: 1rem;
   margin-left: 10px;
   font-weight: bold;
   color: black;
 }
 
 .score-red {
-  background-color: rgb(255, 168, 183);
+  background-color: #ffaab8;
 }
 
 .score-yellow {

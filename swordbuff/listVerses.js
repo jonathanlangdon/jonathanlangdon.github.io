@@ -92,7 +92,7 @@ function loadVersesFor(selectedWho) {
 
               // Build button
               const button = document.createElement('button');
-              // button.classList.add('blue-button');
+              button.classList.add('list-button');
               button.innerHTML = `${smartName} ${circle}`;
               button.addEventListener('click', () => {
                 window.location.href = `index.html?verse=${fileName}`;
