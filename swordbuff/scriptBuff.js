@@ -87,15 +87,15 @@ function celebrateDone() {
   setTimeout(() => {
     wordBankContainer.classList.remove('celebrate');
   }, 5000);
-  const percent = getPercentageCorrect();
+  const percentageCorrect = getPercentageCorrect();
   const encouragements =
-    percent >= 60
+    percentageCorrect >= 60
       ? ['Awesome!', "You're incredible!", 'Great job!', 'Well done!']
       : [
           "You'll get it next time!",
           'Keep trying!',
           "Don't give up!",
-          'You can do it!'
+          'Keep persevering!'
         ];
 
   const randomMsg =
@@ -103,6 +103,7 @@ function celebrateDone() {
 
   wordBankContainer.innerHTML = `<span class="encouragement">${randomMsg}</span>`;
   wordButtonsEnabled = false;
+  checkResultsContainer.innerHTML = getResultText(percentageCorrect);
 }
 
 function resetWordsInContainer(containerName) {
