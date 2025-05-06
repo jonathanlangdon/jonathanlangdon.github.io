@@ -5,7 +5,7 @@ export const data = {
   verses: [
     {
       chapter: 10,
-      text: 'Let the little children come to me and do not hinder them for the kingdom of God belongs to such as these',
+      text: 'let the little children come to me and do not hinder them for the kingdom of God belongs to such as these',
       verse: '14'
     }
   ]

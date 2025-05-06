@@ -5,7 +5,7 @@ export const data = {
   verses: [
     {
       chapter: 1,
-      text: 'Look, the Lamb of God, who takes away the sin of the world.',
+      text: 'look the Lamb of God who takes away the sin of the world',
       verse: '29'
     }
   ]
