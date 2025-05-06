@@ -58,6 +58,11 @@ function moveCorrectWords(e) {
       correctVerseArray[indexToCheck] === chosenButton.textContent;
 
     if (isCorrect) {
+      // give instant feedback for correct button
+      chosenButton.classList.add('instant-green');
+      void chosenButton.offsetWidth;
+      chosenButton.classList.remove('instant-green');
+
       const copiedButton = chosenButton.cloneNode(true);
       copiedButton.classList.add('correct');
       answersContainer.appendChild(copiedButton);
