@@ -78,9 +78,13 @@ function loadVersesFor(selectedWho) {
               // Determine circle color
               let today = new Date();
               today.setHours(0, 0, 0, 0);
+              console.log(`setting today's date to ${today}`);
               let circleColor = 'score-yellow';
               if (averagePercent >= 60 && earliestDueDate) {
                 earliestDueDate.setHours(0, 0, 0, 0);
+                console.log(
+                  `earliestDate for ${smartName} is ${earliestDueDate}`
+                );
                 if (earliestDueDate < today) circleColor = 'score-red';
                 else if (values.length < totalVerses)
                   circleColor = 'score-yellow';

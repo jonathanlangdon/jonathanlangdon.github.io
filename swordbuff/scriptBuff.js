@@ -76,7 +76,16 @@ function moveCorrectWords(e) {
       chosenButton.classList.add('incorrect');
       chosenButton.classList.remove('word-button');
     }
-    if (numCorrectButtons === correctVerseArray.length) celebrateDone();
+    if (numCorrectButtons === correctVerseArray.length) {
+      celebrateDone();
+      const percentageCorrect = getPercentageCorrect();
+      if (answersContainer.children.length > 0) {
+        storeResults(percentageCorrect);
+      } else {
+        storeResults(0);
+      }
+      checkResultsContainer.innerHTML = getResultText(percentageCorrect);
+    }
     updateResetButton();
   }
 }
@@ -103,7 +112,6 @@ function celebrateDone() {
 
   wordBankContainer.innerHTML = `<span class="encouragement">${randomMsg}</span>`;
   wordButtonsEnabled = false;
-  checkResultsContainer.innerHTML = getResultText(percentageCorrect);
 }
 
 function resetWordsInContainer(containerName) {
@@ -174,7 +182,9 @@ function putVerseInHeader(verseIndex) {
   let dueDateStr = verseData ? verseData.dueDate : todayStr;
   let dueDate = new Date(dueDateStr + 'T00:00:00');
   let today = new Date(todayStr + 'T00:00:00');
-
+  console.log(
+    `verseHeader: ${storageKey} has dueDate of ${dueDate} and today is ${today}`
+  );
   let colorClass = 'score-yellow';
   if (dueDate < today) colorClass = 'score-red';
   else if (percent < 60) colorClass = 'score-yellow';
@@ -265,6 +275,9 @@ function getInitialStats() {
   let todayStr = toLocalISODateString(today);
   let tomorrowStr = toLocalISODateString(tomorrow);
   let dueDate = verseData ? verseData.dueDate : todayStr;
+  console.log(
+    `initial stats: ${storageKey}... today is ${todayStr}, tomorrow is ${tomorrowStr}, dueDate is ${dueDate}`
+  );
   if (dueDate === todayStr) dueDate = 'today';
   else if (dueDate === tomorrowStr) dueDate = 'tomorrow';
   let memoryStrength;
@@ -290,6 +303,9 @@ function getResultText(percentageCorrect) {
   let todayStr = toLocalISODateString(today);
   let tomorrowStr = toLocalISODateString(tomorrow);
   let dueDate = verseData ? verseData.dueDate : todayStr;
+  console.log(
+    `getResultText: today is ${todayStr}, tomorrow: ${tomorrowStr}, dueDate: ${dueDate}`
+  );
   if (percentageCorrect < 60) dueDate = 'again!';
   else if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
@@ -308,12 +324,6 @@ function getResultText(percentageCorrect) {
 function showCorrectAnswer() {
   wordButtonsEnabled = false;
   const percentageCorrect = getPercentageCorrect();
-  if (answersContainer.children.length > 0) {
-    storeResults(percentageCorrect);
-    checkResultsContainer.innerHTML = getResultText(percentageCorrect);
-  } else {
-    storeResults(0);
-  }
   resetWordsInContainer(wordBankContainer);
   correctVerseArray.forEach(word => {
     const button = createButtonForWord(word);
@@ -362,6 +372,7 @@ function updateTrainingRecord(record, percent) {
   const nextDue = new Date(); // default nextDue is today
   nextDue.setDate(nextDue.getDate() + interval);
   record.dueDate = toLocalISODateString(nextDue);
+  console.log(`updateTrainingRecord: setting dueDate to ${record.dueDate}`);
   record.percentRight = percent;
   return record;
 }
@@ -382,8 +393,10 @@ function storeResults(percent) {
 
   let dueDate = new Date(record.dueDate + 'T00:00:00');
   today = new Date(todayStr + 'T00:00:00');
-
   const isDueForReview = dueDate <= today;
+  console.log(
+    `determining dueForReview: today: ${today}, dueDate: ${dueDate}, thus, ${isDueForReview} that its due`
+  );
   if (!isDueForReview && percent >= 60) {
     record.percentRight = percent;
   } else {
