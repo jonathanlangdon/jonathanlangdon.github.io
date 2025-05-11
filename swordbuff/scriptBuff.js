@@ -73,12 +73,10 @@ function moveCorrectWords(e) {
       });
       numCorrectButtons = answersContainer.children.length;
       if (finishWordsToggle.checked) {
-        // setTimeout(() => {
         if (isWordUsedUp(chosenButton.textContent)) {
           chosenButton.classList.add('finished-word');
           chosenButton.classList.remove('word-button');
         }
-        // }, 2000);
       }
     } else {
       numIncorrect += 1;
@@ -331,10 +329,17 @@ function getResultText(percentageCorrect) {
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
-function showCorrectAnswer() {
+function showCorrectVerse() {
   wordButtonsEnabled = false;
   hasStartedVerse = true;
-  const percentageCorrect = getPercentageCorrect();
+  const params = new URLSearchParams(window.location.search);
+  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  const verseData = storedData[verseIndex.toString()];
+  let memoryStrength = verseData.memoryStrength ? verseData.memoryStrength : 0;
+  if (memoryStrength > 2) {
+    storeResults(0); //sets tomorrow as dueDate due to failure in knowing verse (also decreases memoryStrength)
+  }
   resetWordsInContainer(wordBankContainer);
   correctVerseArray.forEach(word => {
     const button = createButtonForWord(word);
@@ -376,6 +381,7 @@ function updateTrainingRecord(record, percent) {
   let interval = 1; // default to tomorrow for interval
   if (percent < 60) {
     record.memoryStrength -= record.memoryStrength > 0 ? 1 : 0;
+    // interval will be tomorrow by default
   } else {
     record.memoryStrength += 1;
     interval = getAdjustedInterval(record.memoryStrength, percent);
@@ -411,7 +417,7 @@ function storeResults(percent) {
   if (!isDueForReview && percent >= 60) {
     record.percentRight = percent;
   } else {
-    record = updateTrainingRecord(record, percent);
+    record = updateTrainingRecord(record, percent); // also updates memoryStrength
     record.percentRight = percent;
   }
   allVerseData[verseIndexKey] = record;
@@ -443,7 +449,7 @@ function updateResetButton() {
   } else {
     resetButton.textContent = 'SHOW VERSE';
     resetButton.className = 'blue-button';
-    resetButton.onclick = showCorrectAnswer;
+    resetButton.onclick = showCorrectVerse;
   }
 }
 

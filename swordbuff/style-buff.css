@@ -296,7 +296,7 @@ nav img {
 }
 
 .finished-word {
-  background-color: grey;
+  background-color: rgb(149, 149, 149);
   color: lightgray;
   transition-delay: 1s;
 }
