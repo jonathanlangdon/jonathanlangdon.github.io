@@ -22,7 +22,7 @@ function getSetInitialFinishWordsStatus() {
 }
 
 function setFinishWordsState() {
-  localStorage.setItem('finishToggleIsCheck', finishWordsToggle.checked);
+  localStorage.setItem('finishToggleIsChecked', finishWordsToggle.checked);
 }
 
 if (verseParam) {
