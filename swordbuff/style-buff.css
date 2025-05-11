@@ -1,3 +1,9 @@
+:root {
+  --sword-buff-green: rgb(110, 235, 110);
+  --sword-buff-blue: rgb(65, 110, 208);
+  --sword-buff-red-due: rgb(255, 185, 185);
+}
+
 * {
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -60,11 +66,19 @@ header {
 }
 
 #progress-bar::-moz-progress-bar {
-  background-image: linear-gradient(to right, lightgreen 0%, lightgreen 100%);
+  background-image: linear-gradient(
+    to right,
+    var(--sword-buff-green) 0%,
+    var(--sword-buff-green) 100%
+  );
 }
 
 #progress-bar.complete {
-  background-image: linear-gradient(to right, lightgreen 0%, lightgreen 100%);
+  background-image: linear-gradient(
+    to right,
+    var(--sword-buff-green) 0%,
+    var(--sword-buff-green) 100%
+  );
 }
 
 #progress-bar::-webkit-progress-bar {
@@ -82,7 +96,11 @@ header {
 }
 
 #progress-bar.complete::-webkit-progress-value {
-  background-image: linear-gradient(to right, lightgreen 0%, lightgreen 100%);
+  background-image: linear-gradient(
+    to right,
+    var(--sword-buff-green) 0%,
+    var(--sword-buff-green) 100%
+  );
 }
 
 .sidebar-left {
@@ -112,7 +130,7 @@ header {
 }
 
 .word-button.instant-green {
-  background-color: lightgreen;
+  background-color: var(--sword-buff-green);
   transition: none;
 }
 
@@ -192,12 +210,12 @@ nav img {
 }
 
 .green-button {
-  background-color: #40cc02;
+  background-color: var(--sword-buff-green);
   color: white;
 }
 
 .blue-button {
-  background-color: #1364c9;
+  background-color: var(--sword-buff-blue);
   color: white;
 }
 
@@ -219,15 +237,19 @@ nav img {
 }
 
 .score-red {
-  background-color: pink;
+  background-color: var(--sword-buff-red-due);
 }
 
 .score-yellow {
-  background-color: #ffe187;
+  background-color: #ffe7a0;
 }
 
 .score-green {
-  background-color: lightgreen;
+  background-color: var(--sword-buff-green);
+}
+
+.score-blue {
+  background-color: cornflowerblue;
 }
 
 #move-buttons {
@@ -264,11 +286,11 @@ nav img {
 }
 
 .correct {
-  background-color: lightgreen;
+  background-color: var(--sword-buff-green);
 }
 
 .incorrect {
-  background-color: pink;
+  background-color: var(--sword-buff-red-due);
 }
 
 .finished-word {
@@ -341,7 +363,7 @@ nav img {
 }
 
 .switch input:checked + .slider {
-  background-color: #1364c9;
+  background-color: var(--sword-buff-blue);
 }
 
 .switch input:checked + .slider:before {
@@ -349,7 +371,7 @@ nav img {
 }
 
 .switch input:focus + .slider {
-  box-shadow: 0 0 1px #1364c9;
+  box-shadow: 0 0 1px var(--sword-buff-blue);
 }
 
 .toggle-label {
@@ -380,7 +402,7 @@ nav img {
 }
 
 .toggle-button.active {
-  background: #1364c9;
+  background: var(--sword-buff-blue);
   color: #fff;
 }
 
