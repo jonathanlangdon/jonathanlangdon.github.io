@@ -275,6 +275,11 @@ nav img {
   background-color: pink;
 }
 
+.finished-word {
+  background-color: grey;
+  color: lightgray;
+}
+
 #verse-list {
   /* column-count: 2;
   column-gap: 0px;  */

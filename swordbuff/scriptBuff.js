@@ -1,11 +1,11 @@
 const progressBar = document.getElementById('progress-bar');
-const checkArea = document.getElementById('check-button-container');
 const inputBox = document.getElementById('keyboard-input');
 const wordBankContainer = document.getElementById('word-bank');
 const answersContainer = document.getElementById('drop-line');
 const checkResultsContainer = document.getElementById('feedback');
 const newButton = document.createElement('button');
 const wordBankToggle = document.getElementById('word-bank-toggle');
+const finishWordsToggle = document.getElementById('finish-words-toggle');
 
 let verses = [];
 let numVerses = 0;
@@ -71,6 +71,12 @@ function moveCorrectWords(e) {
         button.classList.add('word-button');
       });
       numCorrectButtons = answersContainer.children.length;
+      if (finishWordsToggle.checked) {
+        if (isWordUsedUp(chosenButton.textContent)) {
+          chosenButton.classList.add('finished-word');
+          chosenButton.classList.remove('word-button');
+        }
+      }
     } else {
       numIncorrect += 1;
       chosenButton.classList.add('incorrect');
@@ -480,11 +486,37 @@ function getSetInitialWordBankStatus() {
   toggleWordBank();
 }
 
+function isWordUsedUp(wordBeingChecked) {
+  let wordUsedCount = 0;
+  let numWordMatchesInVerse = 0;
+  Array.from(answersContainer.children).forEach(answerWord => {
+    if (answerWord.textContent === wordBeingChecked) wordUsedCount += 1;
+  });
+  const correctVerseWords = verseString.split(' ');
+  correctVerseWords.forEach(verseWord => {
+    if (verseWord === wordBeingChecked) numWordMatchesInVerse += 1;
+  });
+  return wordUsedCount === numWordMatchesInVerse ? true : false;
+}
+
+function toggleFinishWords() {
+  Array.from(wordBankContainer.children).forEach(button => {
+    if (finishWordsToggle.checked && isWordUsedUp(button.textContent)) {
+      button.classList.add('finished-word');
+      button.classList.remove('word-button');
+    } else {
+      button.classList.remove('finished-word');
+      button.classList.add('word-button');
+    }
+  });
+}
+
 function initEventListeners() {
   document.addEventListener('keydown', focusKeyboard);
   inputBox.addEventListener('keydown', keyboardMoveWords);
   wordBankContainer.addEventListener('click', moveCorrectWords);
   wordBankToggle.addEventListener('change', toggleWordBank);
+  finishWordsToggle.addEventListener('change', toggleFinishWords);
 
   document.addEventListener('click', event => {
     if (event.target && event.target.id === 'prev-button') goToPrevVerse();

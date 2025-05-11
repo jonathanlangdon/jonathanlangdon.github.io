@@ -1,6 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const verseParam = params.get('verse');
 const wordBankToggle = document.getElementById('word-bank-toggle');
+const finishWordsToggle = document.getElementById('finish-words-toggle');
 
 function getSetInitialWordBankStatus() {
   const storedState = localStorage.getItem('bankToggleIsChecked');
@@ -11,6 +12,17 @@ function getSetInitialWordBankStatus() {
 
 function setWordBankStoredState() {
   localStorage.setItem('bankToggleIsChecked', wordBankToggle.checked);
+}
+
+function getSetInitialFinishWordsStatus() {
+  const storedState = localStorage.getItem('finishToggleIsChecked');
+  if (storedState != null) {
+    finishWordsToggle.checked = storedState === 'true';
+  }
+}
+
+function setFinishWordsState() {
+  localStorage.setItem('finishToggleIsCheck', finishWordsToggle.checked);
 }
 
 if (verseParam) {
@@ -34,6 +46,8 @@ if (verseParam) {
 function init() {
   getSetInitialWordBankStatus();
   wordBankToggle.addEventListener('change', setWordBankStoredState);
+  getSetInitialFinishWordsStatus();
+  finishWordsToggle.addEventListener('change', setFinishWordsState);
 }
 
 init();
