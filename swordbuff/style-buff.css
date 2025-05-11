@@ -233,10 +233,10 @@ nav img {
 #move-buttons {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap; /* Prevent wrapping */
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* Optional spacing between buttons */
+  gap: 10px;
 }
 
 #check-results {
@@ -278,8 +278,6 @@ nav img {
 }
 
 #verse-list {
-  /* column-count: 2;
-  column-gap: 0px;  */
   text-align: center;
   margin: 5;
   padding: 0;
@@ -434,9 +432,9 @@ nav img {
     display: none;
   }
   .check-area > div {
-    flex: 1; /* Each child gets equal space */
+    flex: 1;
     display: flex;
-    justify-content: center; /* Center the button inside its container */
+    justify-content: center;
   }
   button {
     font-size: 20px;
@@ -447,7 +445,6 @@ nav img {
   }
 }
 
-/* Celebration animation for word bank container */
 .celebrate {
   animation: pulse-glow 1s ease-in-out 2;
 }
@@ -464,7 +461,6 @@ nav img {
   }
 }
 
-/* Optional encouragement message style */
 .encouragement {
   display: block;
   color: black;

@@ -15,6 +15,7 @@ let currentVerse;
 let verseString;
 let numIncorrect = 0;
 let correctVerseArray = [];
+let hasStartedVerse = false;
 
 function shuffleArray(array) {
   let currentIndex = array.length,
@@ -94,6 +95,7 @@ function moveCorrectWords(e) {
       }
       checkResultsContainer.innerHTML = getResultText(percentageCorrect);
     }
+    hasStartedVerse = true;
     updateResetButton();
   }
 }
@@ -331,6 +333,7 @@ function getResultText(percentageCorrect) {
 
 function showCorrectAnswer() {
   wordButtonsEnabled = false;
+  hasStartedVerse = true;
   const percentageCorrect = getPercentageCorrect();
   resetWordsInContainer(wordBankContainer);
   correctVerseArray.forEach(word => {
@@ -418,6 +421,7 @@ function storeResults(percent) {
 
 function resetVerseContainers() {
   wordButtonsEnabled = true;
+  hasStartedVerse = false;
   resetWordsInContainer(wordBankContainer);
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
@@ -432,10 +436,7 @@ function resetVerseContainers() {
 
 function updateResetButton() {
   const resetButton = document.getElementById('reset-show');
-  if (
-    answersContainer.children.length > 0 ||
-    wordBankContainer.children[0].classList.contains('correct')
-  ) {
+  if (hasStartedVerse) {
     resetButton.textContent = 'RESET';
     resetButton.className = 'red-button';
     resetButton.onclick = resetVerseContainers;
@@ -543,7 +544,7 @@ function init() {
   getSetInitialWordBankStatus();
 }
 
-// only auto‐run in the real browser where `data` is defined
+// only auto‐run in the real browser (not during testing)
 if (
   typeof window !== 'undefined' &&
   typeof document !== 'undefined' &&
