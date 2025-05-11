@@ -1,6 +1,7 @@
 :root {
   --sword-buff-green: rgb(110, 235, 110);
   --sword-buff-blue: rgb(65, 110, 208);
+  --sword--buff-yellow: rgb(255, 231, 160);
   --sword-buff-red-due: rgb(255, 185, 185);
 }
 
@@ -241,7 +242,7 @@ nav img {
 }
 
 .score-yellow {
-  background-color: #ffe7a0;
+  background-color: var(--sword--buff-yellow);
 }
 
 .score-green {
@@ -249,7 +250,8 @@ nav img {
 }
 
 .score-blue {
-  background-color: cornflowerblue;
+  background-color: var(--sword-buff-blue);
+  color: white;
 }
 
 #move-buttons {
