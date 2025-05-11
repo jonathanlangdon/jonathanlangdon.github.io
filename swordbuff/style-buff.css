@@ -60,11 +60,7 @@ header {
 }
 
 #progress-bar::-moz-progress-bar {
-  background-image: linear-gradient(
-    to right,
-    rgb(0, 226, 0) 0%,
-    rgb(0, 226, 0) 100%
-  );
+  background-image: linear-gradient(to right, lightgreen 0%, lightgreen 100%);
 }
 
 #progress-bar.complete {
@@ -112,7 +108,7 @@ header {
 }
 
 .word-button {
-  transition: background-color 1s ease;
+  transition: background-color 2s ease-out;
 }
 
 .word-button.instant-green {
@@ -278,6 +274,7 @@ nav img {
 .finished-word {
   background-color: grey;
   color: lightgray;
+  transition-delay: 1s;
 }
 
 #verse-list {

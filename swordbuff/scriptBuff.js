@@ -72,10 +72,12 @@ function moveCorrectWords(e) {
       });
       numCorrectButtons = answersContainer.children.length;
       if (finishWordsToggle.checked) {
+        // setTimeout(() => {
         if (isWordUsedUp(chosenButton.textContent)) {
           chosenButton.classList.add('finished-word');
           chosenButton.classList.remove('word-button');
         }
+        // }, 2000);
       }
     } else {
       numIncorrect += 1;
