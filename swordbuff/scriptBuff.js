@@ -186,17 +186,22 @@ function putVerseInHeader(verseIndex) {
 
   let now = new Date();
   let todayStr = toLocalISODateString(now);
+  let yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+  let yesterdayStr = toLocalISODateString(yesterday);
 
   let dueDateStr = verseData ? verseData.dueDate : todayStr;
   let dueDate = new Date(dueDateStr + 'T00:00:00');
   let today = new Date(todayStr + 'T00:00:00');
+  yesterday = new Date(yesterdayStr + 'T00:00:00');
   console.log(
     `verseHeader: ${storageKey} has dueDate of ${dueDate} and today is ${today}`
   );
   let colorClass = 'score-yellow';
-  if (dueDate < today) colorClass = 'score-red';
+  if (dueDate < yesterday) colorClass = 'score-red';
   else if (percent < 60) colorClass = 'score-yellow';
-  else if (dueDate === today) colorClass = 'score-yellow';
+  else if (dueDate === today || dueDate === yesterday)
+    colorClass = 'score-yellow';
   else if (dueDate > today) colorClass = 'score-green';
 
   const circle = `<span class="score-circle ${colorClass}">${percent}</span>`;
