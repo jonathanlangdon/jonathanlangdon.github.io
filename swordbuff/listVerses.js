@@ -83,7 +83,7 @@ function loadVersesFor(selectedWho) {
               yesterday.setHours(0, 0, 0, 0);
               console.log(`setting today's date to ${today}`);
               console.log(`setting yesterday's date to ${yesterday}`);
-              let circleColor = 'score-yllow';
+              let circleColor = 'score-yellow';
               if (averagePercent >= 60 && earliestDueDate) {
                 earliestDueDate.setHours(0, 0, 0, 0);
                 console.log(
