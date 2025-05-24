@@ -334,14 +334,26 @@ function getResultText(percentageCorrect) {
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
-function showCorrectVerse() {
-  wordButtonsEnabled = false;
-  hasStartedVerse = true;
+function getRecordForCurrentVerse() {
   const params = new URLSearchParams(window.location.search);
   const storageKey = params.get('verse'); // e.g., "psalm23"
-  const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
-  const verseData = storedData[verseIndex.toString()];
-  let memoryStrength = verseData.memoryStrength ? verseData.memoryStrength : 0;
+  const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
+  let today = new Date();
+  let todayStr = toLocalISODateString(today);
+
+  let allVerseData = getStoredRecord(storageKey);
+  let record = allVerseData[verseIndexKey] || {
+    memoryStrength: 0,
+    dueDate: todayStr,
+    percentRight: 0
+  };
+  return record;
+}
+
+function showCorrectVerse() {
+  wordButtonsEnabled = false;
+  let record = getRecordForCurrentVerse();
+  let memoryStrength = record.memoryStrength ? record.memoryStrength : 0;
   if (memoryStrength > 2) {
     storeResults(0); //sets tomorrow as dueDate due to failure in knowing verse (also decreases memoryStrength)
   }
@@ -351,6 +363,7 @@ function showCorrectVerse() {
     button.classList.add('correct');
     wordBankContainer.appendChild(button);
   });
+  hasStartedVerse = true;
   updateResetButton();
 }
 
@@ -400,20 +413,10 @@ function updateTrainingRecord(record, percent) {
 }
 
 function storeResults(percent) {
-  const params = new URLSearchParams(window.location.search);
-  const storageKey = params.get('verse'); // e.g., "psalm23"
-  const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
+  let record = getRecordForCurrentVerse();
+  let dueDate = new Date(record.dueDate + 'T00:00:00');
   let today = new Date();
   let todayStr = toLocalISODateString(today);
-
-  let allVerseData = getStoredRecord(storageKey);
-  let record = allVerseData[verseIndexKey] || {
-    memoryStrength: 0,
-    dueDate: todayStr,
-    percentRight: 0
-  };
-
-  let dueDate = new Date(record.dueDate + 'T00:00:00');
   today = new Date(todayStr + 'T00:00:00');
   const isDueForReview = dueDate <= today;
   console.log(
