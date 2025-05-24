@@ -444,10 +444,13 @@ function storeResults(percent) {
     record.percentRight = percent;
   } else {
     record = updateTrainingRecord(record, percent); // also updates memoryStrength
-    record.percentRight = percent;
   }
-  allVerseData[verseIndexKey] = record;
-  localStorage.setItem(storageKey, JSON.stringify(allVerseData));
+  if (record.memoryStrength === 0 && percent < 60) {
+    // do not update record if trying for first time and fails
+  } else {
+    allVerseData[verseIndexKey] = record;
+    localStorage.setItem(storageKey, JSON.stringify(allVerseData));
+  }
   putVerseInHeader(verseIndex);
 }
 
