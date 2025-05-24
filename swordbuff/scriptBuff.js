@@ -52,6 +52,9 @@ function createButtonForWord(word) {
 
 function moveCorrectWords(e) {
   if (e.target.classList.contains('word-button') && wordButtonsEnabled) {
+    if (!wordBankToggle.checked) {
+      e.target.classList.remove('hidden');
+    }
     const chosenButton = e.target;
     let numCorrectButtons = answersContainer.children.length;
     const indexToCheck = numCorrectButtons;
@@ -70,6 +73,9 @@ function moveCorrectWords(e) {
       Array.from(wordBankContainer.children).forEach(button => {
         button.classList.remove('incorrect');
         button.classList.add('word-button');
+        if (!wordBankToggle.checked) {
+          button.classList.add('hidden');
+        }
       });
       numCorrectButtons = answersContainer.children.length;
       if (finishWordsToggle.checked) {
@@ -334,14 +340,21 @@ function getResultText(percentageCorrect) {
   return `${percentageCorrect}% and a memory strength of ${memoryStrength}<br>Lets practice ${dueDate}`;
 }
 
-function getRecordForCurrentVerse() {
+function getStorageKey() {
   const params = new URLSearchParams(window.location.search);
-  const storageKey = params.get('verse'); // e.g., "psalm23"
+  return params.get('verse'); // e.g., "psalm23"
+}
+
+function getAllVerseData() {
+  let storageKey = getStorageKey();
+  return getStoredRecord(storageKey);
+}
+
+function getRecordForCurrentVerse() {
   const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
   let today = new Date();
   let todayStr = toLocalISODateString(today);
-
-  let allVerseData = getStoredRecord(storageKey);
+  let allVerseData = getAllVerseData();
   let record = allVerseData[verseIndexKey] || {
     memoryStrength: 0,
     dueDate: todayStr,
@@ -417,8 +430,11 @@ function storeResults(percent) {
   let dueDate = new Date(record.dueDate + 'T00:00:00');
   let today = new Date();
   let todayStr = toLocalISODateString(today);
-  today = new Date(todayStr + 'T00:00:00');
+  let allVerseData = getAllVerseData();
+  let storageKey = getStorageKey();
+  const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
   const isDueForReview = dueDate <= today;
+  today = new Date(todayStr + 'T00:00:00');
   console.log(
     `determining dueForReview: today: ${today}, dueDate: ${dueDate}, thus, ${isDueForReview} that its due`
   );
