@@ -251,6 +251,7 @@ function addNextButton() {
 }
 
 function goToPrevVerse() {
+  if (verseIndex === verses.length - 1) progressBar.value -= 1;
   if (verseIndex === 0) {
     return;
   } else {
