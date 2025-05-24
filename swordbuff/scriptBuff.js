@@ -84,6 +84,7 @@ function moveCorrectWords(e) {
           chosenButton.classList.remove('word-button');
         }
       }
+      answersContainer.scrollTop = answersContainer.scrollHeight;
     } else {
       numIncorrect += 1;
       chosenButton.classList.add('incorrect');
@@ -141,7 +142,7 @@ function toLocalISODateString(date) {
 }
 
 function setIdealHeight() {
-  const answerContainer = document.getElementById('drop-area');
+  const answerOuterContainer = document.getElementById('drop-area');
   const headerHeight = document.querySelector('header').offsetHeight;
   const footerHeight = document.getElementById('footer').offsetHeight;
   const windowHeight = window.innerHeight;
@@ -149,10 +150,10 @@ function setIdealHeight() {
     (windowHeight - headerHeight - footerHeight - 85) / 2;
   if (window.innerWidth > 800) {
     wordBankContainer.style.height = '200px';
-    answerContainer.style.height = '250px';
+    answerOuterContainer.style.height = '250px';
   } else {
     wordBankContainer.style.height = `${setWordBankHeight}px`;
-    answerContainer.style.height = `${setWordBankHeight}px`;
+    answerOuterContainer.style.height = `${setWordBankHeight}px`;
   }
 }
 
