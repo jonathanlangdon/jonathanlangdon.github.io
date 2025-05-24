@@ -302,7 +302,7 @@ function getInitialStats() {
   } else {
     memoryStrength = 0;
   }
-  return `Current Memory Strength: ${memoryStrength}<br>Due Date: ${dueDate}`;
+  return `Current Memory Strength: ${memoryStrength}<br>Next refresh Date: ${dueDate}`;
 }
 
 function getResultText(percentageCorrect) {
