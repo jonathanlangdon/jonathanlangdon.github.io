@@ -8,10 +8,8 @@ const wordBankToggle = document.getElementById('word-bank-toggle');
 const finishWordsToggle = document.getElementById('finish-words-toggle');
 
 let verses = [];
-let numVerses = 0;
 let verseIndex = 0;
 let wordButtonsEnabled = true;
-let currentVerse;
 let verseString;
 let numIncorrect = 0;
 let correctVerseArray = [];
@@ -182,7 +180,7 @@ function keyboardMoveWords(e) {
 
 function putVerseInHeader(verseIndex) {
   const verseContainer = document.getElementById('verse');
-  currentVerse = verses[verseIndex];
+  let currentVerse = verses[verseIndex];
 
   const params = new URLSearchParams(window.location.search);
   const storageKey = params.get('verse'); // e.g., "psalm23"
@@ -570,8 +568,7 @@ function init() {
   data.verses.forEach(verseData => verses.push(verseData));
   verseString = verses[verseIndex].text;
   setupVerseWords(verseString);
-  numVerses = Object.keys(verses).length;
-  progressBar.max = numVerses;
+  progressBar.max = Object.keys(verses).length; // number of verses
   initEventListeners();
   resetVerseContainers();
   setIdealHeight();
