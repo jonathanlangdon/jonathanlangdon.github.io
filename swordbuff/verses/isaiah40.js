@@ -5,248 +5,248 @@ export const data = {
   verses: [
     {
       chapter: 40,
-      text: 'comfort comfort my people says your God',
-      verse: '1'
+      verse: '1',
+      text: '1 comfort comfort my people says your God'
     },
     {
       chapter: 40,
-      text: 'speak tenderly to Jerusalem and proclaim to her that her hard service has been completed',
-      verse: '2a'
+      verse: '2a',
+      text: '2 speak tenderly to Jerusalem and proclaim to her that her hard service has been completed'
     },
     {
       chapter: 40,
-      text: 'that her sin has been paid for that she has received from the Lords hand double for all her sins',
-      verse: '2b'
+      verse: '2b',
+      text: 'that her sin has been paid for that she has received from the Lords hand double for all her sins'
     },
     {
       chapter: 40,
-      text: 'a voice of one calling in the desert prepare the way for the Lord',
-      verse: '3a'
+      verse: '3a',
+      text: '3 a voice of one calling in the desert prepare the way for the Lord'
     },
     {
       chapter: 40,
-      text: 'make straight in the wilderness a highway for our God',
-      verse: '3b'
+      verse: '3b',
+      text: 'make straight in the wilderness a highway for our God'
     },
     {
       chapter: 40,
-      text: 'every valley shall be raised up every mountain and hill made low',
-      verse: '4a'
+      verse: '4a',
+      text: '4 every valley shall be raised up every mountain and hill made low'
     },
     {
       chapter: 40,
-      text: 'the rough ground shall become level the rugged places a plain',
-      verse: '4b'
+      verse: '4b',
+      text: 'the rough ground shall become level the rugged places a plain'
     },
     {
       chapter: 40,
-      text: 'and the glory of the Lord will be revealed and all mankind together will see it for the mouth of the Lord has spoken',
-      verse: '5'
+      verse: '5',
+      text: '5 and the glory of the Lord will be revealed and all mankind together will see it for the mouth of the Lord has spoken'
     },
     {
       chapter: 40,
-      text: 'a voice says cry out and I said what shall I cry all men are like grass and all their glory is like the flowers of the field',
-      verse: '6'
+      verse: '6',
+      text: '6 a voice says cry out and I said what shall I cry all men are like grass and all their glory is like the flowers of the field'
     },
     {
       chapter: 40,
-      text: 'the grass withers and the flowers fall because the breath of the Lord blows on them surely the people are grass',
-      verse: '7'
+      verse: '7',
+      text: '7 the grass withers and the flowers fall because the breath of the Lord blows on them surely the people are grass'
     },
     {
       chapter: 40,
-      text: 'the grass withers and the flowers fall but the word of our God stands forever',
-      verse: '8'
+      verse: '8',
+      text: '8 the grass withers and the flowers fall but the word of our God stands forever'
     },
     {
       chapter: 40,
-      text: 'you who bring good tidings to Zion go up on a high mountain',
-      verse: '9a'
+      verse: '9a',
+      text: '9 you who bring good tidings to Zion go up on a high mountain'
     },
     {
       chapter: 40,
-      text: 'you who bring good tidings to Jerusalem lift up your voice with a shout lift it up',
-      verse: '9b'
+      verse: '9b',
+      text: 'you who bring good tidings to Jerusalem lift up your voice with a shout lift it up'
     },
     {
       chapter: 40,
-      text: 'do not be afraid say to the towns of Judah here is your God',
-      verse: '9c'
+      verse: '9c',
+      text: 'do not be afraid say to the towns of Judah here is your God'
     },
     {
       chapter: 40,
-      text: 'see the Sovereign Lord comes with power and his arm rules for him',
-      verse: '10a'
+      verse: '10a',
+      text: '10 see the Sovereign Lord comes with power and his arm rules for him'
     },
     {
       chapter: 40,
-      text: 'see his reward is with him and his recompense accompanies him',
-      verse: '10b'
+      verse: '10b',
+      text: 'see his reward is with him and his recompense accompanies him'
     },
     {
       chapter: 40,
-      text: 'he tends his flock like a shepherd he gathers the lambs in his arms and carries them close to his heart',
-      verse: '11a'
+      verse: '11a',
+      text: '11 he tends his flock like a shepherd he gathers the lambs in his arms and carries them close to his heart'
     },
     {
       chapter: 40,
-      text: 'he gently leads those that have young',
-      verse: '11b'
+      verse: '11b',
+      text: 'he gently leads those that have young'
     },
     {
       chapter: 40,
-      text: 'who has measured the waters in the hollow of his hand or with the breadth of his hand marked off the heavens',
-      verse: '12a'
+      verse: '12a',
+      text: '12 who has measured the waters in the hollow of his hand or with the breadth of his hand marked off the heavens'
     },
     {
       chapter: 40,
-      text: 'who has held the dust of the earth in a basket or weighed the mountains on the scales and the hills in a balance',
-      verse: '12b'
+      verse: '12b',
+      text: 'who has held the dust of the earth in a basket or weighed the mountains on the scales and the hills in a balance'
     },
     {
       chapter: 40,
-      text: 'who has understood the mind of the Lord or instructed him as his counselor',
-      verse: '13'
+      verse: '13',
+      text: '13 who has understood the mind of the Lord or instructed him as his counselor'
     },
     {
       chapter: 40,
-      text: 'whom did the Lord consult to enlighten him and who taught him the right way',
-      verse: '14a'
+      verse: '14a',
+      text: '14 whom did the Lord consult to enlighten him and who taught him the right way'
     },
     {
       chapter: 40,
-      text: 'who was it that taught him knowledge or showed him the path of understanding',
-      verse: '14b'
+      verse: '14b',
+      text: 'who was it that taught him knowledge or showed him the path of understanding'
     },
     {
       chapter: 40,
-      text: 'surely the nations are like a drop in a bucket they are regarded as dust on the scales',
-      verse: '15a'
+      verse: '15a',
+      text: '15 surely the nations are like a drop in a bucket they are regarded as dust on the scales'
     },
     {
       chapter: 40,
-      text: 'he weighs the islands as though they were fine dust',
-      verse: '15b'
+      verse: '15b',
+      text: 'he weighs the islands as though they were fine dust'
     },
     {
       chapter: 40,
-      text: 'lebanon is not sufficient for altar fires nor its animals enough for burnt offerings',
-      verse: '16'
+      verse: '16',
+      text: '16 lebanon is not sufficient for altar fires nor its animals enough for burnt offerings'
     },
     {
       chapter: 40,
-      text: 'before him all the nations are as nothing they are regarded by him as worthless and less than nothing',
-      verse: '17'
+      verse: '17',
+      text: '17 before him all the nations are as nothing they are regarded by him as worthless and less than nothing'
     },
     {
       chapter: 40,
-      text: 'to whom then will you compare God what image will you compare him to',
-      verse: '18'
+      verse: '18',
+      text: '18 to whom then will you compare God what image will you compare him to'
     },
     {
       chapter: 40,
-      text: 'as for an idol a craftsman casts it and a goldsmith overlays it with gold and fashions silver chains for it',
-      verse: '19'
+      verse: '19',
+      text: '19 as for an idol a craftsman casts it and a goldsmith overlays it with gold and fashions silver chains for it'
     },
     {
       chapter: 40,
-      text: 'a man too poor to present such an offering selects wood that will not rot',
-      verse: '20a'
+      verse: '20a',
+      text: '20 a man too poor to present such an offering selects wood that will not rot'
     },
     {
       chapter: 40,
-      text: 'he looks for a skilled craftsman to set up an idol that will not topple',
-      verse: '20b'
+      verse: '20b',
+      text: 'he looks for a skilled craftsman to set up an idol that will not topple'
     },
     {
       chapter: 40,
-      text: 'do you not know have you not heard has it not been told you from the beginning',
-      verse: '21a'
+      verse: '21a',
+      text: '21 do you not know have you not heard has it not been told you from the beginning'
     },
     {
       chapter: 40,
-      text: 'have you not understood since the earth was founded',
-      verse: '21b'
+      verse: '21b',
+      text: 'have you not understood since the earth was founded'
     },
     {
       chapter: 40,
-      text: 'he sits enthroned above the circle of the earth and its people are like grasshoppers',
-      verse: '22a'
+      verse: '22a',
+      text: '22 he sits enthroned above the circle of the earth and its people are like grasshoppers'
     },
     {
       chapter: 40,
-      text: 'he stretches out the heavens like a canopy and spreads them out like a tent to live in',
-      verse: '22b'
+      verse: '22b',
+      text: 'he stretches out the heavens like a canopy and spreads them out like a tent to live in'
     },
     {
       chapter: 40,
-      text: 'he brings princes to naught and reduces the rulers of this world to nothing',
-      verse: '23'
+      verse: '23',
+      text: '23 he brings princes to naught and reduces the rulers of this world to nothing'
     },
     {
       chapter: 40,
-      text: 'no sooner are they planted no sooner are they sown no sooner do they take root in the ground',
-      verse: '24a'
+      verse: '24a',
+      text: '24 no sooner are they planted no sooner are they sown no sooner do they take root in the ground'
     },
     {
       chapter: 40,
-      text: 'then he blows on them and they wither and a whirlwind sweeps them away like chaff',
-      verse: '24b'
+      verse: '24b',
+      text: 'then he blows on them and they wither and a whirlwind sweeps them away like chaff'
     },
     {
       chapter: 40,
-      text: 'to whom will you compare me or who is my equal says the Holy One',
-      verse: '25'
+      verse: '25',
+      text: '25 to whom will you compare me or who is my equal says the Holy One'
     },
     {
       chapter: 40,
-      text: 'lift your eyes and look to the heavens who created all these',
-      verse: '26a'
+      verse: '26a',
+      text: '26 lift your eyes and look to the heavens who created all these'
     },
     {
       chapter: 40,
-      text: 'he who brings out the starry host one by one and calls them each by name',
-      verse: '26b'
+      verse: '26b',
+      text: 'he who brings out the starry host one by one and calls them each by name'
     },
     {
       chapter: 40,
-      text: 'because of his great power and mighty strength not one of them is missing',
-      verse: '26c'
+      verse: '26c',
+      text: 'because of his great power and mighty strength not one of them is missing'
     },
     {
       chapter: 40,
-      text: 'why do you say O Jacob and complain O Israel my way is hidden from the Lord my cause is disregarded by my God',
-      verse: '27'
+      verse: '27',
+      text: '27 why do you say O Jacob and complain O Israel my way is hidden from the Lord my cause is disregarded by my God'
     },
     {
       chapter: 40,
-      text: 'do you not know have you not heard the Lord is the everlasting God the Creator of the ends of the earth',
-      verse: '28a'
+      verse: '28a',
+      text: '28 do you not know have you not heard the Lord is the everlasting God the Creator of the ends of the earth'
     },
     {
       chapter: 40,
-      text: 'he will not grow tired or weary and his understanding no one can fathom',
-      verse: '28b'
+      verse: '28b',
+      text: 'he will not grow tired or weary and his understanding no one can fathom'
     },
     {
       chapter: 40,
-      text: 'he gives strength to the weary and increases the power of the weak',
-      verse: '29'
+      verse: '29',
+      text: '29 he gives strength to the weary and increases the power of the weak'
     },
     {
       chapter: 40,
-      text: 'even youths grow tired and weary and young men stumble and fall',
-      verse: '30'
+      verse: '30',
+      text: '30 even youths grow tired and weary and young men stumble and fall'
     },
     {
       chapter: 40,
-      text: 'but those who hope in the Lord will renew their strength they will soar on wings like eagles',
-      verse: '31a'
+      verse: '31a',
+      text: '31 but those who hope in the Lord will renew their strength they will soar on wings like eagles'
     },
     {
       chapter: 40,
-      text: 'they will run and not grow weary they will walk and not be faint',
-      verse: '31b'
+      verse: '31b',
+      text: 'they will run and not grow weary they will walk and not be faint'
     }
   ]
 };

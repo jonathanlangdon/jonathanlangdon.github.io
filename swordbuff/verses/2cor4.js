@@ -6,12 +6,12 @@ export const data = {
     {
       chapter: 4,
       verse: '1',
-      text: "therefore since through God's mercy we have this ministry we do not lose heart"
+      text: "1 therefore since through God's mercy we have this ministry we do not lose heart"
     },
     {
       chapter: 4,
       verse: '2a',
-      text: 'rather we have renounced secret and shameful ways we do not use deception nor do we distort the word of God'
+      text: '2 rather we have renounced secret and shameful ways we do not use deception nor do we distort the word of God'
     },
     {
       chapter: 4,
@@ -21,12 +21,12 @@ export const data = {
     {
       chapter: 4,
       verse: '3',
-      text: 'and even if our gospel is veiled it is veiled to those who are perishing'
+      text: '3 and even if our gospel is veiled it is veiled to those who are perishing'
     },
     {
       chapter: 4,
       verse: '4a',
-      text: 'the god of this age has blinded the minds of unbelievers'
+      text: '4 the god of this age has blinded the minds of unbelievers'
     },
     {
       chapter: 4,
@@ -36,12 +36,12 @@ export const data = {
     {
       chapter: 4,
       verse: '5',
-      text: "for we do not preach ourselves but Jesus Christ as Lord and ourselves as your servants for Jesus' sake"
+      text: "5 for we do not preach ourselves but Jesus Christ as Lord and ourselves as your servants for Jesus' sake"
     },
     {
       chapter: 4,
       verse: '6a',
-      text: 'for God who said let light shine out of darkness made his light shine in our hearts'
+      text: '6 for God who said let light shine out of darkness made his light shine in our hearts'
     },
     {
       chapter: 4,
@@ -51,42 +51,42 @@ export const data = {
     {
       chapter: 4,
       verse: '7',
-      text: 'but we have this treasure in jars of clay to show that this all-surpassing power is from God and not from us'
+      text: '7 but we have this treasure in jars of clay to show that this all-surpassing power is from God and not from us'
     },
     {
       chapter: 4,
       verse: '8',
-      text: 'we are hard pressed on every side but not crushed perplexed but not in despair'
+      text: '8 we are hard pressed on every side but not crushed perplexed but not in despair'
     },
     {
       chapter: 4,
       verse: '9',
-      text: 'persecuted but not abandoned struck down but not destroyed'
+      text: '9 persecuted but not abandoned struck down but not destroyed'
     },
     {
       chapter: 4,
       verse: '10',
-      text: 'we always carry around in our body the death of Jesus so that the life of Jesus may also be revealed in our body'
+      text: '10 we always carry around in our body the death of Jesus so that the life of Jesus may also be revealed in our body'
     },
     {
       chapter: 4,
       verse: '11',
-      text: "for we who are alive are always being given over to death for Jesus' sake so that his life may be revealed in our mortal body"
+      text: "11 for we who are alive are always being given over to death for Jesus' sake so that his life may be revealed in our mortal body"
     },
     {
       chapter: 4,
       verse: '12',
-      text: 'so then death is at work in us but life is at work in you'
+      text: '12 so then death is at work in us but life is at work in you'
     },
     {
       chapter: 4,
       verse: '13',
-      text: 'it is written I believed therefore I have spoken with that same spirit of faith we also believe and therefore speak'
+      text: '13 it is written I believed therefore I have spoken with that same spirit of faith we also believe and therefore speak'
     },
     {
       chapter: 4,
       verse: '14a',
-      text: 'because we know that the one who raised the Lord Jesus from the dead'
+      text: '14 because we know that the one who raised the Lord Jesus from the dead'
     },
     {
       chapter: 4,
@@ -96,7 +96,7 @@ export const data = {
     {
       chapter: 4,
       verse: '15a',
-      text: 'all this is for your benefit so that the grace that is reaching more and more people'
+      text: '15 all this is for your benefit so that the grace that is reaching more and more people'
     },
     {
       chapter: 4,
@@ -106,17 +106,17 @@ export const data = {
     {
       chapter: 4,
       verse: '16',
-      text: 'therefore we do not lose heart though outwardly we are wasting away yet inwardly we are being renewed day by day'
+      text: '16 therefore we do not lose heart though outwardly we are wasting away yet inwardly we are being renewed day by day'
     },
     {
       chapter: 4,
       verse: '17',
-      text: 'for our light and momentary troubles are achieving for us an eternal glory that far outweighs them all'
+      text: '17 for our light and momentary troubles are achieving for us an eternal glory that far outweighs them all'
     },
     {
       chapter: 4,
       verse: '18',
-      text: 'so we fix our eyes not on what is seen but on what is unseen for what is seen is temporary but what is unseen is eternal'
+      text: '18 so we fix our eyes not on what is seen but on what is unseen for what is seen is temporary but what is unseen is eternal'
     }
   ]
 };
