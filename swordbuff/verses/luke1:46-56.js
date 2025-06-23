@@ -5,11 +5,6 @@ export const data = {
   verses: [
     {
       chapter: 1,
-      verse: '45',
-      text: 'blessed is she who has believed that the Lord would fulfill his promises to her'
-    },
-    {
-      chapter: 1,
       verse: '46',
       text: 'and Mary said my soul glorifies the Lord'
     },
