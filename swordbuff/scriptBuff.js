@@ -213,6 +213,20 @@ function putVerseInHeader(verseIndex) {
   verseContainer.innerHTML = `${data.book} ${currentVerse.chapter}:${currentVerse.verse} ${data.translation} ${circle}`;
 }
 
+function skipGreen() {
+  const params = new URLSearchParams(window.location.search);
+  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+  const verseData = storedData[verseIndex.toString()];
+  let now = new Date();
+  let todayStr = toLocalISODateString(now);
+  let dueDateStr = verseData ? verseData.dueDate : todayStr;
+  let dueDate = new Date(dueDateStr + 'T00:00:00');
+  let today = new Date(todayStr + 'T00:00:00');
+  console.log(`skip green check. dueDate: ${dueDate}, today: ${today}`);
+  if (dueDate > today) goToNextVerse();
+}
+
 function setupVerseWords(verseString) {
   putVerseInHeader(verseIndex);
   verseString = verseString.replace(/^\d+:\s*/, '');
@@ -448,6 +462,7 @@ function storeResults(percent) {
 }
 
 function resetVerseContainers() {
+  skipGreen();
   wordButtonsEnabled = true;
   hasStartedVerse = false;
   resetWordsInContainer(wordBankContainer);
@@ -562,8 +577,8 @@ function initEventListeners() {
 function init() {
   data.verses.forEach(verseData => verses.push(verseData));
   verseString = verses[verseIndex].text;
-  setupVerseWords(verseString);
   progressBar.max = Object.keys(verses).length; // number of verses
+  setupVerseWords(verseString);
   initEventListeners();
   resetVerseContainers();
   setIdealHeight();
