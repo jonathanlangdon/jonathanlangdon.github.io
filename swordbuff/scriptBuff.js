@@ -365,11 +365,6 @@ function getRecordForCurrentVerse() {
 
 function showCorrectVerse() {
   wordButtonsEnabled = false;
-  let record = getRecordForCurrentVerse();
-  let memoryStrength = record.memoryStrength ? record.memoryStrength : 0;
-  if (memoryStrength > 2) {
-    storeResults(0); //sets tomorrow as dueDate due to failure in knowing verse (also decreases memoryStrength)
-  }
   resetWordsInContainer(wordBankContainer);
   correctVerseArray.forEach(word => {
     const button = createButtonForWord(word);
