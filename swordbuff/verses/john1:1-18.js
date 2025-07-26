@@ -66,7 +66,7 @@ export const data = {
     {
       chapter: 1,
       verse: '13',
-      text: '13 children born not of natural descent nor of human decision or a husband’s will but born of God'
+      text: '13 children born not of natural descent nor of human decision or a husband's will but born of God'
     },
     {
       chapter: 1,
@@ -76,7 +76,7 @@ export const data = {
     {
       chapter: 1,
       verse: '15',
-      text: '15 John testifies concerning him he cries out saying “This was he of whom I said ‘He who comes after me has surpassed me because he was before me’”'
+      text: '15 John testifies concerning him he cries out saying this was he of whom I said he who comes after me has surpassed me because he was before me'
     },
     {
       chapter: 1,
