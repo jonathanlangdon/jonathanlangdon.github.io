@@ -11,8 +11,10 @@ let verses = [];
 let verseIndex = 0;
 let wordButtonsEnabled = true;
 let numIncorrect = 0;
+let wordBankArray = [];
 let correctVerseArray = [];
 let hasStartedVerse = false;
+let indexToCheck = 0;
 
 function splitOnNewline(wordsArray) {
   return wordsArray.flatMap(word => {
@@ -137,12 +139,11 @@ function moveCorrectWords(e) {
       e.target.classList.remove('hidden');
     }
     const chosenButton = e.target;
-    let numCorrectButtons = answersContainer.children.length;
-    const indexToCheck = numCorrectButtons;
     const isCorrect =
       correctVerseArray[indexToCheck] === chosenButton.textContent;
 
     if (isCorrect) {
+      indexToCheck += 1;
       // give instant feedback for correct button
       chosenButton.classList.add('instant-green');
       void chosenButton.offsetWidth;
@@ -158,7 +159,6 @@ function moveCorrectWords(e) {
           button.classList.add('hidden');
         }
       });
-      numCorrectButtons = answersContainer.children.length;
       if (finishWordsToggle.checked) {
         if (isWordUsedUp(chosenButton.textContent)) {
           chosenButton.classList.add('finished-word');
@@ -171,7 +171,7 @@ function moveCorrectWords(e) {
       chosenButton.classList.add('incorrect');
       chosenButton.classList.remove('word-button');
     }
-    if (numCorrectButtons === correctVerseArray.length) {
+    if (indexToCheck + 1 === correctVerseArray.length) {
       celebrateDone();
       const percentageCorrect = getPercentageCorrect();
       if (answersContainer.children.length > 0) {
@@ -478,7 +478,8 @@ function resetVerseContainers() {
   resetWordsInContainer(wordBankContainer);
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
-  let RandomizedVerseArray = shuffleArray(data.bubbleWords);
+  wordBankArray = [...data.bubbleWords];
+  let RandomizedVerseArray = shuffleArray(wordBankArray);
   createWordBankButtons(RandomizedVerseArray);
   updateResetButton();
   toggleWordBank();
