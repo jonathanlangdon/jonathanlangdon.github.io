@@ -8,7 +8,7 @@ function loadVersesFor(selectedWho) {
   }
 
   const apiUrl =
-    'https://api.github.com/repos/jonathanlangdon/jonathanlangdon.github.io/contents/memorypassage/verses?ref=main';
+    'https://api.github.com/repos/jonathanlangdon/jonathanlangdon.github.io/contents/memorypassage/passages?ref=main';
 
   fetch(apiUrl)
     .then(response => {

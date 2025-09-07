@@ -15,6 +15,90 @@ let numIncorrect = 0;
 let correctVerseArray = [];
 let hasStartedVerse = false;
 
+function splitOnNewline(wordsArray) {
+  return wordsArray.flatMap(word => {
+    if (word.includes('\n')) {
+      const parts = word.split('\n');
+      return [parts[0] + '\n', parts[1]];
+    } else {
+      return word;
+    }
+  });
+}
+
+const properNouns = [
+  // Deities & Titles
+  'God',
+  'Lord',
+  'Christ',
+  'Jesus',
+  'Messiah',
+  'Savior',
+  'Holy Spirit',
+  'Almighty',
+
+  // People
+  'Abraham',
+  'Adam',
+  'David',
+  'Eve',
+  'Isaac',
+  'Jacob',
+  'John',
+  'Joseph',
+  'Mary',
+  'Moses',
+  'Paul',
+  'Peter',
+  'Solomon',
+
+  // Places
+  'Babylon',
+  'Bethlehem',
+  'Canaan',
+  'Egypt',
+  'Galilee',
+  'Israel',
+  'Jerusalem',
+  'Jordan',
+  'Judea',
+  'Nazareth',
+  'Zion',
+
+  // Groups
+  'Gentiles',
+  'Israelites',
+  'Jews',
+  'Pharisees',
+  'Romans',
+
+  // Other
+  'I',
+  'Sabbath',
+  'Scripture',
+  'Word'
+];
+
+function createPassageObject(passageString) {
+  let wordArray = passageString.split(' ');
+  wordArray = splitOnNewline(wordArray);
+  let verseObject = new Object();
+  verseObject.verseWords = wordArray;
+  let passageStringWithoutPunct = passageString.replace(/[^\w\s]/gi, '');
+  let bubbleWords = passageStringWithoutPunct.split(' ');
+  bubbleWords = splitOnNewline(bubbleWords);
+  bubbleWords = bubbleWords.map(word => {
+    const cleanedWord = word.replace(/[^\w]/g, '');
+    if (properNouns.includes(cleanedWord)) {
+      return cleanedWord;
+    } else {
+      return cleanedWord.toLowerCase();
+    }
+  });
+  verseObject.bubbleWords = bubbleWords;
+  return verseObject;
+}
+
 function shuffleArray(array) {
   let currentIndex = array.length,
     temporaryValue,
