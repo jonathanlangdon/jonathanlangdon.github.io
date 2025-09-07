@@ -10,7 +10,6 @@ const finishWordsToggle = document.getElementById('finish-words-toggle');
 let verses = [];
 let verseIndex = 0;
 let wordButtonsEnabled = true;
-let verseString;
 let numIncorrect = 0;
 let correctVerseArray = [];
 let hasStartedVerse = false;
@@ -294,13 +293,12 @@ function putVerseInHeader(verseIndex) {
   else if (dueDate > today) colorClass = 'score-green';
 
   const circle = `<span class="score-circle ${colorClass}">${percent}</span>`;
-  verseContainer.innerHTML = `${data.book} ${currentVerse.chapter}:${currentVerse.verse} ${data.translation} ${circle}`;
+  verseContainer.innerHTML = `${data.title} ${circle}`;
 }
 
-function setupVerseWords(verseString) {
+function setupVerseWords() {
   putVerseInHeader(verseIndex);
-  verseString = verseString.replace(/^\d+:\s*/, '');
-  correctVerseArray = verseString.split(' ');
+  correctVerseArray = data.bubbleWords;
 }
 
 function getPercentageCorrect() {
@@ -480,7 +478,7 @@ function resetVerseContainers() {
   resetWordsInContainer(wordBankContainer);
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
-  let RandomizedVerseArray = shuffleArray(verseString.split(' '));
+  let RandomizedVerseArray = shuffleArray(data.bubbleWords);
   createWordBankButtons(RandomizedVerseArray);
   updateResetButton();
   toggleWordBank();
@@ -541,7 +539,7 @@ function isWordUsedUp(wordBeingChecked) {
   Array.from(answersContainer.children).forEach(answerWord => {
     if (answerWord.textContent === wordBeingChecked) wordUsedCount += 1;
   });
-  const correctVerseWords = verseString.split(' ');
+  const correctVerseWords = data.bubbleWords;
   correctVerseWords.forEach(verseWord => {
     if (verseWord === wordBeingChecked) numWordMatchesInVerse += 1;
   });
@@ -578,10 +576,8 @@ function initEventListeners() {
 }
 
 function init() {
-  data.verses.forEach(verseData => verses.push(verseData));
-  verseString = verses[verseIndex].text;
   progressBar.max = Object.keys(verses).length; // number of verses
-  setupVerseWords(verseString);
+  setupVerseWords(data.bubbleWords);
   initEventListeners();
   resetVerseContainers();
   setIdealHeight();

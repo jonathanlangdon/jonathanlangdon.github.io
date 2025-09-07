@@ -32,7 +32,7 @@ if (verseParam) {
   document.getElementById('user-select').style.display = 'none';
   document.getElementById('verse-list').style.display = 'none';
 
-  const verseFile = `./verses/${verseParam}.js?v=1.0`;
+  const verseFile = `./passages/${verseParam}.js?v=1.0`;
   import(verseFile)
     .then(module => {
       window.data = module.data;
