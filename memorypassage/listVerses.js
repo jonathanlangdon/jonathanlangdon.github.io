@@ -1,4 +1,4 @@
-function loadVersesFor(selectedWho) {
+function loadVersesFor() {
   const params = new URLSearchParams(window.location.search);
   if (params.has('verse')) return;
 
@@ -25,97 +25,77 @@ function loadVersesFor(selectedWho) {
 
       jsFiles.forEach(file => {
         const fileName = file.name.replace(/\.js$/, '');
-        const fileUrl = `./verses/${file.name}`;
+        const fileUrl = `./passages/${file.name}`;
 
-        fetch(fileUrl)
-          .then(response => response.text())
-          .then(text => {
-            const match = text.match(/who\s*:\s*['"]([^'"]+)['"]/);
-            if (match && match[1] === selectedWho) {
-              const smartName = formatVerseName(fileName);
+        // Use dynamic import to correctly load the JS module
+        import(fileUrl)
+          .then(module => {
+            // The exported 'data' object is now available as module.data
+            const passageData = module.data;
 
-              // 👉 Extract number of verses from the JS file text
-              let totalVerses = 0;
-              try {
-                const versesArrayMatch = text.match(
-                  /verses\s*:\s*\[((?:.|\n)*?)\]/m
-                );
-                if (versesArrayMatch) {
-                  const itemsText = versesArrayMatch[1];
+            // ✅ This is the correct way to get totalVerses
+            const totalVerses = passageData.bubbleWords.length;
 
-                  // Count how many `{` or `[` start individual entries
-                  const count = (itemsText.match(/{/g) || []).length;
-                  totalVerses = count;
-                }
-              } catch (e) {
-                console.warn(
-                  'Could not extract verse count from file:',
-                  file.name,
-                  e
-                );
-              }
+            const smartName = formatVerseName(fileName);
 
-              // 👉 Add LocalStorage read and average calculation
-              const record = JSON.parse(localStorage.getItem(fileName) || '{}');
-              const values = Object.values(record);
+            // 👉 Add LocalStorage read and average calculation
+            const record = JSON.parse(localStorage.getItem(fileName) || '{}');
+            const values = Object.values(record);
 
-              let averagePercent = 0;
-              let earliestDueDate = null;
+            let averagePercent = 0;
+            let earliestDueDate = null;
 
-              if (values.length > 0) {
-                const sum = values.reduce(
-                  (acc, item) => acc + (item.percentRight || 0),
-                  0
-                );
-                averagePercent = Math.round(sum / values.length);
+            if (values.length > 0) {
+              const sum = values.reduce(
+                (acc, item) => acc + (item.percentRight || 0),
+                0
+              );
+              averagePercent = Math.round(sum / values.length);
 
-                earliestDueDate = values
-                  .map(v => v.dueDate && parseLocalDate(v.dueDate))
-                  .filter(Boolean)
-                  .sort((a, b) => a - b)[0];
-              }
-
-              // Determine circle color
-              let today = new Date();
-              let yesterday = new Date(today);
-              yesterday.setDate(today.getDate() - 1);
-              today.setHours(0, 0, 0, 0);
-              yesterday.setHours(0, 0, 0, 0);
-              console.log(`setting today's date to ${today}`);
-              console.log(`setting yesterday's date to ${yesterday}`);
-              let circleColor = 'score-yellow';
-              if (averagePercent >= 60 && earliestDueDate) {
-                earliestDueDate.setHours(0, 0, 0, 0);
-                console.log(
-                  `earliestDate for ${smartName} is ${earliestDueDate}`
-                );
-                if (earliestDueDate < yesterday) circleColor = 'score-red';
-                else if (
-                  earliestDueDate === today ||
-                  earliestDueDate === yesterday
-                )
-                  circleColor = 'score-yellow';
-                else if (values.length < totalVerses)
-                  circleColor = 'score-blue';
-                else if (earliestDueDate > today) circleColor = 'score-green';
-              }
-
-              // Circle element
-              const circle = `<span class="score-circle ${circleColor}">${averagePercent}</span>`;
-
-              // Build button
-              const button = document.createElement('button');
-              button.classList.add('list-button');
-              button.innerHTML = `${smartName} ${circle}`;
-              button.addEventListener('click', () => {
-                window.location.href = `index.html?verse=${fileName}`;
-              });
-
-              verseListContainer.appendChild(button);
+              earliestDueDate = values
+                .map(v => v.dueDate && parseLocalDate(v.dueDate))
+                .filter(Boolean)
+                .sort((a, b) => a - b)[0];
             }
+
+            // Determine circle color
+            let today = new Date();
+            let yesterday = new Date(today);
+            yesterday.setDate(today.getDate() - 1);
+            today.setHours(0, 0, 0, 0);
+            yesterday.setHours(0, 0, 0, 0);
+
+            let circleColor = 'score-yellow';
+            if (averagePercent >= 60 && earliestDueDate) {
+              earliestDueDate.setHours(0, 0, 0, 0);
+
+              // NOTE: Comparing date objects with === is unreliable.
+              // It's better to compare their time values: .getTime()
+              if (earliestDueDate < yesterday) {
+                circleColor = 'score-red';
+              } else if (values.length < totalVerses) {
+                // This now works correctly
+                circleColor = 'score-blue';
+              } else if (earliestDueDate > today) {
+                circleColor = 'score-green';
+              }
+            }
+
+            // Circle element
+            const circle = `<span class="score-circle ${circleColor}">${averagePercent}</span>`;
+
+            // Build button
+            const button = document.createElement('button');
+            button.classList.add('list-button');
+            button.innerHTML = `${smartName} ${circle}`;
+            button.addEventListener('click', () => {
+              window.location.href = `index.html?verse=${fileName}`;
+            });
+
+            verseListContainer.appendChild(button);
           })
           .catch(err =>
-            console.error('Error loading file content:', file.name, err)
+            console.error('Error importing module:', file.name, err)
           );
       });
     })

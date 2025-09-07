@@ -171,7 +171,7 @@ function moveCorrectWords(e) {
       chosenButton.classList.add('incorrect');
       chosenButton.classList.remove('word-button');
     }
-    if (indexToCheck + 1 === correctVerseArray.length) {
+    if (indexToCheck === correctVerseArray.length) {
       celebrateDone();
       const percentageCorrect = getPercentageCorrect();
       if (answersContainer.children.length > 0) {
