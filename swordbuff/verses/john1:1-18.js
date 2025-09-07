@@ -66,7 +66,7 @@ export const data = {
     {
       chapter: 1,
       verse: '13',
-      text: '13 children born not of natural descent nor of human decision or a husband's will but born of God'
+      text: '13 children born not of natural descent nor of human decision or a husbands will but born of God'
     },
     {
       chapter: 1,
