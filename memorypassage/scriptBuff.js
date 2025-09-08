@@ -85,8 +85,8 @@ function createPassageObject(passageString) {
   wordArray = splitOnNewline(wordArray);
   let verseObject = new Object();
   verseObject.verseWords = wordArray;
-  let passageStringWithoutPunct = passageString.replace(/[^\w\s]/gi, '');
-  let bubbleWords = passageStringWithoutPunct.split(' ');
+  let passageStringWithoutNonLetters = passageString.replace(/[^\w\s]/gi, '');
+  let bubbleWords = passageStringWithoutNonLetters.split(' ');
   bubbleWords = splitOnNewline(bubbleWords);
   bubbleWords = bubbleWords.map(word => {
     const cleanedWord = word.replace(/[^\w]/g, '');
@@ -167,8 +167,7 @@ function randomizeWithinBlocks(wordArray) {
 
 function createWordBankButtons(wordArray) {
   const fragment = document.createDocumentFragment();
-  const uniqueWords = new Set(wordArray);
-  uniqueWords.forEach(word => {
+  wordArray.forEach(word => {
     const button = createButtonForWord(word);
     fragment.appendChild(button);
   });
@@ -211,10 +210,8 @@ function moveCorrectWords(e) {
         }
       });
       if (finishWordsToggle.checked) {
-        if (isWordUsedUp(chosenButton.textContent)) {
-          chosenButton.classList.add('finished-word');
-          chosenButton.classList.remove('word-button');
-        }
+        chosenButton.classList.add('finished-word');
+        chosenButton.classList.remove('word-button');
       }
       answersContainer.scrollTop = answersContainer.scrollHeight;
     } else {
