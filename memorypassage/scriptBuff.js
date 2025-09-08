@@ -100,18 +100,69 @@ function createPassageObject(passageString) {
   return verseObject;
 }
 
-function shuffleArray(array) {
-  let currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+function getBoundaries(arrayLength, index, windowWidth) {
+  // exampleArray = [1, 2, 3, 4, 5]. endIndex = 4 (when length = 5)
+  if (arrayLength <= windowWidth) return [0, arrayLength - 1];
+  if (index >= arrayLength - windowWidth / 2)
+    return [arrayLength - windowWidth, arrayLength];
+  const absoluteStart = index - 10;
+  const absoluteEnd = index + 10;
+  const startIndexBoundary = absoluteStart < 0 ? 0 : absoluteStart;
+  const endIndexBoundary = startIndexBoundary + 20;
+  return [startIndexBoundary, endIndexBoundary];
+}
+// Test cases
+// console.log(getBoundaries(1, 5)) // 0, 0
+// console.log(getBoundaries(10, 5)) // 0, 9
+// console.log(getBoundaries(20, 5)) // 0, 19
+// console.log(getBoundaries(21, 5)) // 0, 20
+// console.log(getBoundaries(21, 10)) // 0, 20
+// console.log(getBoundaries(21, 11)) // 1, 21
+// console.log(getBoundaries(21, 15)) // 1, 21
+// console.log(getBoundaries(40, 25)) // 15, 35
+
+function getRandomIndex(startIndex, endIndex) {
+  return Math.floor(Math.random() * (endIndex - startIndex + 1)) + startIndex;
+}
+
+function findNextOpenIndex(wordArray, boundaries, randomIndex) {
+  const randomIndexIsEven = randomIndex % 2 === 0;
+  let currentIndex = randomIndex;
+  const [min, max] = boundaries;
+  const rangeSize = max - min + 1;
+  for (let i = 0; i < rangeSize; i++) {
+    if (wordArray[currentIndex] === null) {
+      return currentIndex;
+    }
+    currentIndex += randomIndexIsEven ? 1 : -1;
+    if (currentIndex > max) currentIndex = min;
+    if (currentIndex < min) currentIndex = max;
   }
-  return array;
+  return -1;
+}
+
+function randomizeWithinBlocks(wordArray) {
+  let outputArray = Array.from({ length: wordArray.length }, () => null);
+  const blockWidth = 20;
+
+  wordArray.forEach((word, index) => {
+    const boundaries = getBoundaries(wordArray.length, index, blockWidth);
+    const randomIndexInBlock = getRandomIndex(...boundaries);
+
+    let nextOpenIndex = findNextOpenIndex(
+      outputArray,
+      boundaries,
+      randomIndexInBlock
+    );
+
+    if (nextOpenIndex === -1) {
+      outputArray.splice(randomIndexInBlock, 0, word);
+    } else {
+      outputArray[nextOpenIndex] = word;
+    }
+  });
+  const finalArray = outputArray.filter(value => value !== null);
+  return finalArray;
 }
 
 function createWordBankButtons(wordArray) {
@@ -479,7 +530,7 @@ function resetVerseContainers() {
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
   wordBankArray = [...data.bubbleWords];
-  let RandomizedVerseArray = shuffleArray(wordBankArray);
+  let RandomizedVerseArray = randomizeWithinBlocks(wordBankArray);
   createWordBankButtons(RandomizedVerseArray);
   updateResetButton();
   toggleWordBank();
