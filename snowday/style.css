@@ -1,0 +1,91 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  background-image: url(https://snowdaymichigan.com/graphics/snow.jpg);
+}
+
+main {
+  background-color: rgb(255, 255, 255, 0.8);
+  border-radius: 30px;
+  min-width: 400px;
+}
+
+#save-agree {
+  margin-right: 5px;
+}
+
+#save-label {
+  font-size: small;
+}
+
+#calc-factors {
+  font-weight: 200;
+  font-style: italic;
+}
+
+#full-height {
+  height: 100vh;
+}
+
+input[type='number'] {
+  width: 100px;
+  text-align: center;
+}
+
+.main-buttons {
+  margin: 10px;
+  padding: 7px;
+  border-radius: 4px;
+}
+
+p:not(.font-italic),
+label,
+a {
+  font-size: large;
+  font-weight: 600;
+}
+
+.under-link {
+  text-decoration-line: underline;
+  padding-bottom: 10px;
+  font-size: 0.8em;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.flashing {
+  animation: flash 2s infinite;
+}
+
+.small-text {
+  font-size: 12px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+#prev-location-text {
+  display: none;
+  font-size: 15px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#manualweather {
+  margin-bottom: 1em;
+}
+
+#forecast-error {
+  color: red;
+  font-size: smaller;
+  margin: 10px;
+}
