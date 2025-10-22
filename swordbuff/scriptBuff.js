@@ -111,7 +111,7 @@ function celebrateDone() {
   }, 5000);
   const percentageCorrect = getPercentageCorrect();
   const encouragements =
-    percentageCorrect >= 60
+    percentageCorrect >= 85
       ? ['Awesome!', 'Incredible!', 'Wonderful!', 'Well done!']
       : [
           "You'll get it next time!",
