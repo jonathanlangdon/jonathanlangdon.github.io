@@ -1,7 +1,7 @@
 export const data = {
   book: 'Romans',
-  translation: 'NIV',
-  who: 'User',
+  translation: 'NIV-84',
+  who: 'Daddy',
   verses: [
     {
       chapter: 12,
