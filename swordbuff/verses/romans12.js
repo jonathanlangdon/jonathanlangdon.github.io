@@ -6,7 +6,7 @@ export const data = {
     {
       chapter: 12,
       verse: '1a',
-      text: '1 therefore I urge you brothers in view of gods mercy to offer your bodies'
+      text: '1 therefore I urge you brothers in view of Gods mercy to offer your bodies'
     },
     {
       chapter: 12,
