@@ -339,7 +339,7 @@ function getResultText(percentageCorrect) {
   console.log(
     `getResultText: today is ${todayStr}, tomorrow: ${tomorrowStr}, dueDate: ${dueDate}`
   );
-  if (percentageCorrect < 60) dueDate = 'again!';
+  if (percentageCorrect < 85) dueDate = 'again!';
   else if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
   let memoryStrength;
@@ -406,11 +406,11 @@ function getPerfectInterval(memoryStrength) {
 }
 
 function getAdjustedInterval(memoryStrength, percent) {
-  if (percent < 60) return 0;
+  if (percent < 85) return 0;
   const curInterval = getPerfectInterval(memoryStrength);
   const lastInterval = getPerfectInterval(memoryStrength - 1);
   const m = curInterval - lastInterval;
-  return Math.round(m * ((percent - 60) / 40) + lastInterval);
+  return Math.round(m * ((percent - 85) / 40) + lastInterval);
 }
 
 function updateTrainingRecord(record, percent) {
@@ -419,7 +419,7 @@ function updateTrainingRecord(record, percent) {
     record.memoryStrength = record.repetitions || 0;
   }
   let interval = 1; // default to tomorrow for interval
-  if (percent < 60) {
+  if (percent < 85) {
     record.memoryStrength -= record.memoryStrength > 0 ? 1 : 0;
     // interval will be tomorrow by default
   } else {
@@ -447,7 +447,7 @@ function storeResults(percent) {
   console.log(
     `determining dueForReview: today: ${today}, dueDate: ${dueDate}, thus, ${isDueForReview} that its due`
   );
-  if (!isDueForReview && percent >= 60) {
+  if (!isDueForReview && percent >= 85) {
     record.percentRight = percent;
   } else {
     record = updateTrainingRecord(record, percent); // also updates memoryStrength
