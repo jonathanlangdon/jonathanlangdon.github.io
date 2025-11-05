@@ -6,6 +6,8 @@ const checkResultsContainer = document.getElementById('feedback');
 const newButton = document.createElement('button');
 const wordBankToggle = document.getElementById('word-bank-toggle');
 const finishWordsToggle = document.getElementById('finish-words-toggle');
+const skipGreenToggle = document.getElementById('skip-green-toggle');
+const passPercent = 85;
 
 let verses = [];
 let verseIndex = 0;
@@ -111,7 +113,7 @@ function celebrateDone() {
   }, 5000);
   const percentageCorrect = getPercentageCorrect();
   const encouragements =
-    percentageCorrect >= 85
+    percentageCorrect >= passPercent
       ? ['Awesome!', 'Incredible!', 'Wonderful!', 'Well done!']
       : [
           "You'll get it next time!",
@@ -145,7 +147,7 @@ function setIdealHeight() {
   const footerHeight = document.getElementById('footer').offsetHeight;
   const windowHeight = window.innerHeight;
   const setWordBankHeight =
-    (windowHeight - headerHeight - footerHeight - 85) / 2;
+    (windowHeight - headerHeight - footerHeight - 60) / 2;
   if (window.innerWidth > 800) {
     wordBankContainer.style.height = '200px';
     answerOuterContainer.style.height = '250px';
@@ -204,7 +206,7 @@ function putVerseInHeader(verseIndex) {
   );
   let colorClass = 'score-yellow';
   if (dueDate < yesterday) colorClass = 'score-red';
-  else if (percent < 60) colorClass = 'score-yellow';
+  else if (percent < passPercent) colorClass = 'score-yellow';
   else if (dueDate === today || dueDate === yesterday)
     colorClass = 'score-yellow';
   else if (dueDate > today) colorClass = 'score-green';
@@ -339,7 +341,7 @@ function getResultText(percentageCorrect) {
   console.log(
     `getResultText: today is ${todayStr}, tomorrow: ${tomorrowStr}, dueDate: ${dueDate}`
   );
-  if (percentageCorrect < 85) dueDate = 'again!';
+  if (percentageCorrect < passPercent) dueDate = 'again!';
   else if (dueDate === todayStr) dueDate = 'again today';
   else if (dueDate === tomorrowStr) dueDate = 'again tomorrow';
   let memoryStrength;
@@ -406,11 +408,11 @@ function getPerfectInterval(memoryStrength) {
 }
 
 function getAdjustedInterval(memoryStrength, percent) {
-  if (percent < 85) return 0;
+  if (percent < passPercent) return 0;
   const curInterval = getPerfectInterval(memoryStrength);
   const lastInterval = getPerfectInterval(memoryStrength - 1);
   const m = curInterval - lastInterval;
-  return Math.round(m * ((percent - 85) / 40) + lastInterval);
+  return Math.round(m * ((percent - passPercent) / 40) + lastInterval);
 }
 
 function updateTrainingRecord(record, percent) {
@@ -419,7 +421,7 @@ function updateTrainingRecord(record, percent) {
     record.memoryStrength = record.repetitions || 0;
   }
   let interval = 1; // default to tomorrow for interval
-  if (percent < 85) {
+  if (percent < passPercent) {
     record.memoryStrength -= record.memoryStrength > 0 ? 1 : 0;
     // interval will be tomorrow by default
   } else {
@@ -447,12 +449,12 @@ function storeResults(percent) {
   console.log(
     `determining dueForReview: today: ${today}, dueDate: ${dueDate}, thus, ${isDueForReview} that its due`
   );
-  if (!isDueForReview && percent >= 85) {
+  if (!isDueForReview && percent >= passPercent) {
     record.percentRight = percent;
   } else {
     record = updateTrainingRecord(record, percent); // also updates memoryStrength
   }
-  if (record.memoryStrength === 0 && percent < 60) {
+  if (record.memoryStrength === 0 && percent < passPercent) {
     // do not update record if trying for first time and fails
   } else {
     allVerseData[verseIndexKey] = record;
@@ -462,7 +464,7 @@ function storeResults(percent) {
 }
 
 function resetVerseContainers() {
-  skipGreen();
+  if (skipGreenToggle.checked) skipGreen();
   wordButtonsEnabled = true;
   hasStartedVerse = false;
   resetWordsInContainer(wordBankContainer);
