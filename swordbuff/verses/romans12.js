@@ -21,7 +21,7 @@ export const data = {
     {
       chapter: 12,
       verse: '2b',
-      text: 'then you will be able to test and approve what gods will is his good pleasing and perfect will'
+      text: 'then you will be able to test and approve what Gods will is his good pleasing and perfect will'
     },
     {
       chapter: 12,
@@ -86,7 +86,7 @@ export const data = {
     {
       chapter: 12,
       verse: '13',
-      text: '13 share with gods people who are in need practice hospitality'
+      text: '13 share with Gods people who are in need practice hospitality'
     },
     {
       chapter: 12,
@@ -116,7 +116,7 @@ export const data = {
     {
       chapter: 12,
       verse: '19a',
-      text: '19 do not take revenge my friends but leave room for gods wrath for it is written'
+      text: '19 do not take revenge my friends but leave room for Gods wrath for it is written'
     },
     {
       chapter: 12,
