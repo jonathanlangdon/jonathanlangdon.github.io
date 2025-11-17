@@ -178,7 +178,7 @@ async function getAnalyzeForecast(e) {
 
 async function fetchSnowCalc(apiData) {
   try {
-    const response = await fetch('/calc', {
+    const response = await fetch('https://snowday-api.onrender.com/calc', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -376,6 +376,10 @@ function init() {
 
   const forecastGetBtn = document.getElementById('forecast-calculate-form');
   forecastGetBtn.addEventListener('submit', getAnalyzeForecast);
+
+  fetch('https://snowday-api.onrender.com/')
+    .then(() => console.log('Server woke up!'))
+    .catch(err => console.log('Server check failed', err));
 }
 
 if (typeof module === 'undefined' || !module.exports) {
