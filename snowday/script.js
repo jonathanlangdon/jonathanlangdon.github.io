@@ -350,7 +350,7 @@ function errorLocation(error) {
 }
 
 const locationOptions = {
-  timeout: 5000
+  timeout: 10000
 };
 
 function getFormData(form) {
