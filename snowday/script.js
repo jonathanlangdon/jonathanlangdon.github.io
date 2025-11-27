@@ -6,6 +6,7 @@ let SNOWTOMORROW = 0;
 let PRECIP = 0;
 let TEMP = 32;
 let ALERT = 'none';
+let waitMessageIntervalId = null;
 
 // get 5am Forecast for Precipitation
 function handlePrecipitationForecast(data) {
@@ -144,7 +145,7 @@ async function handleAlert(url) {
 async function getAnalyzeForecast(e) {
   e.preventDefault();
   document.getElementById('forecast-error').innerText = '';
-  calcWaitingMessage();
+  startWaitMessages(5000);
   const Urls = getWeatherUrl();
   const weatherUrl = Urls[0];
   const alertUrl = Urls[1];
@@ -196,10 +197,7 @@ async function fetchSnowCalc(apiData) {
   }
   showCalcFactors();
   showModal('resultModal');
-  setTimeout(
-    () => (document.getElementById('below-calculator-div').innerText = ''),
-    2000
-  );
+  stopWaitMessages();
 }
 
 function returnRandomWaitMessage() {
@@ -236,12 +234,31 @@ function returnRandomWaitMessage() {
   return snowDayMessages[Math.floor(Math.random() * snowDayMessages.length)];
 }
 
-function calcWaitingMessage() {
-  document.getElementById('below-calculator-div').innerText =
-    returnRandomWaitMessage();
-  setTimeout(function () {
-    document.getElementById('below-calculator-div').innerText = '';
-  }, 15000);
+function startWaitMessages(interval = 5000) {
+  const target = document.getElementById('below-calculator-div');
+  if (!target) return;
+  // show one immediately
+  target.textContent = returnRandomWaitMessage();
+  // clear any previous interval
+  if (waitMessageIntervalId) clearInterval(waitMessageIntervalId);
+  waitMessageIntervalId = setInterval(() => {
+    const el = document.getElementById('below-calculator-div');
+    if (!el) {
+      clearInterval(waitMessageIntervalId);
+      waitMessageIntervalId = null;
+      return;
+    }
+    el.textContent = returnRandomWaitMessage();
+  }, interval);
+}
+
+function stopWaitMessages() {
+  if (waitMessageIntervalId) {
+    clearInterval(waitMessageIntervalId);
+    waitMessageIntervalId = null;
+  }
+  const el = document.getElementById('below-calculator-div');
+  if (el) el.textContent = '';
 }
 
 function showCalcFactors() {
