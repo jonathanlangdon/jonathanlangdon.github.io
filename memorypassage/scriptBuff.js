@@ -198,10 +198,7 @@ function moveCorrectWords(e) {
       chosenButton.classList.add('instant-green');
       void chosenButton.offsetWidth;
       chosenButton.classList.remove('instant-green');
-
-      const copiedButton = chosenButton.cloneNode(true);
-      copiedButton.classList.add('correct');
-      answersContainer.appendChild(copiedButton);
+      // answersContainer.appendChild(// add the text);
       Array.from(wordBankContainer.children).forEach(button => {
         button.classList.remove('incorrect');
         button.classList.add('word-button');
