@@ -136,9 +136,13 @@ function resetWordsInContainer(containerName) {
 }
 
 function toLocalISODateString(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate())
-    .toISOString()
-    .split('T')[0];
+  const year = date.getFullYear();
+  // Months are 0-indexed in JS, so we must add 1
+  // padStart(2, '0') ensures we get "01" instead of "1"
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
 }
 
 function setIdealHeight() {
