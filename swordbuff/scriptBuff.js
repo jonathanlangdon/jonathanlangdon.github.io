@@ -149,9 +149,10 @@ function setIdealHeight() {
   const answerOuterContainer = document.getElementById('drop-area');
   const headerHeight = document.querySelector('header').offsetHeight;
   const footerHeight = document.getElementById('footer').offsetHeight;
+  const creditHeight = document.getElementById('footer-container').offsetHeight;
   const windowHeight = window.innerHeight;
   const setWordBankHeight =
-    (windowHeight - headerHeight - footerHeight - 60) / 2;
+    (windowHeight - headerHeight - footerHeight - creditHeight - 20) / 2;
   if (window.innerWidth > 800) {
     wordBankContainer.style.height = '200px';
     answerOuterContainer.style.height = '250px';
