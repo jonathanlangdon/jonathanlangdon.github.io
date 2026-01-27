@@ -175,7 +175,7 @@ nav img {
   grid-area: verse;
 }
 
-#feedback {
+#footer-container {
   grid-area: feedback;
   margin: 0px;
 }
@@ -492,4 +492,25 @@ nav img {
   font-weight: bold;
   text-align: center;
   margin-top: 10px;
+}
+
+/* Style the new footer */
+.main-footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #f1f1f1; /* Light grey background */
+  border-top: 1px solid #ccc;
+  font-size: 0.9rem;
+  margin-top: auto; /*This pushes it to the bottom in a flex container */
+  width: 100%;
+}
+
+.main-footer a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.main-footer a:hover {
+  text-decoration: underline;
 }
