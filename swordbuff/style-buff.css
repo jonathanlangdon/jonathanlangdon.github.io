@@ -180,6 +180,10 @@ nav img {
   margin: 0px;
 }
 
+#feedback {
+  margin-bottom: 10px;
+}
+
 #footer {
   grid-area: footer;
   display: flex;

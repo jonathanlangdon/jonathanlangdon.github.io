@@ -6,17 +6,17 @@ export const data = {
     {
       chapter: 6,
       verse: '10',
-      text: 'Finally be strong in the Lord and in his mighty power'
+      text: 'finally be strong in the Lord and in his mighty power'
     },
     {
       chapter: 6,
       verse: '11',
-      text: 'Put on the full armor of God so that you can take your stand against the devils schemes'
+      text: "put on the full armor of God so that you can take your stand against the devil's schemes"
     },
     {
       chapter: 6,
       verse: '12a',
-      text: 'For our struggle is not against flesh and blood'
+      text: 'for our struggle is not against flesh and blood'
     },
     {
       chapter: 6,
@@ -26,12 +26,12 @@ export const data = {
     {
       chapter: 6,
       verse: '13',
-      text: 'Therefore put on the full armor of God so that when the day of evil comes you may be able to stand your ground and after you have done everything to stand'
+      text: 'therefore put on the full armor of God so that when the day of evil comes you may be able to stand your ground and after you have done everything to stand'
     },
     {
       chapter: 6,
       verse: '14',
-      text: 'Stand firm then with the belt of truth buckled around your waist with the breastplate of righteousness in place'
+      text: 'stand firm then with the belt of truth buckled around your waist with the breastplate of righteousness in place'
     },
     {
       chapter: 6,
@@ -46,7 +46,7 @@ export const data = {
     {
       chapter: 6,
       verse: '17',
-      text: 'Take the helmet of salvation and the sword of the Spirit which is the word of God'
+      text: 'take the helmet of salvation and the sword of the Spirit which is the word of God'
     }
   ]
 };
