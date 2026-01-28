@@ -102,3 +102,15 @@ textarea#message {
 .project-pic {
   max-width: 600px;
 }
+
+#menu-hamburger {
+  color: white;
+  font-size: 30px;
+  color: white;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+#menu-hamburger:hover {
+  color: #ddd;
+}
