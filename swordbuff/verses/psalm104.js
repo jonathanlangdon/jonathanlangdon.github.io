@@ -6,37 +6,37 @@ export const data = {
     {
       chapter: 104,
       verse: '1',
-      text: 'Praise the Lord my soul Lord my God you are very great you are clothed with splendor and majesty'
+      text: 'praise the Lord my soul Lord my God you are very great you are clothed with splendor and majesty'
     },
     {
       chapter: 104,
       verse: '2',
-      text: 'The Lord wraps himself in light as with a garment he stretches out the heavens like a tent'
+      text: 'the Lord wraps himself in light as with a garment he stretches out the heavens like a tent'
     },
     {
       chapter: 104,
       verse: '3',
-      text: 'and lays the beams of his upper chambers on their waters He makes the clouds his chariot and rides on the wings of the wind'
+      text: 'and lays the beams of his upper chambers on their waters he makes the clouds his chariot and rides on the wings of the wind'
     },
     {
       chapter: 104,
       verse: '4',
-      text: 'He makes winds his messengers flames of fire his servants'
+      text: 'he makes winds his messengers flames of fire his servants'
     },
     {
       chapter: 104,
       verse: '5',
-      text: 'He set the earth on its foundations it can never be moved'
+      text: 'he set the earth on its foundations it can never be moved'
     },
     {
       chapter: 104,
       verse: '6',
-      text: 'You covered it with the watery depths as with a garment the waters stood above the mountains'
+      text: 'you covered it with the watery depths as with a garment the waters stood above the mountains'
     },
     {
       chapter: 104,
       verse: '7',
-      text: 'But at your rebuke the waters fled at the sound of your thunder they took to flight'
+      text: 'but at your rebuke the waters fled at the sound of your thunder they took to flight'
     },
     {
       chapter: 104,
@@ -46,32 +46,32 @@ export const data = {
     {
       chapter: 104,
       verse: '9',
-      text: 'You set a boundary they cannot cross never again will they cover the earth'
+      text: 'you set a boundary they cannot cross never again will they cover the earth'
     },
     {
       chapter: 104,
       verse: '10',
-      text: 'He makes springs pour water into the ravines it flows between the mountains'
+      text: 'he makes springs pour water into the ravines it flows between the mountains'
     },
     {
       chapter: 104,
       verse: '11',
-      text: 'They give water to all the beasts of the field the wild donkeys quench their thirst'
+      text: 'they give water to all the beasts of the field the wild donkeys quench their thirst'
     },
     {
       chapter: 104,
       verse: '12',
-      text: 'The birds of the sky nest by the waters they sing among the branches'
+      text: 'the birds of the sky nest by the waters they sing among the branches'
     },
     {
       chapter: 104,
       verse: '13',
-      text: 'He waters the mountains from his upper chambers the land is satisfied by the fruit of his work'
+      text: 'he waters the mountains from his upper chambers the land is satisfied by the fruit of his work'
     },
     {
       chapter: 104,
       verse: '14',
-      text: 'He makes grass grow for the cattle and plants for people to cultivate bringing forth food from the earth'
+      text: 'he makes grass grow for the cattle and plants for people to cultivate bringing forth food from the earth'
     },
     {
       chapter: 104,
@@ -81,82 +81,82 @@ export const data = {
     {
       chapter: 104,
       verse: '16',
-      text: 'The trees of the Lord are well watered the cedars of Lebanon that he planted'
+      text: 'the trees of the Lord are well watered the cedars of Lebanon that he planted'
     },
     {
       chapter: 104,
       verse: '17',
-      text: 'There the birds make their nests the stork has its home in the junipers'
+      text: 'there the birds make their nests the stork has its home in the junipers'
     },
     {
       chapter: 104,
       verse: '18',
-      text: 'The high mountains belong to the wild goats the crags are a refuge for the hyrax'
+      text: 'the high mountains belong to the wild goats the crags are a refuge for the hyrax'
     },
     {
       chapter: 104,
       verse: '19',
-      text: 'He made the moon to mark the seasons and the sun knows when to go down'
+      text: 'he made the moon to mark the seasons and the sun knows when to go down'
     },
     {
       chapter: 104,
       verse: '20',
-      text: 'You bring darkness it becomes night and all the beasts of the forest prowl'
+      text: 'you bring darkness it becomes night and all the beasts of the forest prowl'
     },
     {
       chapter: 104,
       verse: '21',
-      text: 'The lions roar for their prey and seek their food from God'
+      text: 'the lions roar for their prey and seek their food from God'
     },
     {
       chapter: 104,
       verse: '22',
-      text: 'The sun rises and they steal away they return and lie down in their dens'
+      text: 'the sun rises and they steal away they return and lie down in their dens'
     },
     {
       chapter: 104,
       verse: '23',
-      text: 'Then people go out to their work to their labor until evening'
+      text: 'then people go out to their work to their labor until evening'
     },
     {
       chapter: 104,
       verse: '24',
-      text: 'How many are your works Lord In wisdom you made them all the earth is full of your creatures'
+      text: 'how many are your works Lord in wisdom you made them all the earth is full of your creatures'
     },
     {
       chapter: 104,
       verse: '25',
-      text: 'There is the sea vast and spacious teeming with creatures beyond number living things both large and small'
+      text: 'there is the sea vast and spacious teeming with creatures beyond number living things both large and small'
     },
     {
       chapter: 104,
       verse: '26',
-      text: 'There the ships go to and fro and Leviathan which you formed to frolic there'
+      text: 'there the ships go to and fro and Leviathan which you formed to frolic there'
     },
     {
       chapter: 104,
       verse: '27',
-      text: 'All creatures look to you to give them their food at the proper time'
+      text: 'all creatures look to you to give them their food at the proper time'
     },
     {
       chapter: 104,
       verse: '28',
-      text: 'When you give it to them they gather it up when you open your hand they are satisfied with good things'
+      text: 'when you give it to them they gather it up when you open your hand they are satisfied with good things'
     },
     {
       chapter: 104,
       verse: '29',
-      text: 'When you hide your face they are terrified when you take away their breath they die and return to the dust'
+      text: 'when you hide your face they are terrified when you take away their breath they die and return to the dust'
     },
     {
       chapter: 104,
       verse: '30',
-      text: 'When you send your Spirit they are created and you renew the face of the ground'
+      text: 'when you send your Spirit they are created and you renew the face of the ground'
     },
     {
       chapter: 104,
       verse: '31',
-      text: 'May the glory of the Lord endure forever may the Lord rejoice in his works'
+      text: 'may the glory of the Lord endure forever may the Lord rejoice in his works'
     },
     {
       chapter: 104,
@@ -176,7 +176,7 @@ export const data = {
     {
       chapter: 104,
       verse: '35',
-      text: 'But may sinners vanish from the earth and the wicked be no more Praise the Lord my soul Praise the Lord'
+      text: 'but may sinners vanish from the earth and the wicked be no more praise the Lord my soul praise the Lord'
     }
   ]
 };
