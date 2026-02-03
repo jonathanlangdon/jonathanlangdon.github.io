@@ -114,7 +114,7 @@ function celebrateDone() {
   const percentageCorrect = getPercentageCorrect();
   const encouragements =
     percentageCorrect >= passPercent
-      ? ['Awesome!', 'Incredible!', 'Wonderful!', 'Well done!']
+      ? ['Awesomeness!', 'Incredibleness!', 'Wonderfulness!', 'Well doneness!']
       : [
           "You'll get it next time!",
           'Keep trying!',
