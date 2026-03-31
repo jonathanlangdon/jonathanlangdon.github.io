@@ -26,7 +26,7 @@ export const data = {
     {
       chapter: 3,
       verse: 'Q: Who is in control of everything?',
-      text: "god is in control of everything in heaven and on earth nothing is outside of God's good plan"
+      text: "God is in control of everything in heaven and on earth nothing is outside of God's good plan"
     },
     {
       chapter: 3,
