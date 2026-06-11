@@ -30,8 +30,13 @@ export const data = {
     },
     {
       chapter: 104,
-      verse: '24',
-      text: 'how many are your works Lord in wisdom you made them all the earth is full of your creatures'
+      verse: '24a',
+      text: 'how many are your works Lord in wisdom you made them all'
+    },
+    {
+      chapter: 104,
+      verse: '24b',
+      text: 'the earth is full of your creatures'
     },
     {
       chapter: 104,
@@ -55,8 +60,13 @@ export const data = {
     },
     {
       chapter: 104,
-      verse: '29',
-      text: 'when you hide your face they are terrified when you take away their breath they die and return to the dust'
+      verse: '29a',
+      text: 'when you hide your face they are terrified'
+    },
+    {
+      chapter: 104,
+      verse: '29b',
+      text: 'when you take away their breath they die and return to the dust'
     },
     {
       chapter: 104,
@@ -85,8 +95,13 @@ export const data = {
     },
     {
       chapter: 104,
-      verse: '35',
-      text: 'but may sinners vanish from the earth and the wicked be no more praise the Lord my soul praise the Lord'
+      verse: '35a',
+      text: 'but may sinners vanish from the earth and the wicked be no more'
+    },
+    {
+      chapter: 104,
+      verse: '35b',
+      text: 'praise the Lord my soul praise the Lord'
     }
   ]
 };

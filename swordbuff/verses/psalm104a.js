@@ -15,8 +15,13 @@ export const data = {
     },
     {
       chapter: 104,
-      verse: '3',
-      text: 'and lays the beams of his upper chambers on their waters he makes the clouds his chariot and rides on the wings of the wind'
+      verse: '3a',
+      text: 'and lays the beams of his upper chambers on their waters'
+    },
+    {
+      chapter: 104,
+      verse: '3b',
+      text: 'he makes the clouds his chariot and rides on the wings of the wind'
     },
     {
       chapter: 104,
