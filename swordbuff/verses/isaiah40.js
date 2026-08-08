@@ -6,12 +6,12 @@ export const data = {
     {
       chapter: 40,
       verse: '1',
-      text: '1 comfort comfort my people says your God'
+      text: 'comfort comfort my people says your God'
     },
     {
       chapter: 40,
       verse: '2a',
-      text: '2 speak tenderly to Jerusalem and proclaim to her that her hard service has been completed'
+      text: 'speak tenderly to Jerusalem and proclaim to her that her hard service has been completed'
     },
     {
       chapter: 40,
@@ -21,7 +21,7 @@ export const data = {
     {
       chapter: 40,
       verse: '3a',
-      text: '3 a voice of one calling in the desert prepare the way for the Lord'
+      text: 'a voice of one calling in the desert prepare the way for the Lord'
     },
     {
       chapter: 40,
@@ -31,7 +31,7 @@ export const data = {
     {
       chapter: 40,
       verse: '4a',
-      text: '4 every valley shall be raised up every mountain and hill made low'
+      text: 'every valley shall be raised up every mountain and hill made low'
     },
     {
       chapter: 40,
@@ -41,27 +41,27 @@ export const data = {
     {
       chapter: 40,
       verse: '5',
-      text: '5 and the glory of the Lord will be revealed and all mankind together will see it for the mouth of the Lord has spoken'
+      text: 'and the glory of the Lord will be revealed and all mankind together will see it for the mouth of the Lord has spoken'
     },
     {
       chapter: 40,
       verse: '6',
-      text: '6 a voice says cry out and I said what shall I cry all men are like grass and all their glory is like the flowers of the field'
+      text: 'a voice says cry out and I said what shall I cry all men are like grass and all their glory is like the flowers of the field'
     },
     {
       chapter: 40,
       verse: '7',
-      text: '7 the grass withers and the flowers fall because the breath of the Lord blows on them surely the people are grass'
+      text: 'the grass withers and the flowers fall because the breath of the Lord blows on them surely the people are grass'
     },
     {
       chapter: 40,
       verse: '8',
-      text: '8 the grass withers and the flowers fall but the word of our God stands forever'
+      text: 'the grass withers and the flowers fall but the word of our God stands forever'
     },
     {
       chapter: 40,
       verse: '9a',
-      text: '9 you who bring good tidings to Zion go up on a high mountain'
+      text: 'you who bring good tidings to Zion go up on a high mountain'
     },
     {
       chapter: 40,
@@ -76,7 +76,7 @@ export const data = {
     {
       chapter: 40,
       verse: '10a',
-      text: '10 see the Sovereign Lord comes with power and his arm rules for him'
+      text: 'see the Sovereign Lord comes with power and his arm rules for him'
     },
     {
       chapter: 40,
@@ -86,7 +86,7 @@ export const data = {
     {
       chapter: 40,
       verse: '11a',
-      text: '11 he tends his flock like a shepherd he gathers the lambs in his arms and carries them close to his heart'
+      text: 'he tends his flock like a shepherd he gathers the lambs in his arms and carries them close to his heart'
     },
     {
       chapter: 40,
@@ -96,7 +96,7 @@ export const data = {
     {
       chapter: 40,
       verse: '12a',
-      text: '12 who has measured the waters in the hollow of his hand or with the breadth of his hand marked off the heavens'
+      text: 'who has measured the waters in the hollow of his hand or with the breadth of his hand marked off the heavens'
     },
     {
       chapter: 40,
@@ -106,12 +106,12 @@ export const data = {
     {
       chapter: 40,
       verse: '13',
-      text: '13 who has understood the mind of the Lord or instructed him as his counselor'
+      text: 'who has understood the mind of the Lord or instructed him as his counselor'
     },
     {
       chapter: 40,
       verse: '14a',
-      text: '14 whom did the Lord consult to enlighten him and who taught him the right way'
+      text: 'whom did the Lord consult to enlighten him and who taught him the right way'
     },
     {
       chapter: 40,
@@ -121,7 +121,7 @@ export const data = {
     {
       chapter: 40,
       verse: '15a',
-      text: '15 surely the nations are like a drop in a bucket they are regarded as dust on the scales'
+      text: 'surely the nations are like a drop in a bucket they are regarded as dust on the scales'
     },
     {
       chapter: 40,
@@ -131,27 +131,27 @@ export const data = {
     {
       chapter: 40,
       verse: '16',
-      text: '16 lebanon is not sufficient for altar fires nor its animals enough for burnt offerings'
+      text: 'lebanon is not sufficient for altar fires nor its animals enough for burnt offerings'
     },
     {
       chapter: 40,
       verse: '17',
-      text: '17 before him all the nations are as nothing they are regarded by him as worthless and less than nothing'
+      text: 'before him all the nations are as nothing they are regarded by him as worthless and less than nothing'
     },
     {
       chapter: 40,
       verse: '18',
-      text: '18 to whom then will you compare God what image will you compare him to'
+      text: 'to whom then will you compare God what image will you compare him to'
     },
     {
       chapter: 40,
       verse: '19',
-      text: '19 as for an idol a craftsman casts it and a goldsmith overlays it with gold and fashions silver chains for it'
+      text: 'as for an idol a craftsman casts it and a goldsmith overlays it with gold and fashions silver chains for it'
     },
     {
       chapter: 40,
       verse: '20a',
-      text: '20 a man too poor to present such an offering selects wood that will not rot'
+      text: 'a man too poor to present such an offering selects wood that will not rot'
     },
     {
       chapter: 40,
@@ -161,7 +161,7 @@ export const data = {
     {
       chapter: 40,
       verse: '21a',
-      text: '21 do you not know have you not heard has it not been told you from the beginning'
+      text: 'do you not know have you not heard has it not been told you from the beginning'
     },
     {
       chapter: 40,
@@ -171,7 +171,7 @@ export const data = {
     {
       chapter: 40,
       verse: '22a',
-      text: '22 he sits enthroned above the circle of the earth and its people are like grasshoppers'
+      text: 'he sits enthroned above the circle of the earth and its people are like grasshoppers'
     },
     {
       chapter: 40,
@@ -181,12 +181,12 @@ export const data = {
     {
       chapter: 40,
       verse: '23',
-      text: '23 he brings princes to naught and reduces the rulers of this world to nothing'
+      text: 'he brings princes to naught and reduces the rulers of this world to nothing'
     },
     {
       chapter: 40,
       verse: '24a',
-      text: '24 no sooner are they planted no sooner are they sown no sooner do they take root in the ground'
+      text: 'no sooner are they planted no sooner are they sown no sooner do they take root in the ground'
     },
     {
       chapter: 40,
@@ -196,12 +196,12 @@ export const data = {
     {
       chapter: 40,
       verse: '25',
-      text: '25 to whom will you compare me or who is my equal says the Holy One'
+      text: 'to whom will you compare me or who is my equal says the Holy One'
     },
     {
       chapter: 40,
       verse: '26a',
-      text: '26 lift your eyes and look to the heavens who created all these'
+      text: 'lift your eyes and look to the heavens who created all these'
     },
     {
       chapter: 40,
@@ -216,12 +216,12 @@ export const data = {
     {
       chapter: 40,
       verse: '27',
-      text: '27 why do you say O Jacob and complain O Israel my way is hidden from the Lord my cause is disregarded by my God'
+      text: 'why do you say O Jacob and complain O Israel my way is hidden from the Lord my cause is disregarded by my God'
     },
     {
       chapter: 40,
       verse: '28a',
-      text: '28 do you not know have you not heard the Lord is the everlasting God the Creator of the ends of the earth'
+      text: 'do you not know have you not heard the Lord is the everlasting God the Creator of the ends of the earth'
     },
     {
       chapter: 40,
@@ -231,17 +231,17 @@ export const data = {
     {
       chapter: 40,
       verse: '29',
-      text: '29 he gives strength to the weary and increases the power of the weak'
+      text: 'he gives strength to the weary and increases the power of the weak'
     },
     {
       chapter: 40,
       verse: '30',
-      text: '30 even youths grow tired and weary and young men stumble and fall'
+      text: 'even youths grow tired and weary and young men stumble and fall'
     },
     {
       chapter: 40,
       verse: '31a',
-      text: '31 but those who hope in the Lord will renew their strength they will soar on wings like eagles'
+      text: 'but those who hope in the Lord will renew their strength they will soar on wings like eagles'
     },
     {
       chapter: 40,
