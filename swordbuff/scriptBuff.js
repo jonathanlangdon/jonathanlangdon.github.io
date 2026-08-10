@@ -517,7 +517,15 @@ function addShortcutListeners() {
   });
 }
 
-function focusKeyboard() {
+function focusKeyboard(event) {
+  if (!settingsModal.classList.contains('hidden')) {
+    return;
+  }
+
+  if (event.target.matches('input, button, select, textarea, a')) {
+    return;
+  }
+
   inputBox.focus();
 }
 
@@ -529,14 +537,6 @@ function toggleWordBank() {
       button.classList.add('hidden');
     }
   });
-}
-
-function getSetInitialWordBankStatus() {
-  const storedState = localStorage.getItem('bankToggleIsChecked');
-  if (storedState != null) {
-    wordBankToggle.checked = storedState === 'true';
-  }
-  toggleWordBank();
 }
 
 function isWordUsedUp(wordBeingChecked) {
@@ -566,31 +566,36 @@ function toggleFinishWords() {
 
 function initEventListeners() {
   document.addEventListener('keydown', focusKeyboard);
+
   inputBox.addEventListener('keydown', keyboardMoveWords);
+
   wordBankContainer.addEventListener('click', moveCorrectWords);
+
+  // React to Word Bank setting changes
   wordBankToggle.addEventListener('change', toggleWordBank);
+
+  // React to Finish Words setting changes
   finishWordsToggle.addEventListener('change', toggleFinishWords);
 
+  // Prev/Next uses delegation because Next can be dynamically created
   document.addEventListener('click', event => {
-    if (event.target && event.target.id === 'prev-button') goToPrevVerse();
-    else if (event.target && event.target.id === 'next-button') goToNextVerse();
+    if (event.target?.id === 'prev-button') {
+      goToPrevVerse();
+    } else if (event.target?.id === 'next-button') {
+      goToNextVerse();
+    }
   });
-
-  document
-    .getElementById('reset-show')
-    .addEventListener('click', updateResetButton);
 }
 
 function init() {
   data.verses.forEach(verseData => verses.push(verseData));
   verseString = verses[verseIndex].text;
-  progressBar.max = Object.keys(verses).length; // number of verses
+  progressBar.max = Object.keys(verses).length;
   setupVerseWords(verseString);
   initEventListeners();
   resetVerseContainers();
   setIdealHeight();
   addShortcutListeners();
-  getSetInitialWordBankStatus();
 }
 
 // only auto‐run in the real browser (not during testing)

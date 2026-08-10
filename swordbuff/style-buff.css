@@ -453,12 +453,6 @@ nav img {
       'footer'
       'feedback';
   }
-  .sidebar-left,
-  .sidebar-right,
-  #check-results,
-  #wordbank-toggle-container {
-    display: none;
-  }
   .check-area > div {
     flex: 1;
     display: flex;
@@ -518,4 +512,100 @@ nav img {
 
 .main-footer a:hover {
   text-decoration: underline;
+}
+
+/* Settings button */
+
+header {
+  position: relative;
+}
+
+.settings-button {
+  font-size: 44px;
+  cursor: pointer;
+  border: none;
+}
+
+/* Settings modal */
+
+.settings-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+
+  z-index: 10000;
+}
+
+.settings-modal.hidden {
+  display: none;
+}
+
+.settings-modal-content {
+  width: 100%;
+  max-width: 450px;
+
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 16px;
+
+  padding: 20px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.settings-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 2px solid lightgray;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.settings-modal-header h2 {
+  text-align: left;
+}
+
+.settings-close {
+  min-width: 44px;
+  margin: 0;
+  padding: 2px 8px;
+
+  border: none;
+  background: transparent;
+
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 60px;
+  padding: 10px 5px;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.setting-row:last-child {
+  border-bottom: none;
+}
+
+.setting-label {
+  font-size: 16px;
+  font-weight: 500;
+  padding-right: 20px;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
