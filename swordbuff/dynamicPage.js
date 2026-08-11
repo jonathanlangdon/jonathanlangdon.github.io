@@ -166,6 +166,35 @@ function closeSettingsModal() {
   settingsButton.focus();
 }
 
+function initSettingsModal() {
+  // Only initialize when the settings UI exists on this page.
+  if (!settingsButton || !settingsModal || !settingsCloseButton) {
+    return;
+  }
+
+  settingsButton.addEventListener('click', openSettingsModal);
+
+  settingsCloseButton.addEventListener('click', closeSettingsModal);
+
+  // Clicking the dark area outside the settings box closes it.
+  settingsModal.addEventListener('click', event => {
+    if (event.target === settingsModal) {
+      closeSettingsModal();
+    }
+  });
+
+  // Escape closes the settings modal.
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !settingsModal.classList.contains('hidden')) {
+      closeSettingsModal();
+    }
+  });
+}
+
+/*
+ * Initialize settings
+ */
+
 function initSettings() {
   if (wordBankToggle) {
     getSetInitialWordBankStatus();
@@ -217,42 +246,6 @@ function initSettings() {
   initSettingsModal();
 }
 
-/*
- * Initialize settings
- */
-
-function initSettings() {
-  if (wordBankToggle) {
-    getSetInitialWordBankStatus();
-    wordBankToggle.addEventListener('change', setWordBankStoredState);
-  }
-
-  if (finishWordsToggle) {
-    getSetInitialFinishWordsStatus();
-    finishWordsToggle.addEventListener('change', setFinishWordsState);
-  }
-
-  if (skipGreenToggle) {
-    getSetInitialSkipGreenStatus();
-    skipGreenToggle.addEventListener('change', setSkipGreenStoredState);
-  }
-
-  if (skipStrengthToggle && skipStrengthValue) {
-    getSetInitialSkipStrengthStatus();
-
-    skipStrengthToggle.addEventListener('change', setSkipStrengthStoredState);
-
-    skipStrengthValue.addEventListener(
-      'change',
-      setSkipStrengthValueStoredState
-    );
-
-    skipStrengthValue.addEventListener('focus', selectSkipStrengthValue);
-  }
-
-  initSettingsModal();
-}
-
 initSettings();
 
 /*
@@ -273,7 +266,7 @@ if (verseParam) {
     .then(module => {
       window.data = module.data;
 
-      return import('./scriptBuff.js?v=1.4');
+      return import('./scriptBuff.js?v=1.3');
     })
     .catch(err => {
       console.error('Error loading verse module:', err);
