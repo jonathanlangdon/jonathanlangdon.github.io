@@ -144,12 +144,34 @@
         </div>
 
         <div class="setting-row">
-          <span class="setting-label">Finish Used Words</span>
+          <span class="setting-label">Show Finished Words</span>
 
           <label class="switch">
             <input id="finish-words-toggle" type="checkbox" />
             <span class="slider"></span>
           </label>
+        </div>
+
+        <div class="setting-row">
+          <span class="setting-label">Skip Strength Greater Than</span>
+
+          <div class="skip-strength-controls">
+            <input
+              id="skip-strength-value"
+              class="skip-strength-value"
+              type="number"
+              value="3"
+              min="0"
+              step="1"
+              inputmode="numeric"
+              aria-label="Skip strength threshold"
+            />
+
+            <label class="switch">
+              <input id="skip-strength-toggle" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
       </div>
     </div>

@@ -534,7 +534,7 @@ header {
   justify-content: center;
 
   font-weight: bolder;
-  font-size: 54px;
+  font-size: 44px;
   line-height: 1;
 
   width: 44px;
@@ -637,4 +637,25 @@ header {
 
 body.modal-open {
   overflow: hidden;
+}
+
+.skip-strength-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.skip-strength-value {
+  width: 55px;
+  height: 40px;
+
+  border: 2px solid #ccc;
+  border-radius: 8px;
+
+  background: white;
+
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
 }

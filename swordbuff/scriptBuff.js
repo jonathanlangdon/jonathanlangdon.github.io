@@ -4,10 +4,12 @@ const wordBankContainer = document.getElementById('word-bank');
 const answersContainer = document.getElementById('drop-line');
 const checkResultsContainer = document.getElementById('feedback');
 const newButton = document.createElement('button');
+const passPercent = 85;
 const wordBankToggle = document.getElementById('word-bank-toggle');
 const finishWordsToggle = document.getElementById('finish-words-toggle');
 const skipGreenToggle = document.getElementById('skip-green-toggle');
-const passPercent = 85;
+const skipStrengthToggle = document.getElementById('skip-strength-toggle');
+const skipStrengthValue = document.getElementById('skip-strength-value');
 
 let verses = [];
 let verseIndex = 0;
@@ -220,18 +222,47 @@ function putVerseInHeader(verseIndex) {
   verseContainer.innerHTML = `${data.book} ${currentVerse.chapter}:${currentVerse.verse} ${data.translation} ${circle}`;
 }
 
-function skipGreen() {
+function shouldSkipGreen() {
+  if (!skipGreenToggle.checked) {
+    return false;
+  }
+
   const params = new URLSearchParams(window.location.search);
-  const storageKey = params.get('verse'); // e.g., "psalm23"
+  const storageKey = params.get('verse');
+
   const storedData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+
   const verseData = storedData[verseIndex.toString()];
-  let now = new Date();
-  let todayStr = toLocalISODateString(now);
-  let dueDateStr = verseData ? verseData.dueDate : todayStr;
-  let dueDate = new Date(dueDateStr + 'T00:00:00');
-  let today = new Date(todayStr + 'T00:00:00');
-  console.log(`skip green check. dueDate: ${dueDate}, today: ${today}`);
-  if (dueDate > today) goToNextVerse();
+
+  const now = new Date();
+  const todayStr = toLocalISODateString(now);
+
+  const dueDateStr = verseData ? verseData.dueDate : todayStr;
+
+  const dueDate = new Date(dueDateStr + 'T00:00:00');
+  const today = new Date(todayStr + 'T00:00:00');
+
+  return dueDate > today;
+}
+
+function shouldSkipStrength() {
+  if (!skipStrengthToggle.checked) {
+    return false;
+  }
+
+  const record = getRecordForCurrentVerse();
+
+  let threshold = Number.parseInt(skipStrengthValue.value, 10);
+
+  if (Number.isNaN(threshold)) {
+    threshold = 3;
+  }
+
+  return record.memoryStrength >= threshold;
+}
+
+function shouldSkipCurrentVerse() {
+  return shouldSkipGreen() || shouldSkipStrength();
 }
 
 function setupVerseWords(verseString) {
@@ -469,15 +500,29 @@ function storeResults(percent) {
 }
 
 function resetVerseContainers() {
-  if (skipGreenToggle.checked) skipGreen();
+  if (shouldSkipCurrentVerse()) {
+    if (verseIndex < verses.length - 1) {
+      verseIndex += 1;
+      progressBar.value += 1;
+      verseString = verses[verseIndex].text;
+      setupVerseWords(verseString);
+      resetVerseContainers();
+      return;
+    }
+    addDoneButton();
+    progressBar.value = progressBar.max;
+    resetWordsInContainer(wordBankContainer);
+    resetWordsInContainer(answersContainer);
+    checkResultsContainer.innerHTML = 'No more verses to review.';
+    return;
+  }
   wordButtonsEnabled = true;
   hasStartedVerse = false;
   resetWordsInContainer(wordBankContainer);
   resetWordsInContainer(answersContainer);
   resetWordsInContainer(checkResultsContainer);
-  let RandomizedVerseArray = shuffleArray(verseString.split(' '));
-  createWordBankButtons(RandomizedVerseArray);
-  const nextButton = document.getElementById('next-button');
+  const randomizedVerseArray = shuffleArray(verseString.split(' '));
+  createWordBankButtons(randomizedVerseArray);
   updateResetButton();
   toggleWordBank();
   checkResultsContainer.innerHTML = getInitialStats();
@@ -518,7 +563,9 @@ function addShortcutListeners() {
 }
 
 function focusKeyboard(event) {
-  if (!settingsModal.classList.contains('hidden')) {
+  const settingsModal = document.getElementById('settings-modal');
+
+  if (settingsModal && !settingsModal.classList.contains('hidden')) {
     return;
   }
 

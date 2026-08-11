@@ -10,6 +10,9 @@ const wordBankToggle = document.getElementById('word-bank-toggle');
 const finishWordsToggle = document.getElementById('finish-words-toggle');
 const skipGreenToggle = document.getElementById('skip-green-toggle');
 
+const skipStrengthToggle = document.getElementById('skip-strength-toggle');
+const skipStrengthValue = document.getElementById('skip-strength-value');
+
 /*
  * Settings storage
  */
@@ -57,6 +60,44 @@ function setFinishWordsState() {
     'finishToggleIsChecked',
     finishWordsToggle.checked.toString()
   );
+}
+
+function getSetInitialSkipStrengthStatus() {
+  const storedToggle = localStorage.getItem('skipStrengthToggleIsChecked');
+  const storedValue = localStorage.getItem('skipStrengthValue');
+
+  if (storedToggle !== null) {
+    skipStrengthToggle.checked = storedToggle === 'true';
+  }
+
+  if (storedValue !== null) {
+    skipStrengthValue.value = storedValue;
+  } else {
+    skipStrengthValue.value = '3';
+  }
+}
+
+function setSkipStrengthStoredState() {
+  localStorage.setItem(
+    'skipStrengthToggleIsChecked',
+    skipStrengthToggle.checked.toString()
+  );
+}
+
+function setSkipStrengthValueStoredState() {
+  let value = Number.parseInt(skipStrengthValue.value, 10);
+
+  if (Number.isNaN(value) || value < 0) {
+    value = 3;
+  }
+
+  skipStrengthValue.value = value;
+
+  localStorage.setItem('skipStrengthValue', value.toString());
+}
+
+function selectSkipStrengthValue() {
+  skipStrengthValue.select();
 }
 
 /*
@@ -120,6 +161,19 @@ function initSettings() {
   if (skipGreenToggle) {
     getSetInitialSkipGreenStatus();
     skipGreenToggle.addEventListener('change', setSkipGreenStoredState);
+  }
+
+  if (skipStrengthToggle && skipStrengthValue) {
+    getSetInitialSkipStrengthStatus();
+
+    skipStrengthToggle.addEventListener('change', setSkipStrengthStoredState);
+
+    skipStrengthValue.addEventListener(
+      'change',
+      setSkipStrengthValueStoredState
+    );
+
+    skipStrengthValue.addEventListener('focus', selectSkipStrengthValue);
   }
 
   initSettingsModal();
