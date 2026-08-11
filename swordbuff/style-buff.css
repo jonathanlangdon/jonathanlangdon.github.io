@@ -641,16 +641,20 @@ body.modal-open {
 
 .skip-strength-row {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr 48px 50px;
   align-items: center;
   gap: 12px;
 }
 
 .skip-strength-value {
-  width: 44px;
+  box-sizing: border-box;
+
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
   height: 36px;
 
-  padding: 0;
+  padding: 0 4px;
 
   border: 2px solid #666;
   border-radius: 8px;
@@ -661,6 +665,4 @@ body.modal-open {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-
-  cursor: pointer;
 }
