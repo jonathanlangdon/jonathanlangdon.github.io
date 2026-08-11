@@ -454,6 +454,9 @@ nav img {
       'footer'
       'feedback';
   }
+  #check-results {
+    display: none;
+  }
   .check-area > div {
     flex: 1;
     display: flex;

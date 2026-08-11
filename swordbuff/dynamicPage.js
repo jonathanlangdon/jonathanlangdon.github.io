@@ -266,7 +266,7 @@ if (verseParam) {
     .then(module => {
       window.data = module.data;
 
-      return import('./scriptBuff.js?v=1.4');
+      return import('./scriptBuff.js?v=1.5');
     })
     .catch(err => {
       console.error('Error loading verse module:', err);

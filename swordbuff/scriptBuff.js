@@ -597,6 +597,11 @@ function addShortcutListeners() {
 }
 
 function focusKeyboard(event) {
+  // Keyboard input is desktop-only
+  if (window.innerWidth <= 768) {
+    return;
+  }
+
   const settingsModal = document.getElementById('settings-modal');
 
   if (settingsModal && !settingsModal.classList.contains('hidden')) {
