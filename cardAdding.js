@@ -323,13 +323,13 @@ const GoalCards = [
 ];
 const ProjectCards = [
   {
-    imgLink: 'projects/#fomcore',
-    imgSource: 'images/fomcore.jpg',
-    altText: 'space invaders fork image',
-    cardTitle: 'Fomcore Invaders',
-    cardText: 'Practice with OOP using classes & objects',
-    buttonLink: 'projects/#fomcore',
-    cardButton: 'A Python Game'
+    imgLink: 'projects',
+    imgSource: 'images/c-sharp-thermastat.jpg',
+    altText: 'my custom thermastat image',
+    cardTitle: 'C-Sharp Thermastat',
+    cardText: 'Built from scratch with custom logic',
+    buttonLink: 'projects',
+    cardButton: 'A Smart Thermastat'
   },
   {
     imgLink: 'projects/#snowday',
