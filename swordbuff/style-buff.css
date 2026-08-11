@@ -521,9 +521,31 @@ header {
 }
 
 .settings-button {
-  font-size: 44px;
-  cursor: pointer;
+  right: 10px;
+  top: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: xxx-large;
+
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+
+  padding: 0;
   border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.settings-button svg {
+  display: block;
+}
+
+.settings-button:hover {
+  background-color: #eee;
 }
 
 /* Settings modal */
