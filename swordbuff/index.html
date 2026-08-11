@@ -152,26 +152,23 @@
           </label>
         </div>
 
-        <div class="setting-row">
+        <div class="setting-row skip-strength-row">
           <span class="setting-label">Skip Strength Greater Than</span>
 
-          <div class="skip-strength-controls">
-            <input
-              id="skip-strength-value"
-              class="skip-strength-value"
-              type="number"
-              value="3"
-              min="0"
-              step="1"
-              inputmode="numeric"
-              aria-label="Skip strength threshold"
-            />
+          <input
+            id="skip-strength-value"
+            class="skip-strength-value"
+            type="text"
+            value="3"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            aria-label="Skip strength threshold"
+          />
 
-            <label class="switch">
-              <input id="skip-strength-toggle" type="checkbox" />
-              <span class="slider"></span>
-            </label>
-          </div>
+          <label class="switch">
+            <input id="skip-strength-toggle" type="checkbox" />
+            <span class="slider"></span>
+          </label>
         </div>
       </div>
     </div>
