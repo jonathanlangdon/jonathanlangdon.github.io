@@ -23,29 +23,34 @@ function loadVersesFor(selectedWho) {
       const verseListContainer = document.getElementById('verse-list');
       verseListContainer.innerHTML = ''; // ✅ Clear previous buttons
 
-      jsFiles.forEach(file => {
-        const fileName = file.name.replace(/\.js$/, '');
-        const fileUrl = `./verses/${file.name}`;
+      Promise.all(
+        jsFiles.map(file => {
+          const fileName = file.name.replace(/\.js$/, '');
+          const fileUrl = `./verses/${file.name}`;
 
-        fetch(fileUrl)
-          .then(response => response.text())
-          .then(text => {
-            const match = text.match(/who\s*:\s*['"]([^'"]+)['"]/);
-            if (match && match[1] === selectedWho) {
+          return fetch(fileUrl)
+            .then(response => response.text())
+            .then(text => {
+              const match = text.match(/who\s*:\s*['"]([^'"]+)['"]/);
+
+              // Ignore verses belonging to someone else
+              if (!match || match[1] !== selectedWho) {
+                return null;
+              }
+
               const smartName = formatVerseName(fileName);
 
-              // 👉 Extract number of verses from the JS file text
+              // Extract number of verses from the JS file
               let totalVerses = 0;
+
               try {
                 const versesArrayMatch = text.match(
                   /verses\s*:\s*\[((?:.|\n)*?)\]/m
                 );
+
                 if (versesArrayMatch) {
                   const itemsText = versesArrayMatch[1];
-
-                  // Count how many `{` or `[` start individual entries
-                  const count = (itemsText.match(/{/g) || []).length;
-                  totalVerses = count;
+                  totalVerses = (itemsText.match(/{/g) || []).length;
                 }
               } catch (e) {
                 console.warn(
@@ -55,8 +60,9 @@ function loadVersesFor(selectedWho) {
                 );
               }
 
-              // 👉 Add LocalStorage read and average calculation
+              // Read stored results
               const record = JSON.parse(localStorage.getItem(fileName) || '{}');
+
               const values = Object.values(record);
 
               let averagePercent = 0;
@@ -67,6 +73,7 @@ function loadVersesFor(selectedWho) {
                   (acc, item) => acc + (item.percentRight || 0),
                   0
                 );
+
                 averagePercent = Math.round(sum / values.length);
 
                 earliestDueDate = values
@@ -77,46 +84,76 @@ function loadVersesFor(selectedWho) {
 
               // Determine circle color
               let today = new Date();
+
               let yesterday = new Date(today);
               yesterday.setDate(today.getDate() - 1);
+
               today.setHours(0, 0, 0, 0);
               yesterday.setHours(0, 0, 0, 0);
-              console.log(`setting today's date to ${today}`);
-              console.log(`setting yesterday's date to ${yesterday}`);
+
               let circleColor = 'score-yellow';
+
               if (averagePercent >= 60 && earliestDueDate) {
                 earliestDueDate.setHours(0, 0, 0, 0);
-                console.log(
-                  `earliestDate for ${smartName} is ${earliestDueDate}`
-                );
-                if (earliestDueDate < yesterday) circleColor = 'score-red';
-                else if (
-                  earliestDueDate === today ||
-                  earliestDueDate === yesterday
-                )
+
+                if (earliestDueDate < yesterday) {
+                  circleColor = 'score-red';
+                } else if (
+                  earliestDueDate.getTime() === today.getTime() ||
+                  earliestDueDate.getTime() === yesterday.getTime()
+                ) {
                   circleColor = 'score-yellow';
-                else if (values.length < totalVerses)
+                } else if (values.length < totalVerses) {
                   circleColor = 'score-blue';
-                else if (earliestDueDate > today) circleColor = 'score-green';
+                } else if (earliestDueDate > today) {
+                  circleColor = 'score-green';
+                }
               }
 
-              // Circle element
-              const circle = `<span class="score-circle ${circleColor}">${averagePercent}</span>`;
+              return {
+                fileName,
+                smartName,
+                averagePercent,
+                circleColor
+              };
+            })
+            .catch(err => {
+              console.error('Error loading file content:', file.name, err);
 
-              // Build button
-              const button = document.createElement('button');
-              button.classList.add('list-button');
-              button.innerHTML = `${smartName} ${circle}`;
-              button.addEventListener('click', () => {
-                window.location.href = `index.html?verse=${fileName}`;
-              });
+              return null;
+            });
+        })
+      ).then(verseItems => {
+        // Remove files belonging to other users / failed loads
+        verseItems = verseItems.filter(Boolean);
 
-              verseListContainer.appendChild(button);
-            }
+        // Alphabetical order based on displayed verse name
+        verseItems.sort((a, b) =>
+          a.smartName.localeCompare(b.smartName, undefined, {
+            numeric: true,
+            sensitivity: 'base'
           })
-          .catch(err =>
-            console.error('Error loading file content:', file.name, err)
-          );
+        );
+
+        // Now build the buttons in sorted order
+        verseItems.forEach(
+          ({ fileName, smartName, averagePercent, circleColor }) => {
+            const circle =
+              `<span class="score-circle ${circleColor}">` +
+              `${averagePercent}</span>`;
+
+            const button = document.createElement('button');
+
+            button.classList.add('list-button');
+            button.innerHTML = `${smartName} ${circle}`;
+
+            button.addEventListener('click', () => {
+              window.location.href = `index.html?verse=${fileName}`;
+            });
+
+            verseListContainer.appendChild(button);
+          }
+        );
       });
     })
     .catch(err => console.error('Error fetching repository contents:', err));
