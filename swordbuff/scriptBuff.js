@@ -10,6 +10,12 @@ const finishWordsToggle = document.getElementById('finish-words-toggle');
 const skipGreenToggle = document.getElementById('skip-green-toggle');
 const skipStrengthToggle = document.getElementById('skip-strength-toggle');
 const skipStrengthValue = document.getElementById('skip-strength-value');
+const autoFinishStrengthToggle = document.getElementById(
+  'auto-finish-strength-toggle'
+);
+const autoFinishStrengthValue = document.getElementById(
+  'auto-finish-strength-value'
+);
 
 let verses = [];
 let verseIndex = 0;
@@ -261,6 +267,28 @@ function shouldSkipStrength() {
   return record.memoryStrength >= threshold;
 }
 
+function autoSetFinishWordsForCurrentVerse() {
+  if (!autoFinishStrengthToggle.checked) {
+    return;
+  }
+
+  const record = getRecordForCurrentVerse();
+
+  let threshold = Number.parseInt(autoFinishStrengthValue.value, 10);
+
+  if (Number.isNaN(threshold)) {
+    threshold = 3;
+  }
+
+  finishWordsToggle.checked = record.memoryStrength <= threshold;
+
+  console.log(
+    `Auto Finished Words: strength ${record.memoryStrength}, ` +
+      `threshold ${threshold}, ` +
+      `Show Finished Words = ${finishWordsToggle.checked}`
+  );
+}
+
 function shouldSkipCurrentVerse() {
   return shouldSkipGreen() || shouldSkipStrength();
 }
@@ -509,6 +537,7 @@ function resetVerseContainers() {
       resetVerseContainers();
       return;
     }
+
     addDoneButton();
     progressBar.value = progressBar.max;
     resetWordsInContainer(wordBankContainer);
@@ -516,6 +545,11 @@ function resetVerseContainers() {
     checkResultsContainer.innerHTML = 'No more verses to review.';
     return;
   }
+
+  // Set Show Finished Words based on the verse
+  // that is actually going to be displayed.
+  autoSetFinishWordsForCurrentVerse();
+
   wordButtonsEnabled = true;
   hasStartedVerse = false;
   resetWordsInContainer(wordBankContainer);

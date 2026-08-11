@@ -13,6 +13,13 @@ const skipGreenToggle = document.getElementById('skip-green-toggle');
 const skipStrengthToggle = document.getElementById('skip-strength-toggle');
 const skipStrengthValue = document.getElementById('skip-strength-value');
 
+const autoFinishStrengthToggle = document.getElementById(
+  'auto-finish-strength-toggle'
+);
+const autoFinishStrengthValue = document.getElementById(
+  'auto-finish-strength-value'
+);
+
 /*
  * Settings storage
  */
@@ -53,6 +60,47 @@ function getSetInitialFinishWordsStatus() {
   if (storedState != null) {
     finishWordsToggle.checked = storedState === 'true';
   }
+}
+
+function getSetInitialAutoFinishStrengthStatus() {
+  const storedToggle = localStorage.getItem(
+    'autoFinishStrengthToggleIsChecked'
+  );
+
+  const storedValue = localStorage.getItem('autoFinishStrengthValue');
+
+  if (storedToggle !== null) {
+    autoFinishStrengthToggle.checked = storedToggle === 'true';
+  }
+
+  if (storedValue !== null) {
+    autoFinishStrengthValue.value = storedValue;
+  } else {
+    autoFinishStrengthValue.value = '3';
+  }
+}
+
+function setAutoFinishStrengthStoredState() {
+  localStorage.setItem(
+    'autoFinishStrengthToggleIsChecked',
+    autoFinishStrengthToggle.checked.toString()
+  );
+}
+
+function setAutoFinishStrengthValueStoredState() {
+  let value = Number.parseInt(autoFinishStrengthValue.value, 10);
+
+  if (Number.isNaN(value) || value < 0) {
+    value = 3;
+  }
+
+  autoFinishStrengthValue.value = value;
+
+  localStorage.setItem('autoFinishStrengthValue', value.toString());
+}
+
+function selectAutoFinishStrengthValue() {
+  autoFinishStrengthValue.select();
 }
 
 function setFinishWordsState() {
@@ -118,29 +166,55 @@ function closeSettingsModal() {
   settingsButton.focus();
 }
 
-function initSettingsModal() {
-  // Only initialize when the settings UI exists on this page.
-  if (!settingsButton || !settingsModal || !settingsCloseButton) {
-    return;
+function initSettings() {
+  if (wordBankToggle) {
+    getSetInitialWordBankStatus();
+    wordBankToggle.addEventListener('change', setWordBankStoredState);
   }
 
-  settingsButton.addEventListener('click', openSettingsModal);
+  if (finishWordsToggle) {
+    getSetInitialFinishWordsStatus();
+    finishWordsToggle.addEventListener('change', setFinishWordsState);
+  }
 
-  settingsCloseButton.addEventListener('click', closeSettingsModal);
+  if (skipGreenToggle) {
+    getSetInitialSkipGreenStatus();
+    skipGreenToggle.addEventListener('change', setSkipGreenStoredState);
+  }
 
-  // Clicking the dark area outside the settings box closes it.
-  settingsModal.addEventListener('click', event => {
-    if (event.target === settingsModal) {
-      closeSettingsModal();
-    }
-  });
+  if (skipStrengthToggle && skipStrengthValue) {
+    getSetInitialSkipStrengthStatus();
 
-  // Escape closes the settings modal.
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && !settingsModal.classList.contains('hidden')) {
-      closeSettingsModal();
-    }
-  });
+    skipStrengthToggle.addEventListener('change', setSkipStrengthStoredState);
+
+    skipStrengthValue.addEventListener(
+      'change',
+      setSkipStrengthValueStoredState
+    );
+
+    skipStrengthValue.addEventListener('focus', selectSkipStrengthValue);
+  }
+
+  if (autoFinishStrengthToggle && autoFinishStrengthValue) {
+    getSetInitialAutoFinishStrengthStatus();
+
+    autoFinishStrengthToggle.addEventListener(
+      'change',
+      setAutoFinishStrengthStoredState
+    );
+
+    autoFinishStrengthValue.addEventListener(
+      'change',
+      setAutoFinishStrengthValueStoredState
+    );
+
+    autoFinishStrengthValue.addEventListener(
+      'focus',
+      selectAutoFinishStrengthValue
+    );
+  }
+
+  initSettingsModal();
 }
 
 /*
@@ -199,7 +273,7 @@ if (verseParam) {
     .then(module => {
       window.data = module.data;
 
-      return import('./scriptBuff.js?v=1.3');
+      return import('./scriptBuff.js?v=1.4');
     })
     .catch(err => {
       console.error('Error loading verse module:', err);
