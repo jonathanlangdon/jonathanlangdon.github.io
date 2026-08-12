@@ -487,7 +487,6 @@ function updateTrainingRecord(record, percent) {
   let interval = 1; // default to tomorrow for interval
   if (percent < passPercent) {
     record.memoryStrength -= record.memoryStrength > 0 ? 1 : 0;
-    // interval will be tomorrow by default
   } else {
     record.memoryStrength += 1;
     interval = getAdjustedInterval(record.memoryStrength, percent);
@@ -513,14 +512,15 @@ function storeResults(percent) {
   console.log(
     `determining dueForReview: today: ${today}, dueDate: ${dueDate}, thus, ${isDueForReview} that its due`
   );
-  if (!isDueForReview && percent >= passPercent) {
-    record.percentRight = percent;
-  } else {
-    record = updateTrainingRecord(record, percent); // also updates memoryStrength
-  }
+
   if (record.memoryStrength === 0 && percent < passPercent) {
     // do not update record if trying for first time and fails
   } else {
+    if (!isDueForReview && percent >= passPercent) {
+      record.percentRight = percent;
+    } else {
+      record = updateTrainingRecord(record, percent); // also updates memoryStrength
+    }
     allVerseData[verseIndexKey] = record;
     localStorage.setItem(storageKey, JSON.stringify(allVerseData));
   }
