@@ -1,15 +1,117 @@
 * {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-  background-image: url(graphics/snow.jpg);
+  margin: 0;
+  background: #dcecf7 url(graphics/snow.jpg) center / cover fixed;
+  color: #17324d;
 }
 
 main {
-  background-color: rgb(255, 255, 255, 0.8);
+  width: min(50%, 720px);
+  margin: auto;
+  padding: 28px 32px;
+  background-color: rgb(255, 255, 255, 0.86);
   border-radius: 30px;
-  min-width: 400px;
+  box-shadow: 0 18px 45px rgb(23, 50, 77, 0.2);
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+.ad-shell {
+  width: min(calc(100% - 24px), 970px);
+  min-height: 90px;
+  margin: 18px auto;
+  padding: 6px 12px 10px;
+  background: rgb(255, 255, 255, 0.88);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.ad-shell-top {
+  margin-top: 0;
+}
+
+.ad-shell-preview {
+  border: 1px dashed #7892a8;
+}
+
+.ad-label {
+  margin: 0 0 5px;
+  color: #526a7e;
+  font-size: 0.7rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ad-slot {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 60px;
+  color: #526a7e;
+  font-size: 0.8rem;
+}
+
+.ad-slot .adsbygoogle {
+  width: 100%;
+}
+
+img {
+  max-width: 150px;
+}
+#loading-message {
+  display: none;
+}
+.text-center {
+  text-align: center;
+}
+.font-italic {
+  font-style: italic;
+}
+.small {
+  font-size: 0.875rem;
+}
+.form-spacing {
+  margin: 1rem;
+}
+.button {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  transition:
+    filter 150ms ease,
+    transform 150ms ease;
+}
+.button:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+.button-primary {
+  background: #1769aa;
+}
+.button-info {
+  background: #16849b;
+}
+.button-danger {
+  background: #b4232f;
+}
+
+.button:disabled {
+  cursor: wait;
+  filter: grayscale(0.2);
+  opacity: 0.65;
+  transform: none;
 }
 
 #save-agree {
@@ -20,16 +122,24 @@ main {
   font-size: small;
 }
 
+input[type='checkbox'] {
+  accent-color: #1769aa;
+}
+
 #calc-factors {
   font-weight: 200;
   font-style: italic;
 }
 
 #full-height {
-  height: 100vh;
+  min-height: 100vh;
+  padding: 18px 0;
 }
 
 input[type='number'] {
+  border: 1px solid #9eb6c8;
+  border-radius: 4px;
+  padding: 6px;
   width: 100px;
   text-align: center;
 }
@@ -38,6 +148,11 @@ input[type='number'] {
   margin: 10px;
   padding: 7px;
   border-radius: 4px;
+}
+
+.main-buttons.location-services {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 p:not(.font-italic),
@@ -90,21 +205,135 @@ a {
   margin: 10px;
 }
 
-.main-footer {
+.modal {
+  align-items: center;
+  background: rgb(15, 35, 52, 0.58);
+  display: none;
+  inset: 0;
+  justify-content: center;
+  padding: 1rem;
+  position: fixed;
+  z-index: 10;
+}
+.modal.is-visible {
+  display: flex;
+}
+.modal-dialog {
+  width: min(100%, 500px);
+}
+.modal-content {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 18px 45px rgb(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: 1rem 1.25rem;
+}
+.modal-header {
+  border-bottom: 1px solid #d9e3ea;
   text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
-  margin-top: auto; /*This pushes it to the bottom in a flex container */
-  width: 100%;
+}
+.modal-title {
+  margin: 0;
+}
+.modal-body {
+  color: #17324d;
+}
+.modal-footer {
+  border-top: 1px solid #d9e3ea;
+  text-align: center;
+}
+.modal-footer p {
+  margin: 0 0 1rem;
+}
+.error-message {
+  color: #b4232f;
+  font-weight: 700;
 }
 
-.main-footer a {
-  color: #333;
-  text-decoration: none;
+.calculation-dialog {
+  width: min(100%, 430px);
+}
+
+.calculation-spinner {
+  width: 46px;
+  height: 46px;
+  margin: 0.25rem auto 1rem;
+  border: 5px solid #d9e3ea;
+  border-top-color: #1769aa;
+  border-radius: 50%;
+  animation: spin 900ms linear infinite;
+}
+
+.rewarded-ad-reserved {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #d9e3ea;
+  border-radius: 6px;
+}
+
+.rewarded-ad-reserved p:last-child {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.site-footer {
+  padding: 0 1rem 1rem;
+  text-align: center;
+}
+
+.site-footer a {
+  color: #17324d;
+  font-size: 0.85rem;
+}
+
+.policy-page {
+  width: min(calc(100% - 24px), 780px);
+}
+
+.policy-page h2 {
+  margin-top: 1.8rem;
+}
+
+.policy-page p,
+.policy-page a {
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 400;
+  line-height: 1.65;
 }
 
-.main-footer a:hover {
-  text-decoration: underline;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  main {
+    width: calc(100% - 24px);
+    padding: 22px 16px;
+  }
+  .ad-shell {
+    min-height: 72px;
+  }
+}
+
+@media (max-width: 1050px) {
+  img {
+    max-width: 80px;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flashing,
+  .calculation-spinner {
+    animation: none;
+  }
 }
