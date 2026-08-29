@@ -480,10 +480,6 @@ function getAdjustedInterval(memoryStrength, percent) {
 }
 
 function updateTrainingRecord(record, percent) {
-  // convert repetitions to memoryStrength
-  if (record.memoryStrength === undefined || record.memoryStrength === null) {
-    record.memoryStrength = record.repetitions || 0;
-  }
   let interval = 1; // default to tomorrow for interval
   if (percent < passPercent) {
     record.memoryStrength -= record.memoryStrength > 0 ? 1 : 0;
@@ -499,6 +495,10 @@ function updateTrainingRecord(record, percent) {
   return record;
 }
 
+// fail → memory strength drops by 1, minimum 0
+// fail → always due tomorrow
+// first-ever failure → still create/update the record
+
 function storeResults(percent) {
   let record = getRecordForCurrentVerse();
   let dueDate = new Date(record.dueDate + 'T00:00:00');
@@ -506,24 +506,24 @@ function storeResults(percent) {
   let todayStr = toLocalISODateString(today);
   let allVerseData = getAllVerseData();
   let storageKey = getStorageKey();
-  const verseIndexKey = verseIndex.toString(); // e.g., "0", "1", etc.
+  const verseIndexKey = verseIndex.toString();
   const isDueForReview = dueDate <= today;
+
   today = new Date(todayStr + 'T00:00:00');
+
   console.log(
     `determining dueForReview: today: ${today}, dueDate: ${dueDate}, thus, ${isDueForReview} that its due`
   );
 
-  if (record.memoryStrength === 0 && percent < passPercent) {
-    // do not update record if trying for first time and fails
+  if (!isDueForReview && percent >= passPercent) {
+    record.percentRight = percent;
   } else {
-    if (!isDueForReview && percent >= passPercent) {
-      record.percentRight = percent;
-    } else {
-      record = updateTrainingRecord(record, percent); // also updates memoryStrength
-    }
-    allVerseData[verseIndexKey] = record;
-    localStorage.setItem(storageKey, JSON.stringify(allVerseData));
+    record = updateTrainingRecord(record, percent); // also updates memoryStrength
   }
+
+  allVerseData[verseIndexKey] = record;
+  localStorage.setItem(storageKey, JSON.stringify(allVerseData));
+
   putVerseInHeader(verseIndex);
 }
 
