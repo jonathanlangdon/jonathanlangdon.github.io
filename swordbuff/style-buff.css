@@ -32,6 +32,7 @@ button {
 
 h1,
 h2,
+h3,
 h4 {
   text-align: center;
   margin: 0;
@@ -463,7 +464,7 @@ nav img {
     justify-content: center;
   }
   button {
-    font-size: 20px;
+    font-size: 18px;
     padding: 8px;
   }
   .toggle-button {
